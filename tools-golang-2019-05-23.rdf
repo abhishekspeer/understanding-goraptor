@@ -1,0 +1,3085 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:spdx="http://spdx.org/rdf/terms#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+<spdx:SpdxDocument rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-DOCUMENT">
+  <spdx:specVersion>SPDX-2.1</spdx:specVersion>
+  <spdx:dataLicense rdf:resource="http://spdx.org/licenses/CC0-1.0" />
+  <spdx:creationInfo>
+    <spdx:CreationInfo>
+      <spdx:licenseListVersion>2.6</spdx:licenseListVersion>
+      <spdx:creator>Person: steve ()</spdx:creator>
+      <spdx:creator>Organization: </spdx:creator>
+      <spdx:creator>Tool: spdx2</spdx:creator>
+      <spdx:created>2019-05-23T17:01:23Z</spdx:created>
+    </spdx:CreationInfo>
+  </spdx:creationInfo>
+  <spdx:name>/srv/fossology/repository/report</spdx:name>
+  <rdfs:comment>
+    This document was created using license information and a generator from Fossology.
+  </rdfs:comment>
+    <spdx:hasExtractedLicensingInfo>
+    <spdx:ExtractedLicensingInfo rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-GPL-possibility">
+      <spdx:licenseId>LicenseRef-GPL-possibility</spdx:licenseId>
+      <spdx:name>GPL-possibility</spdx:name>
+      <spdx:extractedText><![CDATA[
+License by Nomos.
+      ]]></spdx:extractedText>
+    </spdx:ExtractedLicensingInfo>
+  </spdx:hasExtractedLicensingInfo>
+  <spdx:hasExtractedLicensingInfo>
+    <spdx:ExtractedLicensingInfo rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-No_license_found">
+      <spdx:licenseId>LicenseRef-No_license_found</spdx:licenseId>
+      <spdx:name>No_license_found</spdx:name>
+      <spdx:extractedText><![CDATA[
+Not find any license in the scanned file
+      ]]></spdx:extractedText>
+    </spdx:ExtractedLicensingInfo>
+  </spdx:hasExtractedLicensingInfo>
+  <spdx:hasExtractedLicensingInfo>
+    <spdx:ExtractedLicensingInfo rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license">
+      <spdx:licenseId>LicenseRef-Dual-license</spdx:licenseId>
+      <spdx:name>Dual-license</spdx:name>
+      <spdx:extractedText><![CDATA[
+Multi-licensing is the practice of distributing software under two or more different sets of terms and conditions. This may mean multiple different software licenses or sets of licenses. Prefixes may be used to indicate the number of licenses used, e.g. dual-licensed for software licensed under two different licenses.
+When software is multi-licensed, recipients can choose which terms under which they want to use or distribute the software. The distributor may or may not apply a fee to either option. The two usual motivations for multi-licensing are license compatibility and market segregation based business models.
+      ]]></spdx:extractedText>
+    </spdx:ExtractedLicensingInfo>
+  </spdx:hasExtractedLicensingInfo>
+  <spdx:hasExtractedLicensingInfo>
+    <spdx:ExtractedLicensingInfo rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Apache-possibility">
+      <spdx:licenseId>LicenseRef-Apache-possibility</spdx:licenseId>
+      <spdx:name>Apache-possibility</spdx:name>
+      <spdx:extractedText><![CDATA[
+License by Nomos.
+      ]]></spdx:extractedText>
+    </spdx:ExtractedLicensingInfo>
+  </spdx:hasExtractedLicensingInfo>
+  <spdx:hasExtractedLicensingInfo>
+    <spdx:ExtractedLicensingInfo rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-CC-BY">
+      <spdx:licenseId>LicenseRef-CC-BY</spdx:licenseId>
+      <spdx:name>Creative Commons Attribution</spdx:name>
+      <spdx:extractedText><![CDATA[
+CC-BY is referenced without a version number. Please look up CC-BY in the License Admin to view the different versions.
+      ]]></spdx:extractedText>
+    </spdx:ExtractedLicensingInfo>
+  </spdx:hasExtractedLicensingInfo>
+  <spdx:hasExtractedLicensingInfo>
+    <spdx:ExtractedLicensingInfo rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-MPL">
+      <spdx:licenseId>LicenseRef-MPL</spdx:licenseId>
+      <spdx:name>MPL</spdx:name>
+      <spdx:extractedText><![CDATA[
+License by Nomos.
+      ]]></spdx:extractedText>
+    </spdx:ExtractedLicensingInfo>
+  </spdx:hasExtractedLicensingInfo>
+  <spdx:hasExtractedLicensingInfo>
+    <spdx:ExtractedLicensingInfo rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-MIT-BSD">
+      <spdx:licenseId>LicenseRef-MIT-BSD</spdx:licenseId>
+      <spdx:name>MIT&amp;BSD</spdx:name>
+      <spdx:extractedText><![CDATA[
+License by Nomos.
+      ]]></spdx:extractedText>
+    </spdx:ExtractedLicensingInfo>
+  </spdx:hasExtractedLicensingInfo>
+  <spdx:hasExtractedLicensingInfo>
+    <spdx:ExtractedLicensingInfo rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-MIT-possibility">
+      <spdx:licenseId>LicenseRef-MIT-possibility</spdx:licenseId>
+      <spdx:name>MIT-possibility</spdx:name>
+      <spdx:extractedText><![CDATA[
+License by Nomos.
+      ]]></spdx:extractedText>
+    </spdx:ExtractedLicensingInfo>
+  </spdx:hasExtractedLicensingInfo>
+  <spdx:relationship>
+    <spdx:Relationship>
+      <spdx:relationshipType rdf:resource="http://spdx.org/rdf/terms#relationshipType_describes" />
+      <spdx:relatedSpdxElement>
+        <spdx:Package rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-upload1159">
+          <spdx:name>tools-golang.git</spdx:name>
+          <spdx:packageFileName>tools-golang.git</spdx:packageFileName>
+          <spdx:downloadLocation rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+          <spdx:packageVerificationCode>
+            <spdx:PackageVerificationCode>
+            <spdx:packageVerificationCodeValue>d8b4181eb28344dc3b449851fba8c910c364b462</spdx:packageVerificationCodeValue>
+            </spdx:PackageVerificationCode>
+          </spdx:packageVerificationCode>
+          <spdx:checksum>
+            <spdx:Checksum>
+              <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+              <spdx:checksumValue>7a9e95093cd33f1ac819faf00766a7979be9fb65</spdx:checksumValue>
+            </spdx:Checksum>
+          </spdx:checksum>
+          <spdx:checksum> 
+            <spdx:Checksum>
+              <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+              <spdx:checksumValue>e8c9be3cbdc1f1f658a59a8302a35f66</spdx:checksumValue>
+            </spdx:Checksum>
+          </spdx:checksum>
+          <spdx:licenseConcluded>
+            <spdx:DisjunctiveLicenseSet>
+              </spdx:DisjunctiveLicenseSet>
+          </spdx:licenseConcluded>
+          <spdx:licenseComments><![CDATA[
+            licenseInfoInFile determined by Scanners:
+   - nomos ("3.3.0".9fb9c7)
+   - monk ("3.3.0".9fb9c7)
+          ]]></spdx:licenseComments>
+          <spdx:licenseConcluded rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+          <spdx:licenseDeclared rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+          <spdx:licenseInfoFromFiles rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+          <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+          <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051583">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_package_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>d182d527252021f2e393cf0b06ca08a1bedf2c71</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>02120447c05f56e82a16dd75dd3e665f</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/MIT" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051586">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_document_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>695904094fcbc994b55001f17a15bdfee712032a</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>a14631cf79212d41c2e28babd0450983</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/BSD-3-Clause" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/MIT" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051614">
+                <spdx:fileName>v0/tvloader/parser2v1/parse_snippet_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>caa8b495a861821b9b038c5148c0f7ba0b05baca</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>f3f92442b6de4e832c90dd7dfd728f95</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/BSD-3-Clause" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051637">
+                <spdx:fileName>v0/reporter/reporter_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>c18270f6d44b0a654858ab840e5b81c173d279fa</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>76bd7e3d0db343209e4f15fa628560dd</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-MIT-possibility" />
+                <spdx:licenseInfoInFile rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-GPL-possibility" />
+                <spdx:licenseInfoInFile rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Apache-possibility" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051622">
+                <spdx:fileName>v0/licensediff/licensediff_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>d4a996fb90262ed9cafda0ba7448a7f3759a580c</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>1d5abc7635a661d3fee3a71dfe81cbf3</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-MPL" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/MIT" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/BSD-3-Clause" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051619">
+                <spdx:fileName>v0/idsearcher/idsearcher_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>ab3c61d6f114d3b1f4044d99a33f3f8e23336dee</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>e3ef709f17b7e79ce1a22cc52d09f9ec</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-MIT-BSD" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/BSD-3-Clause" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051523">
+                <spdx:fileName>testdata/project4/has-mix-of-ids.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>9acca176e5f55260426363c3f2cb9d39ab8c44db</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>9fbdd6fe771b8a0d52f369adc3b643c1</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/MIT" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051532">
+                <spdx:fileName>testdata/project3/subdir/keep/keep.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>4755eee3d3735a9c80bd098207187d487c7e9fac</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>6f77d6d3dfbb7ac36c8429d1c22f4622</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/MIT" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-MIT-possibility" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051539">
+                <spdx:fileName>testdata/project3/keep/keep.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>4755eee3d3735a9c80bd098207187d487c7e9fac</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>6f77d6d3dfbb7ac36c8429d1c22f4622</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/MIT" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-MIT-possibility" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051516">
+                <spdx:fileName>testdata/project2/has-multiple-ids.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>e352d23aa7208ec7e2f35669261b77d2b2051f70</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>f9414bce67777f537d2dec6ff52566d8</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/MIT" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/ISC" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/BSD-2-Clause" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/EPL-1.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/BSD-3-Clause" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-MIT-BSD" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/BSD-3-Clause" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051514">
+                <spdx:fileName>testdata/project2/has-duplicate-ids.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>8a53ead202d74264017291e0f9f54673b0d4dd17</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>5610a0a2b1f42001acd268145bb55720</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/MIT" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-MIT-possibility" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051518">
+                <spdx:fileName>testdata/project2/folder/has-trailing-comment-marker.c</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>a9ef82bbc630212f6aecf99f837b8dd1a67b0744</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>197d743c71b42926cca4751d82acc240</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051519">
+                <spdx:fileName>testdata/project2/folder/has-one-id.py</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>dcecdd26eebaea9c7a8263f190fc568210c8d4fd</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>1b6d188c67ec4a866a5210b104824db7</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/MIT" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-MIT-possibility" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051493">
+                <spdx:fileName>CONTRIBUTING.md</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>cdae4ca401becd60d0701bd67f7f1ecd2b7f738b</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>d7c18f701dbd9768c1d29bc8eef756d7</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/CC-BY-4.0" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText><![CDATA[
+                  Copyright (C) 2004, 2006 The Linux Foundation and its contributors. 1 Letterman Drive Suite D4700 San Francisco, CA, 94129
+                ]]></spdx:copyrightText>
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051502">
+                <spdx:fileName>examples/README.md</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>67895a69eb1aeaa5c26dad97ba9ea9199a735990</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>c95d1be883eff0019e79873dc9e87e80</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/CC-BY-4.0" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051640">
+                <spdx:fileName>docs/licensediff-assumptions.md</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>04338b212657208cf1c4a30744e63414ca2ea9de</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>ffb19a76d6a013efc09bd648feffcd2d</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/CC-BY-4.0" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051641">
+                <spdx:fileName>docs/idsearcher-assumptions.md</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>baafb6ef64a5a1f4468401b213085c7465b4dd5d</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>f60a7a0d05d3ad587b618ab9e5ca3850</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/CC-BY-4.0" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051642">
+                <spdx:fileName>docs/tvsaver-assumptions.md</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>a765e1617997c9273300861715c971c7e2a54548</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>59757bec527be6e99892924b8ea65b21</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/CC-BY-4.0" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051643">
+                <spdx:fileName>docs/builder-assumptions.md</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>751be00c72c8098a4cccf8c56c9405111dd59ef7</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>a66ec8b837bad343b3f5dcd586840e29</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/CC-BY-4.0" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051644">
+                <spdx:fileName>docs/tvloader-assumptions.md</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>a09c42227df537cdecc8fd8ec86c8970d1019056</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>5e130bfccf4818dd6700bcff3e6279c5</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/CC-BY-4.0" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051496">
+                <spdx:fileName>LICENSE-code.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>ced92206c64278168d039d0e8e12d813097de746</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>f1538a070dc80749418b8a6af13adcd0</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                <spdx:copyrightText><![CDATA[
+                  Copyright (C) 1989, 1991 Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
+                ]]></spdx:copyrightText>
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051555">
+                <spdx:fileName>v0/spdx/other_license.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>e9584cca666910e8f51f531e194c50aac8ca9649</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>5cd92218168bdea448a7ba4be2fa5220</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051553">
+                <spdx:fileName>v0/spdx/annotation.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>51d0e7d81ef1013b8e5bbe235433520efeb43496</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>81ef480a67a442d6b2ddf9cb77a7bf48</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051554">
+                <spdx:fileName>v0/spdx/document.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>8e1a8cb3f0616d5e111d997b6979fe77ba89a1ca</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>2dd1bb28567268fe16d5d4bc488f2ceb</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051558">
+                <spdx:fileName>v0/spdx/relationship.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>3f7fc3dd5e547f647088cdd7f1c5c8905885c40f</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>8bb438f510dced862be0e1f170c16514</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051559">
+                <spdx:fileName>v0/spdx/creation_info.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>667f2e802c9ea958ae35a041318cfe425db17687</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>e3f27872432e1f081a57acfa5573e0b6</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051557">
+                <spdx:fileName>v0/spdx/review.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>7e10f8bf69811798a362fd4e824d4d63a6bf7480</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>986e5687c3e10fecc4f2bfa736eae418</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051593">
+                <spdx:fileName>v0/tvloader/reader/reader_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>c58c837068ca27d19f77801f855182fe543c7d06</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>f4ddc438cb14667ec942bbd9a570f472</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051592">
+                <spdx:fileName>v0/tvloader/reader/reader.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>7d5fbd884af15aa8b0dfe2ec407e57dceb48afbf</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>833b38184b7f1615ce4c1ee5f8fbc410</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051597">
+                <spdx:fileName>v0/tvloader/parser2v1/util.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>246b4e73123d82bd03da087928f2d3ad69996990</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>04dc9a9616176d6c856aeeb1fe815b46</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051607">
+                <spdx:fileName>v0/tvloader/parser2v1/util_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>a1afc2ef2c24566b2e67fad3e9876e3da1d6aafb</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>ba2c877bd4d66b1308aa1343d9012ab7</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051615">
+                <spdx:fileName>v0/tvloader/parser2v1/parse_annotation.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>6ca4a707d0170199db468364c400822c23999977</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>1eee67fa3c482c49c34667da05b34b9f</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051602">
+                <spdx:fileName>v0/tvloader/parser2v1/parse_relationship.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>e317d070b1462a89a06a1c4f48fa70ab9ce7a7a3</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>554120dbef7599614dc87820c726916d</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051638">
+                <spdx:fileName>.gitignore</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>dbb69e2285c0708f1650d4d179ca1fc4d0b40d60</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>b43aad1d8ee114c354cbdec9a48a7cd2</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051499">
+                <spdx:fileName>examples/4-search/example_search.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>fd32d8dbdfdd2fe674a6f58600f08e4d5197944b</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>bb9c9ddb6fd43dcc348d46240beb1929</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051501">
+                <spdx:fileName>examples/5-report/example_report.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>0524d5784a10d810205075bea3c01d09fe9fd4ec</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>b4928aab0999b2b8e0c60080289c202a</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051504">
+                <spdx:fileName>examples/6-licensediff/example_licensediff.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>4f9a98b755b3c31c03919636fa30b9a6d5516abf</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>e77861109088d3915ca4767bd43d2c2b</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051508">
+                <spdx:fileName>examples/2-load-save/example_load_save.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>c9f2327d5a841c1f37ff59f2c0d2eb6a9d2d9619</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>fcba2e3ee995195513a6af2c69ed596d</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051506">
+                <spdx:fileName>examples/1-load/example_load.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>d1cc01d9b5680d82f82c22fe3cc4c5e9d7d04150</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>e9baddce7dc7ad890a918faf38b9afb9</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051510">
+                <spdx:fileName>examples/3-build/example_build.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>d659b02edc7e69c7a71bb3fdfd65abc4786e422a</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>0c573d1126d2029b990328d74600fb85</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051547">
+                <spdx:fileName>testdata/project1/lastfile.testdata.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>26d6221d682d9ba59116f9753a701f34271c8ce1</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>f60baa793870d9085461ad6bbab50b7f</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051515">
+                <spdx:fileName>testdata/project2/has-id.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>26d6221d682d9ba59116f9753a701f34271c8ce1</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>f60baa793870d9085461ad6bbab50b7f</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051522">
+                <spdx:fileName>testdata/project4/has-id.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>26d6221d682d9ba59116f9753a701f34271c8ce1</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>f60baa793870d9085461ad6bbab50b7f</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051550">
+                <spdx:fileName>.travis.yml</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>7250e5307201eba2389e1ee6d6a5a3561da13eae</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>1d444a2e08f7d37fba43ae44d8d96225</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051556">
+                <spdx:fileName>v0/spdx/snippet.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>bad9f54a750af90da65353aca09f43be3ce55954</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>c4f482ebd84fbb27a43ca67384230707</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051561">
+                <spdx:fileName>v0/spdx/file.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>bc16cbcbf6081061039d0c819e7fee9af88a8773</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>6a781ace07af7d431b889f612571e9d8</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051560">
+                <spdx:fileName>v0/spdx/package.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>70618e040da533284607d7a342ab1cd2f8e24d15</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>19a203435cb25265383de0529cf1dccf</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051563">
+                <spdx:fileName>v0/utils/verification.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>72409f46a2788eb4285f70fe75631bb9738d58fe</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>d5dfd0da7d63a181e15980b145d48df1</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051565">
+                <spdx:fileName>v0/utils/verification_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>44aa0285ab5c1e1ae899e3b897f594e62b30330e</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>e84a626721555b7df92111286db99a94</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051564">
+                <spdx:fileName>v0/utils/filesystem.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>156709dbb6ddcb239d16a7dc803a4de6457fe6cd</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>aea45fc3963adf421c3a5c4dd99253ea</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051566">
+                <spdx:fileName>v0/utils/filesystem_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>b40faa8b3793268f314c3fc1d8f0b2873704efa7</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>f84c1ef62fbbf1e2cad740070cdaf166</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051570">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_other_license.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>ba77fcb3d69a6d9bf2ba58493657410e847c3737</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>14d698e0538570de6bd9d82c236d634b</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051569">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_relationship.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>359f077da9943a9547784306682db5eedb196ac7</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>63a3648aa0fcf3f25270ae2f81d9cc9c</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051572">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_review.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>c164351f32b6a3c6c7aa07c025f1b0d6804ded36</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>972ef8e5bdf7477e248990ca774c731d</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051571">
+                <spdx:fileName>v0/tvsaver/saver2v1/util.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>47ec94b3430087cd377a47a9681439ca8352ecf1</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>fe2910912a8ecf69af8fbba9d99aca81</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051573">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_annotation_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>676c17418784b105da2047460821ba329b6be8bb</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>3ed192f07218901bc0ff0c7de674651a</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051575">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_document.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>530269c0d8ef6def2d7df352ce89bc5b0810f70c</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>96fa280882e85fef38872914adaddc63</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051574">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_annotation.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>588fc7e3069c8b2305ae96dc901059529ef4bdb3</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>480a1e95b97eaefff4ac800c54065a8e</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051577">
+                <spdx:fileName>v0/tvsaver/saver2v1/util_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>447be694c901456bb1f5bbe8fa297b2350c7e435</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>6143455e42268fb213111c577925e48a</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051576">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_file.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>931af435b5ca9fc408a3c91ad1ee4f238be7a928</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>c67dbb92f5034e1467903ab211f02fd4</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051578">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_review_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>8f4bd3f9770ceb8007cc452d5a61228509ed91e0</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>742cad115bdf76d304ea73fbb46b9481</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051582">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_snippet.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>2e7ecc0fe018f66e190dc42f30e17d0e06c9cb1a</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>5f42899b17d4e69d3d6fbb56c3fe59b0</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051579">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_package.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>a3115f5ff137491e11648f7b4b92a0d651964a99</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>b3e4dc7c9c363e9227bf41f90a5c4b67</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051581">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_snippet_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>ba137c3187087919f4bd12a2c56369835b3570e2</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>073048a5095092f22d83019f72cf7f31</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051580">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_file_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>eee98e12b18ba47a8982de0a88d8a10e8c20c22c</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>1c2c871d24c8ba1081854db911bf5f14</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051585">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_creation_info.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>210e310604ba0a1d69e628130a19f2f11fd8c507</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>e108027302d53687fc0a543f0851e80c</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051584">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_relationship_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>0d70dc7c292407a8ab2e828f0741de1b0364b4ad</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>98d973800854e8af8b96f72f949af3f2</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051587">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_creation_info_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>bdb259d47cb072e4c8ba376470e13a6b2e3e96b3</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>2974e5173ab6c393b63384aedd87e95a</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051588">
+                <spdx:fileName>v0/tvsaver/saver2v1/save_other_license_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>399a27660d010a54355c1403f44e90fbe587358a</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>c60bcd2507982df3cc819c414ac9854d</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051595">
+                <spdx:fileName>v0/tvloader/parser2v1/parse_relationship_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>1d72e249cfdb9c1ae4f74fbe201d2a623eb1de80</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>c9504264788b5d56903e6a8f85aee348</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051589">
+                <spdx:fileName>v0/tvsaver/tvsaver.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>6e1bf59acf407c86fa5dfd05680954dde519b212</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>85180f3e28ef8c5c9af098370d6d23c1</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051596">
+                <spdx:fileName>v0/tvloader/parser2v1/parse_package.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>ce16317b01f659ea1042bc31667e5fdc804eb5eb</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>380b9c2e1082669114c4a52ac7f82f6f</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051598">
+                <spdx:fileName>v0/tvloader/parser2v1/parse_creation_info_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>ea36385d0d7b05a908e4bc4d5a5711a1cf24d031</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>1cef6666ab911314b2f039b200a82b55</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051599">
+                <spdx:fileName>v0/tvloader/parser2v1/parse_review_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>9b1f97330084921beff4e6c302a2ba6060f23f20</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>206a0eb880bacaef30cc5d245e216d59</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051600">
+                <spdx:fileName>v0/tvloader/parser2v1/parser_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>47c819994b88c039680f0f7ebe0d95548b36fab8</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>3487727d88171aa30a81ed023d6be647</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051601">
+                <spdx:fileName>v0/tvloader/parser2v1/parse_package_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>a870b08d511ec9a90f446fc71c28ac480913a8a9</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>b1874a4c1de5082ccee2ee6978e4a76a</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051603">
+                <spdx:fileName>v0/tvloader/parser2v1/parse_other_license_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>0c2ea739042213221db8599cc936eb16190dea80</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>658d688f892c1663b0b49e52b5396796</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051604">
+                <spdx:fileName>v0/tvloader/parser2v1/parse_snippet.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>71e9671c3e571d747116062c6680cc49a80d78d6</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>a3116d2b008506af3f4f47f5e6d72522</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051606">
+                <spdx:fileName>v0/tvloader/parser2v1/parse_annotation_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>4f7e24d2a717dc475c2d7b457bdf26c9521585e6</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>8fb2eecfea013e2018b1ec9396024bbe</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051605">
+                <spdx:fileName>v0/tvloader/parser2v1/parse_file_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>5c47406f30f0919c63c46595f49763de25de7b02</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>bb2d4f7d10dcacdaeb02a319129b569b</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051608">
+                <spdx:fileName>v0/tvloader/parser2v1/parse_file.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>8ac7e673b11ab9991eb44d5616c52245b1755bd3</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>3d672d6ea907d6921ba68580b7503704</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051610">
+                <spdx:fileName>v0/tvloader/parser2v1/parse_review.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>a615fd1a8fd3ca70521aa64b0599d01791cab7e4</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>e10c3ed96c776809ed0e1360ea75c38f</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051612">
+                <spdx:fileName>v0/tvloader/parser2v1/parse_other_license.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>a2f9e64776526e9b0753578474f8de8e7f3e7a78</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>8e3b55845e07a1d22da5b508cbc6f8e1</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051609">
+                <spdx:fileName>v0/tvloader/parser2v1/types.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>926050c3d04a1cf9226c19505b8909288a464f09</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>b8e6c4f1e54f8c7ee13b8a28137a81a0</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051611">
+                <spdx:fileName>v0/tvloader/parser2v1/parser.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>285ed594add381d80e0078a2512d55b4c4adda8f</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>a3a2cdcf81fd1fcd4320503e58dfa7e1</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051613">
+                <spdx:fileName>v0/tvloader/parser2v1/parse_creation_info.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>16fcf8a704ed1c62ca10e6cc22f183821c319fad</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>37b72f31334f1502bdd38b0030ec28c9</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051616">
+                <spdx:fileName>v0/tvloader/tvloader.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>b9c8a5a0d628db18b53b4fff21f771167a7f8b6a</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>d2c9c9010998a4a69eb6d97a75c6a033</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051618">
+                <spdx:fileName>v0/idsearcher/idsearcher.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>b3f65f5a661cb5c4632a7336b91e679a6c4e1703</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>e414a21ba2d7d5b830b6629ad7f43abc</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051621">
+                <spdx:fileName>v0/licensediff/licensediff.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>77fce96225bb855558231b34130968dcb1f7ef5d</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>57baa97c8daec8488e05d737e4a3473b</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051624">
+                <spdx:fileName>v0/builder/build_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>963602f9ddbb114174e0138bc3b86db19df4f9cb</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>6fa18458bf49afe147b774cf82f8677f</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051626">
+                <spdx:fileName>v0/builder/builder2v1/build_package_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>a13ec5ea9d71fdc6bc3199be466b20fa57c1eaec</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>c6dfc875dcb9f6f164a0bd9336c7f964</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051627">
+                <spdx:fileName>v0/builder/builder2v1/build_relationship_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>b7ffcac5c90beb212657a4fca9b4616d90af06bf</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>1312f568f36dc5fbe0ebf16def71a649</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051629">
+                <spdx:fileName>v0/builder/builder2v1/build_package.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>82725d443992893126b1423c30014f3c6b76be8c</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>4cfa9e05d4bc438c60047d54ac2a14b8</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051630">
+                <spdx:fileName>v0/builder/builder2v1/build_file_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>701f863b77cd3b2974d514afd54e07b10237554b</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>ee6c70c82a7bd5c7147e2f9d292913d4</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051628">
+                <spdx:fileName>v0/builder/builder2v1/build_creation_info.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>d9dc225310e3196d7cb402ca3c90b96c95675d3f</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>73f1257eb15a65166288900a0c5a4010</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051631">
+                <spdx:fileName>v0/builder/builder2v1/build_creation_info_test.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>f3f0127bc84ef5a099b73d9df404e56c5614ff3d</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>64545ef8f703a6afa1007f1dfa202689</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051632">
+                <spdx:fileName>v0/builder/builder2v1/build_file.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>2d3b2a482d73e0ef77d37dc226860503dcca09d3</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>06d8fd53073a6fd349ef2350f32a0a0f</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051633">
+                <spdx:fileName>v0/builder/builder2v1/build_relationship.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>bfa643b6d81b624e2813f161057cbcded8e82e65</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>423dddb404a0fb779b68d8cdc78e0dcf</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051634">
+                <spdx:fileName>v0/builder/build.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>4322dd1080e3266a61899f8f2f5c2611bc60cde4</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>70dc7189e2596803ac3622654bd5d065</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051636">
+                <spdx:fileName>v0/reporter/reporter.go</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>415b74a576bc201b68b7fe373280ccae3abafe66</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>745bc551e7b0bc57cf87a46d8cc3641e</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-Dual-license" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                    <spdx:member rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051495">
+                <spdx:fileName>README.md</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>3e86ab299b2107cdd5c9c654039218f321359644</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>8e18264c3093f1d533e6079e68285f17</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/CC-BY-4.0" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0%2B" />
+                <spdx:licenseInfoInFile rdf:resource="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#LicenseRef-CC-BY" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/Apache-2.0" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051494">
+                <spdx:fileName>LICENSE-docs.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>45eb7e162c9ae7f70a6edf875c809c60a798a126</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>87615bbf7f9765355b1b181006c0e2ec</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded>
+                  <spdx:DisjunctiveLicenseSet>
+                    <spdx:member rdf:resource="http://spdx.org/licenses/CC-BY-4.0" />
+                  </spdx:DisjunctiveLicenseSet>
+                </spdx:licenseConcluded>
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/CC-BY-4.0" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051536">
+                <spdx:fileName>testdata/project3/ignoredir/notThisOne.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>da39a3ee5e6b4b0d3255bfef95601890afd80709</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>d41d8cd98f00b204e9800998ecf8427e</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051534">
+                <spdx:fileName>testdata/project3/dontscan.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>c784d749655dbba56098760f31965dc9cae2feba</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>749ad4d2876222ee0ea86810812526d7</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051533">
+                <spdx:fileName>testdata/project3/subdir/keep/dontscan.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>c784d749655dbba56098760f31965dc9cae2feba</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>749ad4d2876222ee0ea86810812526d7</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051537">
+                <spdx:fileName>testdata/project3/alsoEXCLUDEthis.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>da39a3ee5e6b4b0d3255bfef95601890afd80709</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>d41d8cd98f00b204e9800998ecf8427e</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051526">
+                <spdx:fileName>testdata/project3/keep.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>da39a3ee5e6b4b0d3255bfef95601890afd80709</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>d41d8cd98f00b204e9800998ecf8427e</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051528">
+                <spdx:fileName>testdata/project3/subdir/ignorefile.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>da39a3ee5e6b4b0d3255bfef95601890afd80709</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>d41d8cd98f00b204e9800998ecf8427e</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051521">
+                <spdx:fileName>testdata/project4/has-id-to-ignore.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>61585c3a25148f340e0387072a74412d70b17f21</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>7dbd00614bd2d88fdcbd4a77ddddacda</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/GPL-2.0" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051513">
+                <spdx:fileName>testdata/project2/no-id.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>feb0d01805ad59d520491c8062d60cc9a850614f</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>bd03a7b7fad55b25d75248c01c9c0b13</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051530">
+                <spdx:fileName>testdata/project3/subdir/ignoredir/notThisOneEither.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>da39a3ee5e6b4b0d3255bfef95601890afd80709</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>d41d8cd98f00b204e9800998ecf8427e</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051541">
+                <spdx:fileName>testdata/project3/excludedir/no.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>da39a3ee5e6b4b0d3255bfef95601890afd80709</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>d41d8cd98f00b204e9800998ecf8427e</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051545">
+                <spdx:fileName>testdata/project1/emptyfile.testdata.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>da39a3ee5e6b4b0d3255bfef95601890afd80709</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>d41d8cd98f00b204e9800998ecf8427e</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051546">
+                <spdx:fileName>testdata/project1/file1.testdata.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>024f870eb6323f532515f7a09d5646a97083b819</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>37c8208479dfe42d2bb29debd6e32d4a</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051548">
+                <spdx:fileName>testdata/project1/file3.testdata.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>a46114b70e163614f01c64adf44cdd438f158fce</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>3e02d3ab9c58eec6911dbba37570934f</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051525">
+                <spdx:fileName>testdata/project3/ignorefile.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>da39a3ee5e6b4b0d3255bfef95601890afd80709</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>d41d8cd98f00b204e9800998ecf8427e</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            <spdx:hasFile>
+              <spdx:File rdf:about="http://fossology.lfscanning.org/repo/SPDX2_tools-golang.git_1558630882-spdx.rdf#SPDXRef-item5051544">
+                <spdx:fileName>testdata/project1/folder1/file4.testdata.txt</spdx:fileName>
+                <spdx:checksum>
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1" />
+                    <spdx:checksumValue>e623d7d7d782a7c8323c4d436acee4afab34320f</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:checksum> 
+                  <spdx:Checksum>
+                    <spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_md5" />
+                    <spdx:checksumValue>96e6a25d35df5b1c477710ef4d0c7210</spdx:checksumValue>
+                  </spdx:Checksum>
+                </spdx:checksum>
+                <spdx:licenseConcluded rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+                <spdx:licenseInfoInFile rdf:resource="http://spdx.org/licenses/NOASSERTION" />
+                <spdx:copyrightText rdf:resource="http://spdx.org/rdf/terms#noassertion" />
+              </spdx:File>
+            </spdx:hasFile>
+            
+        </spdx:Package>
+      </spdx:relatedSpdxElement>
+    </spdx:Relationship>
+  </spdx:relationship>
+  
+</spdx:SpdxDocument>
+</rdf:RDF>
