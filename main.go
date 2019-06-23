@@ -3,32 +3,32 @@ package main
 import (
 	"fmt"
 	//"io"
-	"os"
 
-	//"spdx/tools-golang/v0/spdx"
-
-	//"github.com/deltamobile/goraptor"
+	"github.com/deltamobile/goraptor"
 )
 
 func main() {
-	// defer fmt.Println("DONE!")
-	// parser := goraptor.NewParser("guess")
-	// defer parser.Free()
 
-	// ch := parser.ParseUri("http://spdx.org/licenses/CC0-1.0", "")
-	// for {
-	// 	statement, ok := <-ch
-	// 	if !ok {
-	// 		break
-	// 	}
-	// 	fmt.Println(parser.Parse())
-	// 	// fmt.Printf("%T",statement) // returning a goraptor statement (custom type)
-	// 	// fmt.Println(statement)
+	//  PARSE URI method
 
-	//	}
+	defer fmt.Println("DONE!")
+	parser := goraptor.NewParser("guess")
+	defer parser.Free()
 
+	ch := parser.ParseFile("tools-golang-2019-05-23.rdf", "")
+	for {
+		statement, ok := <-ch
+		if !ok {
+			break
+		}
+		// fmt.Println(parser.Parse())
+		// fmt.Printf("%#v\n", statement) // returning a goraptor.Statement (custom type)
+		fmt.Println(statement) //Basic Data structure?
 
+	}
+}
 
+/*
 
 	// Checking right number of arguments
 	args := os.Args
@@ -38,12 +38,12 @@ func main() {
 		return
 	}
 
-	// assigning filename 
+	// assigning filename
 	filename := args[1]
-	
+
 	// opening local file
 	r, err := os.Open(filename)
-	
+
 	defer r.Close()
 	defer fmt.Printf("\nDONE\n")
 
@@ -53,23 +53,23 @@ func main() {
 	}
 	fmt.Println("File opened")
 	// fmt.Printf("%s and Type: %T", r, r)
-	
-	data := make([]byte, 10)
 
-	count, err := r.Read(data)
+	//data := make([]byte, 10)
+
+	count, err := ioutil.ReadAll(r)
 
 	if err != nil {
 		fmt.Printf("Error while writing %v: %v", filename, err)
 		return
 	}
-	fmt.Println("File Read") 
-	fmt.Printf("Read %d bytes\nContents of File: \n%q\n%T", count, string(data[:]),data)
+	fmt.Println("File Read")
+	fmt.Printf("Read %d bytes\nContents of File: \n%q\n%T", count, string(count[:]),count)
 
 
 //	Parse(r, "kjbk")
 
-}
-
+// }
+// ----------------------------------------
 // type Parser struct {
 // 	rdfparser *goraptor.Parser
 // 	input     io.Reader
@@ -146,3 +146,4 @@ func main() {
 // 	*goraptor.Statement
 // 	*spdx.Meta
 // }
+*/
