@@ -35,12 +35,12 @@ func main() {
 		}
 		err := parserfile.processTriple(statement)
 		if err != nil {
-			fmt.Println("ERROR HERE!!!!!!!!!!!!!!!")
-		}
+			fmt.Println("Processing Failed")
+		}		
 	}
 
 	parserinstance := parserfile
-	fmt.Println(parserinstance.buffer)
+	// fmt.Println(parserinstance.buffer)
 	fmt.Println(len(parserinstance.buffer))
 }
 
@@ -125,4 +125,21 @@ func termStr(term goraptor.Term) string {
 	default:
 		return ""
 	}
+}
+
+
+// Uri, Literal and Blank are goraptors named types 
+// Return *goraptor.Uri
+func uri(uri string) *goraptor.Uri {
+	return (*goraptor.Uri)(&uri)
+}
+
+// Return *goraptor.Literal
+func literal(lit string) *goraptor.Literal {
+	return &goraptor.Literal{Value: lit}
+}
+
+// Return *goraptor.Blank from string
+func blank(b string) *goraptor.Blank {
+	return (*goraptor.Blank)(&b)
 }
