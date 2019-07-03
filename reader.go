@@ -9,7 +9,10 @@ import (
 )
 
 var (
-	typeDocument = prefix("SpdxDocument")
+	URInsType = uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+
+	typeDocument     = prefix("SpdxDocument")
+	typeCreationInfo = prefix("CreationInfo")
 )
 
 func main() {
@@ -72,9 +75,6 @@ func (p *Parser) setType(node, t goraptor.Term) (interface{}, error) {
 	nodeStr := termStr(node)
 	bldr, ok := p.index[nodeStr]
 	if ok {
-		if bldr.t.Equals(t) {
-			return nil, fmt.Errorf("Incompatible type")
-		}
 		return bldr.ptr, nil
 	}
 
@@ -85,27 +85,24 @@ func (p *Parser) setType(node, t goraptor.Term) (interface{}, error) {
 		bldr = p.documentMap(p.doc)
 	}
 
-	p.index[node] = bldr
+	p.index[nodeStr] = bldr
 
 	// run buffer
-	buf := p.buffer[node]
+	buf := p.buffer[nodeStr]
 	for _, stm := range buf {
 		if err := bldr.apply(stm.Predicate, stm.Object); err != nil {
 			return nil, err
 		}
 	}
-	delete(p.buffer, node)
+	delete(p.buffer, nodeStr)
 
 	return bldr.ptr, nil
 }
 
-// Process the goraptor statement and Apply buffer and builder operations
 func (p *Parser) processTriple(stm *goraptor.Statement) error {
 	node := termStr(stm.Subject)
-	////
-	var URINsType = uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
-	if stm.Predicate.Equals(URINsType) {
-		_, err := p.setType(node, stm.Object)
+	if stm.Predicate.Equals(URInsType) {
+		_, err := p.setType(stm.Subject, stm.Object)
 		return err
 	}
 
@@ -122,6 +119,42 @@ func (p *Parser) processTriple(stm *goraptor.Statement) error {
 	p.buffer[node] = append(p.buffer[node], stm)
 
 	return nil
+}
+
+func (p *Parser) documentMap(doc *spdx.Document2_1) *builder {
+	bldr := &builder{t: typeDocument, ptr: doc}
+	bldr.updaters = map[string]updater{
+		"creationInfo": func(obj goraptor.Term) error {
+			cri, err := p.reqCreationInfo(obj)
+			if err != nil {
+				return err
+			}
+			doc.CreationInfo = cri
+			return nil
+		},
+	}
+
+	return bldr
+}
+
+// possiblity of a mistake (node type)
+func (p *Parser) reqSomething(node, t goraptor.Term) (interface{}, error) {
+	bldr, ok := p.index[termStr(node)]
+	if ok {
+		if !bldr.t.Equals(t) {
+			return nil, fmt.Errorf("Incompatible Type", node, bldr.t, t)
+		}
+		return bldr.ptr, nil
+	}
+	return p.setType(node, t)
+}
+
+func (p *Parser) reqCreationInfo(node goraptor.Term) (*spdx.CreationInfo2_1, error) {
+	obj, err := p.reqSomething(node, typeCreationInfo)
+	if err != nil {
+		return nil, err
+	}
+	return obj.(*spdx.CreationInfo2_1), err
 }
 
 // returns the SPDX document
