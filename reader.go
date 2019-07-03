@@ -8,6 +8,10 @@ import (
 	"github.com/spdx/tools-golang/v0/spdx"
 )
 
+var (
+	typeDocument = prefix("SpdxDocument")
+)
+
 func main() {
 
 	// check that we've received the right number of arguments
@@ -36,7 +40,7 @@ func main() {
 		err := parserfile.processTriple(statement)
 		if err != nil {
 			fmt.Println("Processing Failed")
-		}		
+		}
 	}
 
 	parserinstance := parserfile
@@ -64,10 +68,47 @@ func NewParser(input string) *Parser {
 	}
 }
 
+func (p *Parser) setType(node, t goraptor.Term) (interface{}, error) {
+	nodeStr := termStr(node)
+	bldr, ok := p.index[nodeStr]
+	if ok {
+		if bldr.t.Equals(t) {
+			return nil, fmt.Errorf("Incompatible type")
+		}
+		return bldr.ptr, nil
+	}
+
+	// new builder by type
+	switch {
+	case t.Equals(typeDocument):
+		p.doc = new(spdx.Document2_1)
+		bldr = p.documentMap(p.doc)
+	}
+
+	p.index[node] = bldr
+
+	// run buffer
+	buf := p.buffer[node]
+	for _, stm := range buf {
+		if err := bldr.apply(stm.Predicate, stm.Object); err != nil {
+			return nil, err
+		}
+	}
+	delete(p.buffer, node)
+
+	return bldr.ptr, nil
+}
+
 // Process the goraptor statement and Apply buffer and builder operations
 func (p *Parser) processTriple(stm *goraptor.Statement) error {
 	node := termStr(stm.Subject)
 	////
+	var URINsType = uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+	if stm.Predicate.Equals(URINsType) {
+		_, err := p.setType(node, stm.Object)
+		return err
+	}
+
 	// apply function if it's a builder
 	bldr, ok := p.index[node]
 	if ok {
@@ -127,8 +168,7 @@ func termStr(term goraptor.Term) string {
 	}
 }
 
-
-// Uri, Literal and Blank are goraptors named types 
+// Uri, Literal and Blank are goraptors named types
 // Return *goraptor.Uri
 func uri(uri string) *goraptor.Uri {
 	return (*goraptor.Uri)(&uri)
