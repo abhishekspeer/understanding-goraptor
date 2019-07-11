@@ -120,6 +120,14 @@ func (p *Parser) processTriple(stm *goraptor.Statement) error {
 
 	return nil
 }
+func checkRaptorTypes(found goraptor.Term, need ...goraptor.Term) bool {
+	for _, b := range need {
+		if found == b || found.Equals(b) {
+			return true
+		}
+	}
+	return false
+}
 
 func (p *Parser) documentMap(doc *spdx.Document2_1) *builder {
 	bldr := &builder{t: typeDocument, ptr: doc}
@@ -184,8 +192,6 @@ func (b *builder) apply(pred, obj goraptor.Term) error {
 	}
 	return f(obj)
 }
-
-type updater func(goraptor.Term) error
 
 // Converts goraptor.Term (Subject, Predicate and Object) to string.
 func termStr(term goraptor.Term) string {
