@@ -5,8 +5,35 @@ import (
 	"strings"
 	"time"
 )
+// interface for elements
+type Value interface {
+	Val() string
+}
 
-//Store data of form 'what: name (email)'
+// string
+type ValueStr struct {
+	Val  string
+}
+
+func Str(v string) ValueStr { return ValueStr{v} }
+func (v ValueStr) V() string { return v.Val }
+func (v ValueStr) Equal(w ValueStr) bool { return v.Val == w.Val }
+
+
+// bool
+type ValueBool struct {
+	Val  bool
+}
+
+func Bool(v bool) ValueBool { return ValueBool{v} }
+func (v ValueBool) Value() string {
+	if v.Val {
+		return "true"
+	}
+	return "false"
+}
+
+
 type ValueCreator struct {
 	val   string
 	what  string
@@ -38,21 +65,24 @@ func (c *ValueCreator) SetValue(v string) {
 		c.email = strings.TrimSpace(match[4])
 	}
 }
-
+// Create and populate a new ValueCreator.
+func CreateValue(val string, m *Meta) ValueCreator {
+	value := ValueCreator{Meta: m}
+	(&value).SetValue(val)
+	return value
+}
 type ValueDate struct {
 	val  string
 	time *time.Time
 }
 
-// Get the original value of this ValueDate.
-func (d ValueDate) Val() string { return d.val }
-
-// Get the *time.Time pointer parsed form the value.
-func (d ValueDate) Time() *time.Time { return d.time }
 
 // Set the value of this ValueDate and parse the date format.
-func (d *ValueDate) SetValue(v string) {
-	d.val = v
+func SetDateValue(v string){
+	 = v
+
+}
+func SetDateTime(t string){
 	time, err := time.Parse(time.RFC3339, v)
 	if err == nil {
 		d.time = &time
