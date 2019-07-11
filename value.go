@@ -5,6 +5,7 @@ import (
 	"strings"
 	"time"
 )
+
 // interface for elements
 type Value interface {
 	Val() string
@@ -12,17 +13,16 @@ type Value interface {
 
 // string
 type ValueStr struct {
-	Val  string
+	Val string
 }
 
-func Str(v string) ValueStr { return ValueStr{v} }
-func (v ValueStr) V() string { return v.Val }
+func Str(v string) ValueStr              { return ValueStr{v} }
+func (v ValueStr) V() string             { return v.Val }
 func (v ValueStr) Equal(w ValueStr) bool { return v.Val == w.Val }
-
 
 // bool
 type ValueBool struct {
-	Val  bool
+	Val bool
 }
 
 func Bool(v bool) ValueBool { return ValueBool{v} }
@@ -32,7 +32,6 @@ func (v ValueBool) Value() string {
 	}
 	return "false"
 }
-
 
 type ValueCreator struct {
 	val   string
@@ -53,45 +52,43 @@ func (c ValueCreator) Name() string { return c.name }
 // Get the `email` part from the format `what: name (email)`
 func (c ValueCreator) Email() string { return c.email }
 
-// Set the value of this ValueCreator. It parses the format `what: name (email)`
-// and populates the relevant fields.
+// parses and populates values of value creator
 func (c *ValueCreator) SetValue(v string) {
 	c.val = v
-	CreatorRegex := regexp.MustCompile("^([^:]*):([^\\(]*)(\\((.*)\\))?$")
-	match := CreatorRegex.FindStringSubmatch(v)
+	RegexCreator := regexp.MustCompile("^([^:]*):([^\\(]*)(\\((.*)\\))?$")
+	match := RegexCreator.FindStringSubmatch(v)
 	if len(match) == 5 {
 		c.what = strings.TrimSpace(match[1])
 		c.name = strings.TrimSpace(match[2])
 		c.email = strings.TrimSpace(match[4])
 	}
 }
+
 // Create and populate a new ValueCreator.
-func CreateValue(val string, m *Meta) ValueCreator {
-	value := ValueCreator{Meta: m}
-	(&value).SetValue(val)
-	return value
+func ValueCreatorNew(val string) ValueCreator {
+	var valuecreator ValueCreator
+	(&valuecreator).SetValue(val)
+	return valuecreator
 }
+
 type ValueDate struct {
 	val  string
 	time *time.Time
 }
 
-
-// Set the value of this ValueDate and parse the date format.
-func SetDateValue(v string){
-	 = v
-
-}
-func SetDateTime(t string){
+func (d ValueDate) V() string        { return d.val }
+func (d ValueDate) Time() *time.Time { return d.time }
+func (d *ValueDate) SetValue(v string) {
+	d.val = v
 	time, err := time.Parse(time.RFC3339, v)
 	if err == nil {
 		d.time = &time
 	}
 }
 
-// Create and populate a new ValueDate.
-func NewValueDate(val string) ValueDate {
-	valuedate := ValueDate{}
+// New ValueDate.
+func ValueDateNew(val string) ValueDate {
+	var valuedate ValueDate
 	(&valuedate).SetValue(val)
 	return valuedate
 }
