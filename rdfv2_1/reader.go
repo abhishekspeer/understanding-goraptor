@@ -2,10 +2,8 @@ package main
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/deltamobile/goraptor"
-	"github.com/spdx/tools-golang/v0/spdx"
 )
 
 var (
@@ -13,43 +11,9 @@ var (
 
 	typeDocument     = prefix("SpdxDocument")
 	typeCreationInfo = prefix("CreationInfo")
+	typePackage      = prefix("Package")
+	typeFile         = prefix("File")
 )
-
-func main() {
-
-	// check that we've received the right number of arguments
-
-	args := os.Args
-	if len(args) != 2 {
-		fmt.Printf("Usage: %v <spdx-file-in>\n", args[0])
-		fmt.Printf("  Load SPDX 2.1 RDF file <spdx-file-in>, and\n")
-		fmt.Printf("  print its contents.\n")
-		return
-	}
-
-	//   PARSE FILE method - Takes the file location as an input
-	input := args[1]
-	parserfile := NewParser(input)
-	defer parserfile.Free()
-
-	// Parse the file using goraptor's ParseFile method and return a Statement.
-	ch := parserfile.rdfparser.ParseFile(input, "") // takes in input and baseuri
-	for {
-		statement, ok := <-ch
-		// fmt.Println(statement)
-		if !ok {
-			break
-		}
-		err := parserfile.processTriple(statement)
-		if err != nil {
-			fmt.Println("Processing Failed")
-		}
-	}
-
-	parserinstance := parserfile
-	// fmt.Println(parserinstance.buffer)
-	fmt.Println(len(parserinstance.buffer))
-}
 
 // Parser Struct and associated methods
 type Parser struct {
@@ -57,7 +21,7 @@ type Parser struct {
 	input     string
 	index     map[string]*builder
 	buffer    map[string][]*goraptor.Statement
-	doc       *spdx.Document2_1
+	doc       *Document
 }
 
 // NewParser uses goraptor.NewParser to initialse a new parser interface
@@ -71,45 +35,55 @@ func NewParser(input string) *Parser {
 	}
 }
 
-func (p *Parser) setType(node, t goraptor.Term) (interface{}, error) {
+func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 	nodeStr := termStr(node)
-	bldr, ok := p.index[nodeStr]
+	builder, ok := p.index[nodeStr]
 	if ok {
-		return bldr.ptr, nil
+		if !checkRaptorTypes(builder.t, t) && builder.checkPredicate("ns:type") {
+			//apply the type change
+			if err := builder.apply(uri("ns:type"), t); err != nil {
+				return nil, err
+			}
+			return builder.ptr, nil
+		}
+		if !checkCompatibleTypes(builder.t, t) {
+			return nil, fmt.Errorf("Incompatible Type")
+		}
+		return builder.ptr, nil
 	}
-
 	// new builder by type
 	switch {
 	case t.Equals(typeDocument):
-		p.doc = new(spdx.Document2_1)
-		bldr = p.documentMap(p.doc)
+		builder = p.documentMap(new(Document))
+	case t.Equals(typeCreationInfo):
+		builder = p.mapCreationInfo(new(CreationInfo))
 	}
 
-	p.index[nodeStr] = bldr
+	p.index[nodeStr] = builder
 
 	// run buffer
 	buf := p.buffer[nodeStr]
 	for _, stm := range buf {
-		if err := bldr.apply(stm.Predicate, stm.Object); err != nil {
+		if err := builder.apply(stm.Predicate, stm.Object); err != nil {
 			return nil, err
 		}
 	}
 	delete(p.buffer, nodeStr)
 
-	return bldr.ptr, nil
+	return builder.ptr, nil
 }
 
 func (p *Parser) processTriple(stm *goraptor.Statement) error {
 	node := termStr(stm.Subject)
 	if stm.Predicate.Equals(URInsType) {
-		_, err := p.setType(stm.Subject, stm.Object)
+		_, err := p.setNodeType(stm.Subject, stm.Object)
 		return err
 	}
 
 	// apply function if it's a builder
-	bldr, ok := p.index[node]
+	builder, ok := p.index[node]
 	if ok {
-		return bldr.apply(stm.Predicate, stm.Object)
+		return builder.apply(stm.Predicate, stm.Object)
 	}
 
 	// buffer statement
@@ -129,44 +103,54 @@ func checkRaptorTypes(found goraptor.Term, need ...goraptor.Term) bool {
 	return false
 }
 
-func (p *Parser) documentMap(doc *spdx.Document2_1) *builder {
-	bldr := &builder{t: typeDocument, ptr: doc}
-	bldr.updaters = map[string]updater{
+func checkCompatibleTypes(input, required goraptor.Term) bool {
+	if checkRaptorTypes(input, required) {
+		return true
+	}
+	return false
+}
+
+func (p *Parser) requestElementType(node, t goraptor.Term) (interface{}, error) {
+	builder, ok := p.index[termStr(node)]
+	if ok {
+		if !checkCompatibleTypes(builder.t, t) {
+			return nil, fmt.Errorf("Incompatible Type")
+		}
+		return builder.ptr, nil
+	}
+	return p.setNodeType(node, t)
+}
+
+func (p *Parser) documentMap(doc *Document) *builder {
+	builder := &builder{t: typeDocument, ptr: doc}
+	builder.updaters = map[string]updater{
 		"creationInfo": func(obj goraptor.Term) error {
-			cri, err := p.reqCreationInfo(obj)
+			ci, err := p.requestCreationInfo(obj)
 			if err != nil {
 				return err
 			}
-			doc.CreationInfo = cri
+			doc.CreationInfo = ci
 			return nil
 		},
 	}
 
-	return bldr
+	return builder
 }
 
 // possiblity of a mistake (node type)
 func (p *Parser) reqSomething(node, t goraptor.Term) (interface{}, error) {
-	bldr, ok := p.index[termStr(node)]
+	builder, ok := p.index[termStr(node)]
 	if ok {
-		if !bldr.t.Equals(t) {
-			return nil, fmt.Errorf("Incompatible Type", node, bldr.t, t)
+		if !builder.t.Equals(t) {
+			return nil, fmt.Errorf("Incompatible Type", node, builder.t, t)
 		}
-		return bldr.ptr, nil
+		return builder.ptr, nil
 	}
-	return p.setType(node, t)
-}
-
-func (p *Parser) reqCreationInfo(node goraptor.Term) (*spdx.CreationInfo2_1, error) {
-	obj, err := p.reqSomething(node, typeCreationInfo)
-	if err != nil {
-		return nil, err
-	}
-	return obj.(*spdx.CreationInfo2_1), err
+	return p.setNodeType(node, t)
 }
 
 // returns the SPDX document
-func (p *Parser) Parse() (*spdx.Document2_1, error) {
+func (p *Parser) Parse() (*Document, error) {
 
 	return p.doc, nil
 }
@@ -205,6 +189,12 @@ func termStr(term goraptor.Term) string {
 	default:
 		return ""
 	}
+}
+
+// to check if builder contains a predicate
+func (b *builder) checkPredicate(pred string) bool {
+	_, ok := b.updaters[pred]
+	return ok
 }
 
 // Uri, Literal and Blank are goraptors named types

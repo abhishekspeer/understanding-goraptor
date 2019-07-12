@@ -34,9 +34,9 @@ func updateTrimPrefix(prefix string, ptr *ValueStr) updater {
 	}
 }
 
-func updateList(sl *[]string) updater {
+func updateList(sl *[]ValueStr) updater {
 	return func(term goraptor.Term) error {
-		*sl = append(*sl, termStr(term))
+		*sl = append(*sl, Str_ValStr(termStr(term))) // convert Str to ValStr
 		return nil
 	}
 }
@@ -54,8 +54,15 @@ func updateCreator(ptr *ValueCreator) updater {
 	}
 }
 
+func updateListCreator(sl *[]ValueCreator) updater {
+	return func(term goraptor.Term) error {
+		*sl = append(*sl, ValueCreatorNew(termStr(term)))
+		return nil
+	}
+}
+
 // Update a ValueDate pointer
-func updDate(ptr *ValueDate) updater {
+func updateDate(ptr *ValueDate) updater {
 	key := false
 	return func(term goraptor.Term) error {
 		if key {
@@ -63,13 +70,6 @@ func updDate(ptr *ValueDate) updater {
 		}
 		ptr.SetValue(termStr(term))
 		key = true
-		return nil
-	}
-}
-
-func updListCreator(sl *[]ValueCreator) updater {
-	return func(term goraptor.Term) error {
-		*sl = append(*sl, ValueCreatorNew(termStr(term)))
 		return nil
 	}
 }

@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+func Str_ValStr(v string) ValueStr { return ValueStr{v} }
+
 // interface for elements
 type Value interface {
 	Val() string
