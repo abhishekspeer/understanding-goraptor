@@ -1,4 +1,4 @@
-package main
+package rdf2v1
 
 type Document struct {
 	CreationInfo *CreationInfo

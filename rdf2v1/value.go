@@ -1,4 +1,4 @@
-package main
+package rdf2v1
 
 import (
 	"regexp"

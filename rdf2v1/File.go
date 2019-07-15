@@ -1,4 +1,4 @@
-package main
+package rdf2v1
 
 import (
 	"github.com/deltamobile/goraptor"
