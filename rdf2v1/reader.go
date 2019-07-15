@@ -34,10 +34,41 @@ func NewParser(input string) *Parser {
 		Buffer:    make(map[string][]*goraptor.Statement),
 	}
 }
+
+func (p *Parser) Parse() (*Document, error) {
+	// PARSE FILE method - Takes the file location as an input
+	ch := p.Rdfparser.ParseFile(p.Input, baseUri)
+	defer func() {
+		for _ = range ch {
+		}
+	}()
+	var err error
+	for statement := range ch {
+		if err = p.ProcessTriple(statement); err != nil {
+			break
+		}
+	}
+	for {
+		_, ok := <-ch
+		if !ok {
+			break
+		}
+	}
+	return p.Doc, err
+}
+
+// Free the goraptor parser.
+func (p *Parser) Free() {
+	p.Rdfparser.Free()
+	p.Doc = nil
+}
+
 func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 	node := termStr(stm.Subject)
+	// fmt.Println(node + "00000000000000000000")
 	if stm.Predicate.Equals(URInsType) {
 		_, err := p.setNodeType(stm.Subject, stm.Object)
+		fmt.Println(err)
 		return err
 	}
 
@@ -50,9 +81,9 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 	// buffer statement
 	if _, ok := p.Buffer[node]; !ok {
 		p.Buffer[node] = make([]*goraptor.Statement, 0)
+
 	}
 	p.Buffer[node] = append(p.Buffer[node], stm)
-
 	return nil
 }
 
@@ -75,7 +106,7 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 	// new builder by type
 	switch {
 	case t.Equals(typeDocument):
-		builder = p.documentMap(new(Document))
+		builder = p.MapDocument(new(Document))
 	case t.Equals(typeCreationInfo):
 		builder = p.mapCreationInfo(new(CreationInfo))
 	}
@@ -121,36 +152,6 @@ func (p *Parser) requestElementType(node, t goraptor.Term) (interface{}, error) 
 	return p.setNodeType(node, t)
 }
 
-// // return builders for document
-
-func (p *Parser) documentMap(doc *Document) *builder {
-	builder := &builder{t: typeDocument, ptr: doc}
-	builder.updaters = map[string]updater{
-		"creationInfo": func(obj goraptor.Term) error {
-			ci, err := p.requestCreationInfo(obj)
-			if err != nil {
-				return err
-			}
-			doc.CreationInfo = ci
-			return nil
-		},
-	}
-
-	return builder
-}
-
-// returns the SPDX document
-func (p *Parser) Parse() (*Document, error) {
-
-	return p.Doc, nil
-}
-
-// Free the Parser
-func (p *Parser) Free() {
-	p.Rdfparser.Free()
-	p.Doc = nil
-}
-
 // Builder Struct and associated methods
 type builder struct {
 	t        goraptor.Term // type of element this builder represents
@@ -159,8 +160,8 @@ type builder struct {
 }
 
 func (b *builder) apply(pred, obj goraptor.Term) error {
-	property := termStr(pred)
-	f, ok := b.updaters[termStr(pred)]
+	property := shortPrefix(pred)
+	f, ok := b.updaters[property]
 	if !ok {
 		return fmt.Errorf("Property %s is not supported for %s.", property, b.t)
 	}

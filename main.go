@@ -8,6 +8,7 @@ import (
 
 func main() {
 	// check that we've received the right number of arguments
+
 	args := os.Args
 	if len(args) != 2 {
 		fmt.Printf("Usage: %v <spdx-file-in>\n", args[0])
@@ -16,26 +17,20 @@ func main() {
 		return
 	}
 
-	//   PARSE FILE method - Takes the file location as an input
 	input := args[1]
-	parserfile := rdf2v1.NewParser(input)
-	defer parserfile.Free()
-
-	// Parse the file using goraptor's ParseFile method and return a Statement.
-	ch := parserfile.Rdfparser.ParseFile(input, "") // takes in input and baseuri
-	for {
-		statement, ok := <-ch
-		fmt.Println(statement)
-		if !ok {
-			break
-		}
-		err := parserfile.ProcessTriple(statement)
-		if err != nil {
-			fmt.Println("Processing Failed")
-		}
+	spdxdoc, err := Parse(input)
+	if err != nil {
+		fmt.Println("Parsing Error")
+		return
 	}
+	fmt.Printf("%#v\n\n", spdxdoc.CreationInfo)
+}
 
-	parserinstance := parserfile
-	// fmt.Println(parserinstance.buffer)
-	fmt.Println(len(parserinstance.Buffer))
+func Parse(input string) (*rdf2v1.Document, error) {
+	fmt.Println("Parsing Error1")
+	parser := rdf2v1.NewParser(input)
+	fmt.Println("Parsing Error2")
+	defer parser.Free()
+	fmt.Println("Parsing Error3")
+	return parser.Parse()
 }
