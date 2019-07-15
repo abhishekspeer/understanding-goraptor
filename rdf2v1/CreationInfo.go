@@ -10,11 +10,11 @@ type CreationInfo struct {
 	SPDXIdentifier             ValueStr
 	DocumentName               ValueStr
 	DocumentNamespace          ValueStr
-	ExternalDocumentReferences []ValueCreator
+	ExternalDocumentReferences []ValueStr
 	LicenseListVersion         ValueStr
-	CreatorPersons             []ValueCreator
-	CreatorOrganizations       []ValueCreator
-	CreatorTools               []ValueCreator
+	CreatorPersons             []ValueStr
+	CreatorOrganizations       []ValueStr
+	CreatorTools               []ValueStr
 	Create                     ValueDate
 	CreatorComment             ValueStr
 	DocumentComment            ValueStr
@@ -38,11 +38,11 @@ func (p *Parser) mapCreationInfo(ci *CreationInfo) *builder {
 		"SPDXIdentifier":             update(&ci.SPDXIdentifier),
 		"DocumentName":               update(&ci.DocumentName),
 		"DocumentNamespace":          update(&ci.DocumentNamespace),
-		"ExternalDocumentReferences": updateListCreator(&ci.ExternalDocumentReferences),
+		"ExternalDocumentReferences": updateList(&ci.ExternalDocumentReferences),
 		"LicenseListVersion":         update(&ci.LicenseListVersion),
-		"CreatorPersons":             updateListCreator(&ci.CreatorPersons),
-		"CreatorOrganizations":       updateListCreator(&ci.CreatorOrganizations),
-		"CreatorTools":               updateListCreator(&ci.CreatorTools),
+		"CreatorPersons":             updateList(&ci.CreatorPersons),
+		"CreatorOrganizations":       updateList(&ci.CreatorOrganizations),
+		"CreatorTools":               updateList(&ci.CreatorTools),
 		"Created":                    updateDate(&ci.Create),
 		"rdfs:CreatorComment":        update(&ci.CreatorComment),
 		"rdfs:DocumentComment":       update(&ci.DocumentComment),
