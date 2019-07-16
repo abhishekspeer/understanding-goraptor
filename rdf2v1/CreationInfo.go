@@ -5,7 +5,7 @@ import (
 )
 
 type CreationInfo struct {
-	// SPDXVersion                ValueStr
+	SPDXVersion                ValueStr
 	DataLicense                ValueStr
 	SPDXIdentifier             ValueStr
 	DocumentName               ValueStr

@@ -72,6 +72,7 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 	fmt.Printf("BUILDER: %#v\n", builder)
 	fmt.Printf("BUILDER Creationinfo: %#v\n", builder.updaters["creationInfo"])
 	if ok {
+		defer fmt.Printf("APPLIED: %#v", builder)
 		return builder.apply(stm.Predicate, stm.Object)
 	}
 
@@ -159,7 +160,11 @@ type builder struct {
 
 func (b *builder) apply(pred, obj goraptor.Term) error {
 	property := shortPrefix(pred)
+	fmt.Printf("Propety: %#v\n", property)
 	f, ok := b.updaters[property]
+	fmt.Printf("\nF: %#v", f)
+
+	fmt.Printf("\nOK: %#v", ok)
 	if !ok {
 		return fmt.Errorf("Property %s is not supported for %s.", property, b.t)
 	}
@@ -202,3 +207,5 @@ func literal(lit string) *goraptor.Literal {
 func blank(b string) *goraptor.Blank {
 	return (*goraptor.Blank)(&b)
 }
+
+type updater func(goraptor.Term) error
