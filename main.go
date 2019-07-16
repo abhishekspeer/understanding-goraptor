@@ -16,11 +16,10 @@ func main() {
 		fmt.Printf("  print its contents.\n")
 		return
 	}
-	var spdxdoc *rdf2v1.Document = new(rdf2v1.Document)
+	var spdxdoc *rdf2v1.Document
 	var err error
 	input := args[1]
 	spdxdoc, err = Parse(input)
-
 	if err != nil {
 		fmt.Println("Parsing Error")
 		return

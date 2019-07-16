@@ -5,7 +5,7 @@ import (
 )
 
 type CreationInfo struct {
-	SPDXVersion                ValueStr
+	// SPDXVersion                ValueStr
 	DataLicense                ValueStr
 	SPDXIdentifier             ValueStr
 	DocumentName               ValueStr
@@ -33,7 +33,7 @@ func (p *Parser) requestCreationInfo(node goraptor.Term) (*CreationInfo, error) 
 func (p *Parser) mapCreationInfo(ci *CreationInfo) *builder {
 	builder := &builder{t: typeCreationInfo, ptr: ci}
 	builder.updaters = map[string]updater{
-		"SPDXVersion":                update(&ci.SPDXVersion),
+		// "specVersion":                update(&ci.SPDXVersion),
 		"DataLicense":                update(&ci.DataLicense),
 		"SPDXIdentifier":             update(&ci.SPDXIdentifier),
 		"DocumentName":               update(&ci.DocumentName),

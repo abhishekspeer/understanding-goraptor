@@ -37,22 +37,18 @@ func NewParser(input string) *Parser {
 
 func (p *Parser) Parse() (*Document, error) {
 	// PARSE FILE method - Takes the file location as an input
-	ch := p.Rdfparser.ParseFile(p.Input, baseUri)
-	defer func() {
-		for _ = range ch {
-		}
-	}()
+	ch := p.Rdfparser.ParseFile(p.Input, "")
+	locCh := p.Rdfparser.LocatorChan()
 	var err error
+	fmt.Println("chaaa")
 	for statement := range ch {
 		if err = p.ProcessTriple(statement); err != nil {
+			fmt.Println("ch")
 			break
 		}
 	}
-	for {
-		_, ok := <-ch
-		if !ok {
-			break
-		}
+	for _ = range ch {
+		<-locCh
 	}
 	return p.Doc, err
 }
@@ -65,15 +61,16 @@ func (p *Parser) Free() {
 
 func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 	node := termStr(stm.Subject)
-	// fmt.Println(node + "00000000000000000000")
+	defer fmt.Println("Works")
 	if stm.Predicate.Equals(URInsType) {
 		_, err := p.setNodeType(stm.Subject, stm.Object)
-		fmt.Println(err)
 		return err
 	}
 
 	// apply function if it's a builder
 	builder, ok := p.Index[node]
+	fmt.Printf("BUILDER: %#v\n", builder)
+	fmt.Printf("BUILDER Creationinfo: %#v\n", builder.updaters["creationInfo"])
 	if ok {
 		return builder.apply(stm.Predicate, stm.Object)
 	}
@@ -81,8 +78,8 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 	// buffer statement
 	if _, ok := p.Buffer[node]; !ok {
 		p.Buffer[node] = make([]*goraptor.Statement, 0)
-
 	}
+
 	p.Buffer[node] = append(p.Buffer[node], stm)
 	return nil
 }
@@ -143,6 +140,7 @@ func checkCompatibleTypes(input, required goraptor.Term) bool {
 
 func (p *Parser) requestElementType(node, t goraptor.Term) (interface{}, error) {
 	builder, ok := p.Index[termStr(node)]
+	fmt.Println(builder)
 	if ok {
 		if !checkCompatibleTypes(builder.t, t) {
 			return nil, fmt.Errorf("Incompatible Type")
@@ -165,6 +163,7 @@ func (b *builder) apply(pred, obj goraptor.Term) error {
 	if !ok {
 		return fmt.Errorf("Property %s is not supported for %s.", property, b.t)
 	}
+	fmt.Println("yeah")
 	return f(obj)
 }
 
