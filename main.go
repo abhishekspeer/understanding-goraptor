@@ -18,17 +18,21 @@ func main() {
 	}
 	var spdxdoc *rdf2v1.Document
 	var err error
+
 	input := args[1]
 	spdxdoc, err = Parse(input)
+
 	if err != nil {
 		fmt.Println("Parsing Error")
 		return
 	}
+
 	fmt.Printf("%#v\n\n", spdxdoc.CreationInfo)
 }
 
 func Parse(input string) (*rdf2v1.Document, error) {
 	parser := rdf2v1.NewParser(input)
+	defer fmt.Println("RDF Doc PARSED")
 	defer parser.Free()
 	return parser.Parse()
 }

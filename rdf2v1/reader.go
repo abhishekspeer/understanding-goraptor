@@ -38,18 +38,16 @@ func NewParser(input string) *Parser {
 func (p *Parser) Parse() (*Document, error) {
 	// PARSE FILE method - Takes the file location as an input
 	ch := p.Rdfparser.ParseFile(p.Input, "")
-	locCh := p.Rdfparser.LocatorChan()
 	var err error
-	fmt.Println("chaaa")
+	fmt.Println("PARSEFILE APPLIED")
+
 	for statement := range ch {
 		if err = p.ProcessTriple(statement); err != nil {
-			fmt.Println("ch")
+			fmt.Println(err)
 			break
 		}
 	}
-	for _ = range ch {
-		<-locCh
-	}
+
 	return p.Doc, err
 }
 
@@ -60,10 +58,24 @@ func (p *Parser) Free() {
 }
 
 func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
-	node := termStr(stm.Subject)
 	defer fmt.Println("Works")
+	node := termStr(stm.Subject)
+
+	fmt.Println("\n///PARSEFILE")
+	fmt.Println("\nNODE:" + node)
+	fmt.Println("\nPREDICATE:")
+	fmt.Println(stm.Predicate)
+	fmt.Println("\nOBJECT:")
+	fmt.Println(stm.Object)
+	fmt.Println("\nURINS:")
+	fmt.Println(URInsType)
+
+	fmt.Println("\nstm.Predicate.Equals(URInsType)?", stm.Predicate.Equals(URInsType))
 	if stm.Predicate.Equals(URInsType) {
 		_, err := p.setNodeType(stm.Subject, stm.Object)
+
+		// fmt.Println("\na:\n")
+		fmt.Println(err)
 		return err
 	}
 
@@ -74,6 +86,7 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 	if ok {
 		defer fmt.Printf("APPLIED: %#v", builder)
 		return builder.apply(stm.Predicate, stm.Object)
+
 	}
 
 	// buffer statement
@@ -86,8 +99,12 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 }
 
 func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
+	fmt.Printf("\n///SetNodeType\n")
 	nodeStr := termStr(node)
-	builder, ok := p.Index[nodeStr]
+	fmt.Printf("\nNODESTR:" + nodeStr + "\n")
+	builder, ok := p.Index[nodeStr] ////
+	fmt.Println(ok)
+
 	if ok {
 		if !checkRaptorTypes(builder.t, t) && builder.checkPredicate("ns:type") {
 			//apply the type change
@@ -102,11 +119,19 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 		return builder.ptr, nil
 	}
 	// new builder by type
+	fmt.Printf("\n//BUILDER\n")
 	switch {
+	// t is goraptor Object
 	case t.Equals(typeDocument):
-		builder = p.MapDocument(new(Document))
+		p.Doc = new(Document)
+		builder = p.MapDocument(p.Doc)
+		fmt.Printf("\n///BUILDER BACK FROM NEW BUILDER \n", builder)
+		fmt.Printf("\n%#v\n", builder)
+
 	case t.Equals(typeCreationInfo):
-		builder = p.mapCreationInfo(new(CreationInfo))
+		builder = p.MapCreationInfo(new(CreationInfo))
+		fmt.Printf("%\n#v98765432\n", builder)
+
 	}
 
 	p.Index[nodeStr] = builder

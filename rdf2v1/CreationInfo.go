@@ -1,6 +1,8 @@
 package rdf2v1
 
 import (
+	"fmt"
+
 	"github.com/deltamobile/goraptor"
 )
 
@@ -22,6 +24,8 @@ type CreationInfo struct {
 
 // Requests type, returns a pointer.
 func (p *Parser) requestCreationInfo(node goraptor.Term) (*CreationInfo, error) {
+	fmt.Println("GGGGGGGGGGGGGGGGGGGG")
+
 	obj, err := p.requestElementType(node, typeCreationInfo)
 	if err != nil {
 		return nil, err
@@ -30,7 +34,7 @@ func (p *Parser) requestCreationInfo(node goraptor.Term) (*CreationInfo, error) 
 }
 
 // Returns a builder for cri.
-func (p *Parser) mapCreationInfo(ci *CreationInfo) *builder {
+func (p *Parser) MapCreationInfo(ci *CreationInfo) *builder {
 	builder := &builder{t: typeCreationInfo, ptr: ci}
 	builder.updaters = map[string]updater{
 		// "specVersion":                update(&ci.SPDXVersion),
