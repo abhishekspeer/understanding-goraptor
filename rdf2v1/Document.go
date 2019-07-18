@@ -28,7 +28,7 @@ func (p *Parser) MapDocument(doc *Document) *builder {
 	fmt.Println(builder)
 
 	builder.updaters = map[string]updater{
-		"specVersion:": updateTrimPrefix(baseUri, &doc.SPDXVersion),
+		"specVersion": update(&doc.SPDXVersion),
 		// Example: gets CC0-1.0 from "http://spdx.org/licenses/CC0-1.0"
 		"dataLicense": updateTrimPrefix(licenseUri, &doc.DataLicense),
 		"creationInfo": func(obj goraptor.Term) error {
@@ -59,10 +59,6 @@ func (p *Parser) MapDocument(doc *Document) *builder {
 	fmt.Printf("%#v", builder)
 	fmt.Println("\n///MAPDOCUMENT DONE\n\n")
 	// fmt.Println(doc.CreationInfo)
-	fmt.Printf("==============\n")
-	fmt.Printf("Creation info:\n")
-	fmt.Printf("==============\n")
-	fmt.Println(doc.SPDXVersion)
 
 	// fmt.Println("\n\nLLLLLLLLLLLLLLLLLLLLLLL\n\n")
 
