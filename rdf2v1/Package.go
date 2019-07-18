@@ -11,7 +11,7 @@ type Package struct {
 	PackageVerificationCode     *PackageVerificationCode
 	PackageChecksum             *Checksum
 	PackageLicenseComments      ValueStr
-	PackageLicenseConcluded     ValueStr
+	PackageLicenseConcluded     []ValueStr
 	PackageLicenseInfoFromFiles ValueStr
 	PackageLicenseDeclared      ValueStr
 	PackageCopyrightText        ValueStr
@@ -54,7 +54,7 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 			return err
 		},
 		"licenseComments":      update(&pkg.PackageLicenseComments),
-		"licenseConcluded":     update(&pkg.PackageLicenseConcluded),
+		"licenseConcluded":     updateList(&pkg.PackageLicenseConcluded),
 		"licenseDeclared":      update(&pkg.PackageLicenseDeclared),
 		"licenseInfoFromFiles": update(&pkg.PackageLicenseInfoFromFiles),
 		"copyrightText":        update(&pkg.PackageCopyrightText),

@@ -14,11 +14,7 @@ type Document struct {
 	DocumentComment        ValueStr
 	ExtractedLicensingInfo []*ExtractedLicensingInfo
 	Relationship           *Relationship
-
-	// Packages      []*Package
-	// OtherLicenses []*OtherLicense
-	// Relationships []*Relationship
-	// Annotations []*Annotation
+	Packages               []*Package
 }
 
 func (p *Parser) MapDocument(doc *Document) *builder {
@@ -52,6 +48,14 @@ func (p *Parser) MapDocument(doc *Document) *builder {
 			rel, err := p.requestRelationship(obj)
 			doc.Relationship = rel
 			return err
+		},
+		"relatedSpdxElement": func(obj goraptor.Term) error {
+			pkg, err := p.requestPackage(obj)
+			if err != nil {
+				return err
+			}
+			doc.Packages = append(doc.Packages, pkg)
+			return nil
 		},
 	}
 	// fmt.Println("\n\nLLLLLLLLLLLLLLLLLLLLLLL\n\n")
