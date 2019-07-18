@@ -7,19 +7,10 @@ import (
 )
 
 type CreationInfo struct {
-	SPDXVersion                ValueStr
-	DataLicense                ValueStr
-	SPDXIdentifier             ValueStr
-	DocumentName               ValueStr
-	DocumentNamespace          ValueStr
-	ExternalDocumentReferences []ValueStr
-	LicenseListVersion         ValueStr
-	CreatorPersons             []ValueStr
-	CreatorOrganizations       []ValueStr
-	CreatorTools               []ValueStr
-	Create                     ValueDate
-	CreatorComment             ValueStr
-	DocumentComment            ValueStr
+	SPDXIdentifier     ValueStr
+	LicenseListVersion ValueStr
+	Creator            []ValueCreator
+	Create             ValueDate
 }
 
 // Requests type, returns a pointer.
@@ -37,19 +28,9 @@ func (p *Parser) requestCreationInfo(node goraptor.Term) (*CreationInfo, error) 
 func (p *Parser) MapCreationInfo(ci *CreationInfo) *builder {
 	builder := &builder{t: typeCreationInfo, ptr: ci}
 	builder.updaters = map[string]updater{
-		// "specVersion":                update(&ci.SPDXVersion),
-		"DataLicense":                update(&ci.DataLicense),
-		"SPDXIdentifier":             update(&ci.SPDXIdentifier),
-		"DocumentName":               update(&ci.DocumentName),
-		"DocumentNamespace":          update(&ci.DocumentNamespace),
-		"ExternalDocumentReferences": updateList(&ci.ExternalDocumentReferences),
-		"LicenseListVersion":         update(&ci.LicenseListVersion),
-		"CreatorPersons":             updateList(&ci.CreatorPersons),
-		"CreatorOrganizations":       updateList(&ci.CreatorOrganizations),
-		"CreatorTools":               updateList(&ci.CreatorTools),
-		"Created":                    updateDate(&ci.Create),
-		"rdfs:CreatorComment":        update(&ci.CreatorComment),
-		"rdfs:DocumentComment":       update(&ci.DocumentComment),
+		"licenseListVersion": update(&ci.LicenseListVersion),
+		"creator":            updateListCreator(&ci.Creator),
+		"created":            updateDate(&ci.Create),
 	}
 	return builder
 }

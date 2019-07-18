@@ -7,7 +7,14 @@ import (
 )
 
 type Document struct {
-	CreationInfo *CreationInfo
+	SPDXVersion            ValueStr
+	DataLicense            ValueStr
+	CreationInfo           *CreationInfo
+	DocumentName           ValueStr
+	DocumentComment        ValueStr
+	ExtractedLicensingInfo []*ExtractedLicensingInfo
+	Relationship           *Relationship
+
 	// Packages      []*Package
 	// OtherLicenses []*OtherLicense
 	// Relationships []*Relationship
@@ -21,16 +28,30 @@ func (p *Parser) MapDocument(doc *Document) *builder {
 	fmt.Println(builder)
 
 	builder.updaters = map[string]updater{
-		"CreationInfo": func(obj goraptor.Term) error {
+		"specVersion:": updateTrimPrefix(baseUri, &doc.SPDXVersion),
+		// Example: gets CC0-1.0 from "http://spdx.org/licenses/CC0-1.0"
+		"dataLicense": updateTrimPrefix(licenseUri, &doc.DataLicense),
+		"creationInfo": func(obj goraptor.Term) error {
 			ci, err := p.requestCreationInfo(obj)
-
 			fmt.Println(ci)
 			fmt.Println(err)
+			doc.CreationInfo = ci
+			return err
+		},
+		"name":         update(&doc.DocumentName),
+		"rdfs:comment": update(&doc.DocumentComment),
+		"hasExtractedLicensingInfo": func(obj goraptor.Term) error {
+			eli, err := p.requestExtractedLicensingInfo(obj)
 			if err != nil {
 				return err
 			}
-			doc.CreationInfo = ci
+			doc.ExtractedLicensingInfo = append(doc.ExtractedLicensingInfo, eli)
 			return nil
+		},
+		"relationship": func(obj goraptor.Term) error {
+			rel, err := p.requestRelationship(obj)
+			doc.Relationship = rel
+			return err
 		},
 	}
 	// fmt.Println("\n\nLLLLLLLLLLLLLLLLLLLLLLL\n\n")
@@ -38,6 +59,10 @@ func (p *Parser) MapDocument(doc *Document) *builder {
 	fmt.Printf("%#v", builder)
 	fmt.Println("\n///MAPDOCUMENT DONE\n\n")
 	// fmt.Println(doc.CreationInfo)
+	fmt.Printf("==============\n")
+	fmt.Printf("Creation info:\n")
+	fmt.Printf("==============\n")
+	fmt.Println(doc.SPDXVersion)
 
 	// fmt.Println("\n\nLLLLLLLLLLLLLLLLLLLLLLL\n\n")
 

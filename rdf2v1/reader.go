@@ -9,10 +9,15 @@ import (
 var (
 	URInsType = uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
 
-	typeDocument     = prefix("SpdxDocument")
-	typeCreationInfo = prefix("CreationInfo")
-	typePackage      = prefix("Package")
-	typeFile         = prefix("File")
+	typeDocument                = prefix("SpdxDocument")
+	typeCreationInfo            = prefix("CreationInfo")
+	typeExtractedLicensingInfo  = prefix("ExtractedLicensingInfo")
+	typeRelationship            = prefix("Relationship")
+	typePackage                 = prefix("Package")
+	typePackageVerificationCode = prefix("PackageVerificationCode")
+	typeChecksum                = prefix("Checksum")
+	typeDisjunctiveLicenseSet   = prefix("DisjunctiveLicenseSet")
+	typeFile                    = prefix("File")
 )
 
 // Parser Struct and associated methods
@@ -118,6 +123,7 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 		}
 		return builder.ptr, nil
 	}
+
 	// new builder by type
 	fmt.Printf("\n//BUILDER\n")
 	switch {
@@ -132,6 +138,30 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 		builder = p.MapCreationInfo(new(CreationInfo))
 		fmt.Printf("%\n#v98765432\n", builder)
 
+	case t.Equals(typeExtractedLicensingInfo):
+		builder = p.MapExtractedLicensingInfo(new(ExtractedLicensingInfo))
+
+	case t.Equals(typeRelationship):
+		builder = p.MapRelationship(new(Relationship))
+
+	case t.Equals(typePackage):
+		builder = p.MapPackage(new(Package))
+
+	case t.Equals(typePackageVerificationCode):
+		builder = p.MapPackageVerificationCode(new(PackageVerificationCode))
+
+	case t.Equals(typeChecksum):
+		builder = p.MapChecksum(new(Checksum))
+
+	case t.Equals(typeDisjunctiveLicenseSet):
+		builder = p.MapDisjunctiveLicenseSet(new(DisjunctiveLicenseSet))
+
+	case t.Equals(typeFile):
+		builder = p.MapFile(new(File))
+
+	default:
+		fmt.Println(t)
+		return nil, fmt.Errorf("ErrorTypeMatch")
 	}
 
 	p.Index[nodeStr] = builder

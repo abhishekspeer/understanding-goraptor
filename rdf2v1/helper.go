@@ -33,11 +33,11 @@ func shortPrefix(t goraptor.Term) string {
 
 const (
 	baseUri    = "http://spdx.org/rdf/terms#"
-	licenceUri = "http://spdx.org/licenses/"
+	licenseUri = "http://spdx.org/licenses/"
 )
 
 var rdfPrefixes = map[string]string{
 	"rdf:":  "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
 	"rdfs:": "http://www.w3.org/2000/01/rdf-schema#",
-	"":      baseUri,
+	"spdx:": baseUri,
 }
