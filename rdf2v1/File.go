@@ -5,19 +5,16 @@ import (
 )
 
 type File struct {
-	FileName           ValueStr
-	FileChecksum       *FileChecksum
-	LicenseInfoInFile  []ValueStr
-	FileCopyrightText  ValueStr
-	FileComment        ValueStr
-	FileSPDXIdentifier ValueStr
-	FileType           ValueStr
-	FileChecksumSHA1   ValueStr
-	FileChecksumSHA256 ValueStr
-	FileChecksumMD5    ValueStr
-	LicenseConcluded   ValueStr
-	FileNotice         ValueStr
-	FileContributor    []ValueStr
+	FileName          ValueStr
+	FileChecksum      *FileChecksum
+	LicenseInfoInFile []ValueStr
+	FileCopyrightText ValueStr
+	// FileComment        ValueStr
+	// FileSPDXIdentifier ValueStr
+	// FileType           ValueStr
+	// LicenseConcluded   ValueStr
+	// FileNotice         ValueStr
+	// FileContributor    []ValueStr
 	//Snippets 			[]*Snippet
 
 }

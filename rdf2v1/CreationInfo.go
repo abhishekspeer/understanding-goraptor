@@ -9,13 +9,12 @@ import (
 type CreationInfo struct {
 	SPDXIdentifier     ValueStr
 	LicenseListVersion ValueStr
-	Creator            []ValueCreator
+	Creator            []ValueStr
 	Create             ValueDate
 }
 
 // Requests type, returns a pointer.
 func (p *Parser) requestCreationInfo(node goraptor.Term) (*CreationInfo, error) {
-	fmt.Println("GGGGGGGGGGGGGGGGGGGG")
 
 	obj, err := p.requestElementType(node, typeCreationInfo)
 	if err != nil {
@@ -26,10 +25,11 @@ func (p *Parser) requestCreationInfo(node goraptor.Term) (*CreationInfo, error) 
 
 // Returns a builder for cri.
 func (p *Parser) MapCreationInfo(ci *CreationInfo) *builder {
+	fmt.Println("\n\n///MAPCREATIONINFO\n")
 	builder := &builder{t: typeCreationInfo, ptr: ci}
 	builder.updaters = map[string]updater{
 		"licenseListVersion": update(&ci.LicenseListVersion),
-		"creator":            updateListCreator(&ci.Creator),
+		"creator":            updateList(&ci.Creator),
 		"created":            updateDate(&ci.Create),
 	}
 	return builder

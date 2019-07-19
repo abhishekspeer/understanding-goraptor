@@ -66,14 +66,15 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 	defer fmt.Println("Works")
 	node := termStr(stm.Subject)
 
-	fmt.Println("\n///PARSEFILE")
-	fmt.Println("\nNODE:" + node)
-	fmt.Println("\nPREDICATE:")
-	fmt.Println(stm.Predicate)
-	fmt.Println("\nOBJECT:")
-	fmt.Println(stm.Object)
-	fmt.Println("\nURINS:")
-	fmt.Println(URInsType)
+	// fmt.Println("\n///PARSEFILE")
+	// fmt.Println("\nNODE:" + node)
+	// fmt.Println("\nPREDICATE:")
+	// fmt.Println(stm.Predicate)
+	// fmt.Println("\nOBJECT:")
+	// fmt.Println(stm.Object)
+	// fmt.Println("\nURINS:")
+	// fmt.Println(URInsType)
+	defer fmt.Println("***********************************")
 
 	fmt.Println("\nstm.Predicate.Equals(URInsType)?", stm.Predicate.Equals(URInsType))
 	if stm.Predicate.Equals(URInsType) {
@@ -86,20 +87,26 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 
 	// apply function if it's a builder
 	builder, ok := p.Index[node]
-	fmt.Printf("BUILDER: %#v\n", builder)
-	fmt.Printf("BUILDER Creationinfo: %#v\n", builder.updaters["creationInfo"])
+	// fmt.Printf("BUILDER: %#v\n", builder)
+	// fmt.Printf("BUILDER Creationinfo: %v\n", builder.updaters["creationInfo"])
 	if ok {
-		defer fmt.Printf("APPLIED: %#v", builder)
+		defer fmt.Printf("APPLIED: %v\n", builder.ptr)
+		defer fmt.Println("============================")
+		defer fmt.Printf("%v:\n", shortPrefix(builder.t))
+		defer fmt.Println("============================")
 		return builder.apply(stm.Predicate, stm.Object)
 
 	}
 
 	// buffer statement
 	if _, ok := p.Buffer[node]; !ok {
+		// fmt.Println("\nbuffer0000000000000000000000\n")
 		p.Buffer[node] = make([]*goraptor.Statement, 0)
 	}
 
 	p.Buffer[node] = append(p.Buffer[node], stm)
+	// fmt.Println("\n\n\n\n99999999999999999999999\n\n\n\n")
+	// fmt.Println(p.Buffer)
 	return nil
 }
 
@@ -131,12 +138,12 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 	case t.Equals(typeDocument):
 		p.Doc = new(Document)
 		builder = p.MapDocument(p.Doc)
-		fmt.Printf("\n///BUILDER BACK FROM NEW BUILDER \n", builder)
-		fmt.Printf("\n%#v\n", builder)
+		// fmt.Printf("\n///BUILDER BACK FROM NEW BUILDER \n", builder)
+		// // fmt.Printf("\n%#v\n", builder)
 
 	case t.Equals(typeCreationInfo):
 		builder = p.MapCreationInfo(new(CreationInfo))
-		fmt.Printf("%\n#v98765432\n", builder)
+		// fmt.Printf("%\n#v98765432\n", builder)
 
 	case t.Equals(typeExtractedLicensingInfo):
 		builder = p.MapExtractedLicensingInfo(new(ExtractedLicensingInfo))
@@ -215,15 +222,15 @@ type builder struct {
 
 func (b *builder) apply(pred, obj goraptor.Term) error {
 	property := shortPrefix(pred)
-	fmt.Printf("Propety: %#v\n", property)
+	fmt.Printf("Property: %#v\n", property)
 	f, ok := b.updaters[property]
-	fmt.Printf("\nF: %#v", f)
+	// fmt.Printf("\nF: %#v", f)
 
-	fmt.Printf("\nOK: %#v", ok)
+	// fmt.Printf("\nOK: %#v", ok)
 	if !ok {
 		return fmt.Errorf("Property %s is not supported for %s.", property, b.t)
 	}
-	fmt.Println("yeah")
+	fmt.Println("\napplyfunctionadone")
 	return f(obj)
 }
 
