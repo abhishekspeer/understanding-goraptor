@@ -18,6 +18,9 @@ var (
 	typeChecksum                = prefix("Checksum")
 	typeDisjunctiveLicenseSet   = prefix("DisjunctiveLicenseSet")
 	typeFile                    = prefix("File")
+	typeRelatedSpdxElement      = prefix("relatedSpdxElement")
+	typeSnippet                 = prefix("Snippet")
+	typeLicenseConcluded        = prefix("licenseConcluded")
 )
 
 // Parser Struct and associated methods
@@ -63,7 +66,7 @@ func (p *Parser) Free() {
 }
 
 func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
-	defer fmt.Println("Works")
+	// defer fmt.Println("Works")
 	node := termStr(stm.Subject)
 
 	// fmt.Println("\n///PARSEFILE")
@@ -74,7 +77,7 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 	// fmt.Println(stm.Object)
 	// fmt.Println("\nURINS:")
 	// fmt.Println(URInsType)
-	defer fmt.Println("***********************************")
+	// defer fmt.Println("***********************************")
 
 	fmt.Println("\nstm.Predicate.Equals(URInsType)?", stm.Predicate.Equals(URInsType))
 	if stm.Predicate.Equals(URInsType) {
@@ -90,10 +93,11 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 	// fmt.Printf("BUILDER: %#v\n", builder)
 	// fmt.Printf("BUILDER Creationinfo: %v\n", builder.updaters["creationInfo"])
 	if ok {
-		defer fmt.Printf("APPLIED: %v\n", builder.ptr)
-		defer fmt.Println("============================")
-		defer fmt.Printf("%v:\n", shortPrefix(builder.t))
-		defer fmt.Println("============================")
+		// PRINT BUILDER EACH TIME IT IS RETURNED
+		// defer fmt.Printf("APPLIED: %v\n", builder.ptr)
+		// defer fmt.Println("============================")
+		// defer fmt.Printf("%v:\n", shortPrefix(builder.t))
+		// defer fmt.Println("============================")
 		return builder.apply(stm.Predicate, stm.Object)
 
 	}
@@ -111,11 +115,11 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 }
 
 func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
-	fmt.Printf("\n///SetNodeType\n")
+	// fmt.Printf("\n///SetNodeType\n")
 	nodeStr := termStr(node)
-	fmt.Printf("\nNODESTR:" + nodeStr + "\n")
+	// fmt.Printf("\nNODESTR:" + nodeStr + "\n")
 	builder, ok := p.Index[nodeStr] ////
-	fmt.Println(ok)
+	// fmt.Println(ok)
 
 	if ok {
 		if !checkRaptorTypes(builder.t, t) && builder.checkPredicate("ns:type") {

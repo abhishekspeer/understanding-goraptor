@@ -6,22 +6,22 @@ import (
 
 type File struct {
 	FileName          ValueStr
-	FileChecksum      *FileChecksum
+	FileChecksum      *Checksum
 	LicenseInfoInFile []ValueStr
 	FileCopyrightText ValueStr
+	LicenseConcluded  ValueStr
+	FileContributor   []ValueStr
 	// FileComment        ValueStr
 	// FileSPDXIdentifier ValueStr
-	// FileType           ValueStr
-	// LicenseConcluded   ValueStr
+	FileType ValueStr
+	// FileChecksumSHA1   ValueStr
+	// FileChecksumSHA256 ValueStr
+	// FileChecksumMD5    ValueStr
 	// FileNotice         ValueStr
-	// FileContributor    []ValueStr
-	//Snippets 			[]*Snippet
+	// //Snippets 			[]*Snippet
 
 }
-type FileChecksum struct {
-	Algorithm     ValueStr
-	ChecksumValue ValueStr
-}
+
 type DisjunctiveLicenseSet struct {
 	Member []ValueStr
 }
@@ -33,12 +33,12 @@ func (p *Parser) requestFile(node goraptor.Term) (*File, error) {
 	}
 	return obj.(*File), err
 }
-func (p *Parser) requestFileChecksum(node goraptor.Term) (*FileChecksum, error) {
+func (p *Parser) requestFileChecksum(node goraptor.Term) (*Checksum, error) {
 	obj, err := p.requestElementType(node, typeChecksum)
 	if err != nil {
 		return nil, err
 	}
-	return obj.(*FileChecksum), err
+	return obj.(*Checksum), err
 }
 func (p *Parser) requestDisjunctiveLicenseSet(node goraptor.Term) (*DisjunctiveLicenseSet, error) {
 	obj, err := p.requestElementType(node, typeDisjunctiveLicenseSet)
@@ -54,18 +54,18 @@ func (p *Parser) MapFile(file *File) *builder {
 	builder.updaters = map[string]updater{
 		"fileName": update(&file.FileName),
 		"checksum": func(obj goraptor.Term) error {
-			filecksum, err := p.requestFileChecksum(obj)
-			file.FileChecksum = filecksum
+			cksum, err := p.requestChecksum(obj)
+			file.FileChecksum = cksum
 			return err
 		},
-		// "FileType":          updateTrimPrefix("http://spdx.org/rdf/terms#", &file.FileType),
-		"LicenseConcluded":  update(&file.LicenseConcluded),
-		"LicenseInfoInFile": updateList(&file.LicenseInfoInFile),
-		"FileCopyrightText": update(&file.FileCopyrightText), //
+		"FileType":          updateTrimPrefix("http://spdx.org/rdf/terms#", &file.FileType),
+		"licenseConcluded":  update(&file.LicenseConcluded),
+		"licenseInfoInFile": updateList(&file.LicenseInfoInFile),
+		"copyrightText":     update(&file.FileCopyrightText), //
 		// "LicenseComments":   update(&file.LicenseComments),
 		// "rdfs:comment":      update(&file.FileComment),
 		// "FilenNoticeText":   update(&file.FileNotice),
-		// "FileContributor":   updateList(&file.FileContributor),
+		"fileContributor": updateList(&file.FileContributor),
 		//snippet
 	}
 	return builder

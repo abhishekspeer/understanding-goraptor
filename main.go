@@ -26,8 +26,16 @@ func main() {
 		fmt.Println("Parsing Error")
 		return
 	}
+	fmt.Println("===================================================\n")
+	fmt.Println("Some Information Printed from the Document Returned\n")
+	fmt.Println("===================================================\n")
+	fmt.Printf("SpecVersion: %v\n\n", spdxdoc.SPDXVersion.Val)
+	fmt.Printf("DataLicense: %v\n\n", spdxdoc.DataLicense.Val)
+	fmt.Printf("CreationInfo Creator: %v\n\n", spdxdoc.CreationInfo.Creator[0])
+	fmt.Printf("CreationInfo Create:%v\n\n", spdxdoc.CreationInfo.Create)
+	fmt.Printf("DocumentName: %v\n\n", spdxdoc.DocumentName.Val)
+	fmt.Printf("DocumentComment: %v\n\n", spdxdoc.DocumentComment)
 
-	fmt.Printf("%#v\n\n", spdxdoc.CreationInfo)
 }
 
 func Parse(input string) (*rdf2v1.Document, error) {
