@@ -40,9 +40,13 @@ func (p *Parser) MapRelationship(rel *Relationship) *builder {
 		// 	return nil
 		// },
 		"relatedSpdxElement": func(obj goraptor.Term) error {
-			file, err := p.requestFile(obj)
-			rel.File = file
-			return err
+			if checkRaptorTypes(obj, typeFile) {
+				file, err := p.requestFile(obj)
+				rel.File = file
+				return err
+			} else {
+				return nil
+			}
 		},
 	}
 	return builder
