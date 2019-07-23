@@ -190,6 +190,9 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 	case t.Equals(typeProject):
 		builder = p.MapProject(new(Project))
 
+	case t.Equals(typeSnippet):
+		builder = p.MapSnippet(new(Snippet))
+
 	case t.Equals(typeSpdxElement):
 		builder = p.MapSpdxElement(new(SpdxElement))
 

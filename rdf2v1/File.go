@@ -13,11 +13,11 @@ type File struct {
 	FileContributor       []ValueStr
 	FileComment           ValueStr
 	FileLicenseComments   ValueStr
-	// FileSPDXIdentifier ValueStr
-	FileType       ValueStr
-	FileNoticeText ValueStr
-	Annotation     *Annotation
-	Project        *Project
+	FileType              ValueStr
+	FileNoticeText        ValueStr
+	Annotation            *Annotation
+	Project               *Project
+	SnippetLicense        *License
 	// //Snippets 			[]*Snippet
 
 }
@@ -71,9 +71,21 @@ func (p *Parser) MapFile(file *File) *builder {
 		},
 		"fileType": updateTrimPrefix(baseUri, &file.FileType),
 		"licenseConcluded": func(obj goraptor.Term) error {
-			dls, err := p.requestDisjunctiveLicenseSet(obj)
-			file.DisjunctiveLicenseSet = dls
-			return err
+			switch {
+			case obj == typeLicense:
+				lic, err := p.requestLicense(obj)
+				if err != nil {
+					return err
+				}
+				file.SnippetLicense = lic
+			case obj == typeDisjunctiveLicenseSet:
+				dls, err := p.requestDisjunctiveLicenseSet(obj)
+				if err != nil {
+					return err
+				}
+				file.DisjunctiveLicenseSet = dls
+			}
+			return nil
 		},
 		"licenseInfoInFile": updateList(&file.LicenseInfoInFile),
 		"copyrightText":     update(&file.FileCopyrightText), //
@@ -91,7 +103,6 @@ func (p *Parser) MapFile(file *File) *builder {
 			file.Project = pro
 			return err
 		},
-		//snippet
 	}
 	return builder
 }

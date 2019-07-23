@@ -16,9 +16,11 @@ type Package struct {
 	PackageLicenseDeclared      ValueStr
 	PackageCopyrightText        ValueStr
 	Files                       []*File
+	SnippetRelationship         *Relationship
 }
 type PackageVerificationCode struct {
-	PackageVerificationCode ValueStr
+	PackageVerificationCode             ValueStr
+	PackageVerificationCodeExcludedFile ValueStr
 }
 
 func (p *Parser) requestPackage(node goraptor.Term) (*Package, error) {
@@ -66,6 +68,11 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 			pkg.Files = append(pkg.Files, file)
 			return nil
 		},
+		"relationship": func(obj goraptor.Term) error {
+			rel, err := p.requestRelationship(obj)
+			pkg.SnippetRelationship = rel
+			return err
+		},
 	}
 	return builder
 }
@@ -73,7 +80,8 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 func (p *Parser) MapPackageVerificationCode(pkgvc *PackageVerificationCode) *builder {
 	builder := &builder{t: typePackageVerificationCode, ptr: pkgvc}
 	builder.updaters = map[string]updater{
-		"packageVerificationCodeValue": update(&pkgvc.PackageVerificationCode),
+		"packageVerificationCodeValue":        update(&pkgvc.PackageVerificationCode),
+		"packageVerificationCodeExcludedFile": update(&pkgvc.PackageVerificationCodeExcludedFile),
 	}
 	return builder
 }

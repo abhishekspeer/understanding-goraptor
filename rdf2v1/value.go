@@ -3,7 +3,6 @@ package rdf2v1
 import (
 	"regexp"
 	"strings"
-	"time"
 )
 
 func Str_ValStr(v string) ValueStr { return ValueStr{v} }
@@ -74,19 +73,11 @@ func ValueCreatorNew(val string) ValueCreator {
 }
 
 type ValueDate struct {
-	val  string
-	time *time.Time
+	val string
 }
 
-func (d ValueDate) V() string        { return d.val }
-func (d ValueDate) Time() *time.Time { return d.time }
-func (d *ValueDate) SetValue(v string) {
-	d.val = v
-	time, err := time.Parse(time.RFC3339, v)
-	if err == nil {
-		d.time = &time
-	}
-}
+func (d ValueDate) V() string          { return d.val }
+func (d *ValueDate) SetValue(v string) { d.val = v }
 
 // New ValueDate.
 func ValueDateNew(val string) ValueDate {
