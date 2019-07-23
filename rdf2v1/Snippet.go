@@ -29,19 +29,6 @@ package rdf2v1
 // 	SnippetLicense           *License
 // }
 
-// type License struct {
-// 	LicenseComment                ValueStr
-// 	LicenseName                   ValueStr
-// 	LicenseText                   ValueStr
-// 	StandardLicenseHeader         ValueStr
-// 	LicenseSeeAlso                []ValueStr
-// 	LicenseIsFsLibre              ValueBool
-// 	StandardLicenseTemplate       ValueStr
-// 	StandardLicenseHeaderTemplate ValueStr
-// 	LicenseId                     ValueStr
-// 	LicenseisOsiApproved          ValueBool
-// }
-
 // func (p *Parser) requestSnippet(node goraptor.Term) (*Snippet, error) {
 // 	obj, err := p.requestElementType(node, typeSnippet)
 // 	if err != nil {

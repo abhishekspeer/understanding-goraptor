@@ -5,21 +5,25 @@ import (
 )
 
 type File struct {
-	FileName          ValueStr
-	FileChecksum      *Checksum
-	LicenseInfoInFile []ValueStr
-	FileCopyrightText ValueStr
-	LicenseConcluded  ValueStr
-	FileContributor   []ValueStr
-	// FileComment        ValueStr
+	FileName              ValueStr
+	FileChecksum          *Checksum
+	LicenseInfoInFile     []ValueStr
+	FileCopyrightText     ValueStr
+	DisjunctiveLicenseSet *DisjunctiveLicenseSet
+	FileContributor       []ValueStr
+	FileComment           ValueStr
+	FileLicenseComments   ValueStr
 	// FileSPDXIdentifier ValueStr
-	FileType ValueStr
-	// FileChecksumSHA1   ValueStr
-	// FileChecksumSHA256 ValueStr
-	// FileChecksumMD5    ValueStr
-	// FileNotice         ValueStr
+	FileType       ValueStr
+	FileNoticeText ValueStr
+	Annotation     *Annotation
+	Project        *Project
 	// //Snippets 			[]*Snippet
 
+}
+type Project struct {
+	Homepage ValueStr
+	Name     ValueStr
 }
 
 type DisjunctiveLicenseSet struct {
@@ -47,6 +51,13 @@ func (p *Parser) requestDisjunctiveLicenseSet(node goraptor.Term) (*DisjunctiveL
 	}
 	return obj.(*DisjunctiveLicenseSet), err
 }
+func (p *Parser) requestProject(node goraptor.Term) (*Project, error) {
+	obj, err := p.requestElementType(node, typeProject)
+	if err != nil {
+		return nil, err
+	}
+	return obj.(*Project), err
+}
 
 // Returns a builder for file.
 func (p *Parser) MapFile(file *File) *builder {
@@ -58,14 +69,28 @@ func (p *Parser) MapFile(file *File) *builder {
 			file.FileChecksum = cksum
 			return err
 		},
-		"FileType":          updateTrimPrefix("http://spdx.org/rdf/terms#", &file.FileType),
-		"licenseConcluded":  update(&file.LicenseConcluded),
+		"fileType": updateTrimPrefix(baseUri, &file.FileType),
+		"licenseConcluded": func(obj goraptor.Term) error {
+			dls, err := p.requestDisjunctiveLicenseSet(obj)
+			file.DisjunctiveLicenseSet = dls
+			return err
+		},
 		"licenseInfoInFile": updateList(&file.LicenseInfoInFile),
 		"copyrightText":     update(&file.FileCopyrightText), //
-		// "LicenseComments":   update(&file.LicenseComments),
-		// "rdfs:comment":      update(&file.FileComment),
-		// "FilenNoticeText":   update(&file.FileNotice),
-		"fileContributor": updateList(&file.FileContributor),
+		"licenseComments":   update(&file.FileLicenseComments),
+		"rdfs:comment":      update(&file.FileComment),
+		"noticeText":        update(&file.FileNoticeText),
+		"fileContributor":   updateList(&file.FileContributor),
+		"annotation": func(obj goraptor.Term) error {
+			an, err := p.requestAnnotation(obj)
+			file.Annotation = an
+			return err
+		},
+		"artifactOf": func(obj goraptor.Term) error {
+			pro, err := p.requestProject(obj)
+			file.Project = pro
+			return err
+		},
 		//snippet
 	}
 	return builder
@@ -75,6 +100,15 @@ func (p *Parser) MapDisjunctiveLicenseSet(dls *DisjunctiveLicenseSet) *builder {
 	builder := &builder{t: typeDisjunctiveLicenseSet, ptr: dls}
 	builder.updaters = map[string]updater{
 		"member": updateList(&dls.Member),
+	}
+	return builder
+}
+
+func (p *Parser) MapProject(pro *Project) *builder {
+	builder := &builder{t: typeProject, ptr: pro}
+	builder.updaters = map[string]updater{
+		"doap:homepage": update(&pro.Homepage),
+		"doap:name":     update(&pro.Name),
 	}
 	return builder
 }

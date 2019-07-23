@@ -1,20 +1,29 @@
 package rdf2v1
 
-// import "github.com/deltamobile/goraptor"
+import "github.com/deltamobile/goraptor"
 
-// type Annotation struct {
-// 	Annotator                ValueStr
-// 	AnnotatorType            ValueStr
-// 	AnnotationDate           ValueStr
-// 	AnnotationType           ValueStr
-// 	AnnotationSPDXIdentifier ValueStr
-// 	AnnotationComment        ValueStr
-// }
+type Annotation struct {
+	Annotator         ValueStr
+	AnnotationType    ValueStr
+	AnnotationDate    ValueDate
+	AnnotationComment ValueStr
+}
 
-// func (p *Parser) requsetAnnotation(node goraptor.Term) (*Annotation, error) {
-// 	obj, err := p.requestElementType(node, typeCreationInfo)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return obj.(*Annotation), err
-// }
+func (p *Parser) requestAnnotation(node goraptor.Term) (*Annotation, error) {
+	obj, err := p.requestElementType(node, typeAnnotation)
+	if err != nil {
+		return nil, err
+	}
+	return obj.(*Annotation), err
+}
+func (p *Parser) MapAnnotation(an *Annotation) *builder {
+	builder := &builder{t: typeAnnotation, ptr: an}
+	builder.updaters = map[string]updater{
+		"annotationDate": updateDate(&an.AnnotationDate),
+		"rdfs:comment":   update(&an.AnnotationComment),
+		"annotator":      update(&an.Annotator),
+		"annotationType": updateTrimPrefix(baseUri, &an.AnnotationType),
+	}
+	return builder
+
+}

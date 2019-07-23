@@ -18,9 +18,14 @@ var (
 	typeChecksum                = prefix("Checksum")
 	typeDisjunctiveLicenseSet   = prefix("DisjunctiveLicenseSet")
 	typeFile                    = prefix("File")
-	typeRelatedSpdxElement      = prefix("relatedSpdxElement")
+	typeSpdxElement             = prefix("SpdxElement")
 	typeSnippet                 = prefix("Snippet")
 	typeLicenseConcluded        = prefix("licenseConcluded")
+	typeReview                  = prefix("Review")
+	typeAnnotation              = prefix("Annotation")
+	typeLicense                 = prefix("License")
+	typeExternalDocumentRef     = prefix("ExternalDocumentRef")
+	typeProject                 = prefix("doap:Project")
 )
 
 // Parser Struct and associated methods
@@ -169,6 +174,24 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 
 	case t.Equals(typeFile):
 		builder = p.MapFile(new(File))
+
+	case t.Equals(typeReview):
+		builder = p.MapReview(new(Review))
+
+	case t.Equals(typeLicense):
+		builder = p.MapLicense(new(License))
+
+	case t.Equals(typeAnnotation):
+		builder = p.MapAnnotation(new(Annotation))
+
+	case t.Equals(typeExternalDocumentRef):
+		builder = p.MapExternalDocumentRef(new(ExternalDocumentRef))
+
+	case t.Equals(typeProject):
+		builder = p.MapProject(new(Project))
+
+	case t.Equals(typeSpdxElement):
+		builder = p.MapSpdxElement(new(SpdxElement))
 
 	default:
 		fmt.Println(t)

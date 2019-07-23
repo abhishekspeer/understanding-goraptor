@@ -11,6 +11,7 @@ type CreationInfo struct {
 	LicenseListVersion ValueStr
 	Creator            []ValueStr
 	Create             ValueDate
+	Comment            ValueStr
 }
 
 // Requests type, returns a pointer.
@@ -31,6 +32,7 @@ func (p *Parser) MapCreationInfo(ci *CreationInfo) *builder {
 		"licenseListVersion": update(&ci.LicenseListVersion),
 		"creator":            updateList(&ci.Creator),
 		"created":            updateDate(&ci.Create),
+		"rdfs:comment":       update(&ci.Comment),
 	}
 	return builder
 }

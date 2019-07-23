@@ -36,6 +36,9 @@ func main() {
 	fmt.Printf("DocumentName: %v\n\n", spdxdoc.DocumentName.Val)
 	fmt.Printf("DocumentComment: %v\n\n", spdxdoc.DocumentComment)
 
+	v := spdxdoc.CreationInfo
+	fmt.Println(v.Creator[0])
+
 }
 
 func Parse(input string) (*rdf2v1.Document, error) {
