@@ -17,6 +17,7 @@ var (
 	typePackageVerificationCode = prefix("PackageVerificationCode")
 	typeChecksum                = prefix("Checksum")
 	typeDisjunctiveLicenseSet   = prefix("DisjunctiveLicenseSet")
+	typeConjunctiveLicenseSet   = prefix("ConjunctiveLicenseSet")
 	typeFile                    = prefix("File")
 	typeSpdxElement             = prefix("SpdxElement")
 	typeSnippet                 = prefix("Snippet")
@@ -195,6 +196,9 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 
 	case t.Equals(typeSpdxElement):
 		builder = p.MapSpdxElement(new(SpdxElement))
+
+	case t.Equals(typeConjunctiveLicenseSet):
+		builder = p.MapConjunctiveLicenseSet(new(ConjunctiveLicenseSet))
 
 	default:
 		fmt.Println(t)

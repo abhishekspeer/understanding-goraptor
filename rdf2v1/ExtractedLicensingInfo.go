@@ -8,6 +8,8 @@ type ExtractedLicensingInfo struct {
 	LicenseIdentifier ValueStr
 	LicenseName       []ValueStr
 	ExtractedText     ValueStr
+	LicenseComment    ValueStr
+	LicenseSeeAlso    []ValueStr
 }
 
 func (p *Parser) requestExtractedLicensingInfo(node goraptor.Term) (*ExtractedLicensingInfo, error) {
@@ -24,6 +26,8 @@ func (p *Parser) MapExtractedLicensingInfo(lic *ExtractedLicensingInfo) *builder
 		"licenseId":     update(&lic.LicenseIdentifier),
 		"name":          updateList(&lic.LicenseName),
 		"extractedText": update(&lic.ExtractedText),
+		"rdfs:comment":  update(&lic.LicenseComment),
+		"rdfs:seeAlso":  updateList(&lic.LicenseSeeAlso),
 	}
 	return builder
 }

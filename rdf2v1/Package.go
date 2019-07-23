@@ -6,17 +6,20 @@ import (
 
 type Package struct {
 	PackageName                 ValueStr
+	PackageVersionInfo          ValueStr
 	PackageFileName             ValueStr
 	PackageDownloadLocation     ValueStr
 	PackageVerificationCode     *PackageVerificationCode
 	PackageChecksum             *Checksum
 	PackageLicenseComments      ValueStr
 	PackageLicenseConcluded     []ValueStr
-	PackageLicenseInfoFromFiles ValueStr
+	PackageLicenseInfoFromFiles []ValueStr
 	PackageLicenseDeclared      ValueStr
 	PackageCopyrightText        ValueStr
 	Files                       []*File
 	SnippetRelationship         *Relationship
+	PackageHomepage             ValueStr
+	PackageSupplier             ValueStr
 }
 type PackageVerificationCode struct {
 	PackageVerificationCode             ValueStr
@@ -43,6 +46,7 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 	builder := &builder{t: typePackage, ptr: pkg}
 	builder.updaters = map[string]updater{
 		"name":             update(&pkg.PackageName),
+		"versionInfo":      update(&pkg.PackageVersionInfo),
 		"packageFileName":  update(&pkg.PackageFileName),
 		"downloadLocation": update(&pkg.PackageDownloadLocation),
 		"packageVerificationCode": func(obj goraptor.Term) error {
@@ -58,7 +62,7 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 		"licenseComments":      update(&pkg.PackageLicenseComments),
 		"licenseConcluded":     updateList(&pkg.PackageLicenseConcluded),
 		"licenseDeclared":      update(&pkg.PackageLicenseDeclared),
-		"licenseInfoFromFiles": update(&pkg.PackageLicenseInfoFromFiles),
+		"licenseInfoFromFiles": updateList(&pkg.PackageLicenseInfoFromFiles),
 		"copyrightText":        update(&pkg.PackageCopyrightText),
 		"hasFile": func(obj goraptor.Term) error {
 			file, err := p.requestFile(obj)
@@ -73,6 +77,9 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 			pkg.SnippetRelationship = rel
 			return err
 		},
+		"doap:homepage": update(&pkg.PackageHomepage),
+		"supplier":      update(&pkg.PackageSupplier),
+		// "externalRef":
 	}
 	return builder
 }

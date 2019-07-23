@@ -28,6 +28,10 @@ type Snippet struct {
 // 	SnippetFileChecksum      *Checksum
 // 	SnippetLicense           *License
 // }
+type ExternalRef struct {
+	ReferenceLocator ValueStr
+	// ReferenceType    // at line 690
+}
 
 func (p *Parser) requestSnippet(node goraptor.Term) (*Snippet, error) {
 	obj, err := p.requestElementType(node, typeSnippet)

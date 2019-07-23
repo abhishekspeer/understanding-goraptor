@@ -10,6 +10,7 @@ type File struct {
 	LicenseInfoInFile     []ValueStr
 	FileCopyrightText     ValueStr
 	DisjunctiveLicenseSet *DisjunctiveLicenseSet
+	ConjunctiveLicenseSet *ConjunctiveLicenseSet
 	FileContributor       []ValueStr
 	FileComment           ValueStr
 	FileLicenseComments   ValueStr
@@ -28,6 +29,10 @@ type Project struct {
 
 type DisjunctiveLicenseSet struct {
 	Member []ValueStr
+}
+type ConjunctiveLicenseSet struct {
+	License                *License
+	ExtractedLicensingInfo *ExtractedLicensingInfo
 }
 
 func (p *Parser) requestFile(node goraptor.Term) (*File, error) {
@@ -50,6 +55,13 @@ func (p *Parser) requestDisjunctiveLicenseSet(node goraptor.Term) (*DisjunctiveL
 		return nil, err
 	}
 	return obj.(*DisjunctiveLicenseSet), err
+}
+func (p *Parser) requestConjunctiveLicenseSet(node goraptor.Term) (*ConjunctiveLicenseSet, error) {
+	obj, err := p.requestElementType(node, typeConjunctiveLicenseSet)
+	if err != nil {
+		return nil, err
+	}
+	return obj.(*ConjunctiveLicenseSet), err
 }
 func (p *Parser) requestProject(node goraptor.Term) (*Project, error) {
 	obj, err := p.requestElementType(node, typeProject)
@@ -120,6 +132,29 @@ func (p *Parser) MapProject(pro *Project) *builder {
 	builder.updaters = map[string]updater{
 		"doap:homepage": update(&pro.Homepage),
 		"doap:name":     update(&pro.Name),
+	}
+	return builder
+}
+func (p *Parser) MapConjunctiveLicenseSet(cls *ConjunctiveLicenseSet) *builder {
+	builder := &builder{t: typeConjunctiveLicenseSet, ptr: cls}
+	builder.updaters = map[string]updater{
+		"member": func(obj goraptor.Term) error {
+			switch {
+			case obj == typeLicense:
+				lic, err := p.requestLicense(obj)
+				if err != nil {
+					return err
+				}
+				cls.License = lic
+			case obj == typeExtractedLicensingInfo:
+				eli, err := p.requestExtractedLicensingInfo(obj)
+				if err != nil {
+					return err
+				}
+				cls.ExtractedLicensingInfo = eli
+			}
+			return nil
+		},
 	}
 	return builder
 }
