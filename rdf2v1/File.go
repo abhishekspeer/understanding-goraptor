@@ -7,20 +7,23 @@ import (
 )
 
 type File struct {
-	FileName              ValueStr
-	FileChecksum          *Checksum
-	LicenseInfoInFile     []ValueStr
-	FileCopyrightText     ValueStr
-	DisjunctiveLicenseSet *DisjunctiveLicenseSet
-	ConjunctiveLicenseSet *ConjunctiveLicenseSet
-	FileContributor       []ValueStr
-	FileComment           ValueStr
-	FileLicenseComments   ValueStr
-	FileType              ValueStr
-	FileNoticeText        ValueStr
-	Annotation            *Annotation
-	Project               *Project
-	SnippetLicense        *License
+	FileName               ValueStr
+	FileChecksum           *Checksum
+	LicenseInfoInFile      []ValueStr
+	FileCopyrightText      ValueStr
+	ExtractedLicensingInfo *ExtractedLicensingInfo
+	DisjunctiveLicenseSet  *DisjunctiveLicenseSet
+	ConjunctiveLicenseSet  *ConjunctiveLicenseSet
+	FileContributor        []ValueStr
+	FileComment            ValueStr
+	FileLicenseComments    ValueStr
+	FileType               ValueStr
+	FileNoticeText         ValueStr
+	Annotation             *Annotation
+	Project                *Project
+	SnippetLicense         *License
+	FileDependency         *File
+	FileRelationship       *Relationship
 	// //Snippets 			[]*Snippet
 
 }
@@ -87,24 +90,21 @@ func (p *Parser) MapFile(file *File) *builder {
 		},
 		"fileType": updateTrimPrefix(baseUri, &file.FileType),
 		"licenseConcluded": func(obj goraptor.Term) error {
-			switch {
-			case obj == typeLicense:
-				lic, err := p.requestLicense(obj)
-				if err != nil {
-					return err
-				}
-				file.SnippetLicense = lic
-			case obj == typeDisjunctiveLicenseSet:
+			lic, err := p.requestLicense(obj)
+			file.SnippetLicense = lic
+			if err != nil {
 				dls, err := p.requestDisjunctiveLicenseSet(obj)
+				file.DisjunctiveLicenseSet = dls
 				if err != nil {
+					eli, err := p.requestExtractedLicensingInfo(obj)
+					file.ExtractedLicensingInfo = eli
 					return err
 				}
-				file.DisjunctiveLicenseSet = dls
 			}
 			return nil
 		},
 		"licenseInfoInFile": updateList(&file.LicenseInfoInFile),
-		"copyrightText":     update(&file.FileCopyrightText), //
+		"copyrightText":     update(&file.FileCopyrightText),
 		"licenseComments":   update(&file.FileLicenseComments),
 		"rdfs:comment":      update(&file.FileComment),
 		"noticeText":        update(&file.FileNoticeText),
@@ -117,6 +117,16 @@ func (p *Parser) MapFile(file *File) *builder {
 		"artifactOf": func(obj goraptor.Term) error {
 			pro, err := p.requestProject(obj)
 			file.Project = pro
+			return err
+		},
+		"fileDependency": func(obj goraptor.Term) error {
+			file, err := p.requestFile(obj)
+			file.FileDependency = file
+			return err
+		},
+		"relationship": func(obj goraptor.Term) error {
+			rel, err := p.requestRelationship(obj)
+			file.FileRelationship = rel
 			return err
 		},
 	}
@@ -143,19 +153,13 @@ func (p *Parser) MapConjunctiveLicenseSet(cls *ConjunctiveLicenseSet) *builder {
 	builder := &builder{t: typeConjunctiveLicenseSet, ptr: cls}
 	builder.updaters = map[string]updater{
 		"member": func(obj goraptor.Term) error {
-			switch {
-			case obj == typeLicense:
-				lic, err := p.requestLicense(obj)
-				if err != nil {
-					return err
-				}
-				cls.License = lic
-			case obj == typeExtractedLicensingInfo:
+
+			lic, err := p.requestLicense(obj)
+			cls.License = lic
+			if err != nil {
 				eli, err := p.requestExtractedLicensingInfo(obj)
-				if err != nil {
-					return err
-				}
 				cls.ExtractedLicensingInfo = eli
+				return err
 			}
 			return nil
 		},

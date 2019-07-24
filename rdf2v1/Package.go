@@ -11,15 +11,24 @@ type Package struct {
 	PackageDownloadLocation     ValueStr
 	PackageVerificationCode     *PackageVerificationCode
 	PackageChecksum             []*Checksum
+	PackageLicense              *License
 	PackageLicenseComments      ValueStr
 	DisjunctiveLicenseSet       *DisjunctiveLicenseSet
+	ConjunctiveLicenseSet       *ConjunctiveLicenseSet
 	PackageLicenseInfoFromFiles []ValueStr
 	PackageLicenseDeclared      ValueStr
 	PackageCopyrightText        ValueStr
 	File                        []*File
-	PackageRelationship         *PackageRelationship
+	PackageRelationship         *Relationship
 	PackageHomepage             ValueStr
 	PackageSupplier             ValueStr
+	PackageExternalRef          *ExternalRef
+	PackageOriginator           ValueStr
+	PackageSourceInfo           ValueStr
+	FilesAnalyzed               ValueStr
+	PackageSummary              ValueStr
+	PackageDescription          ValueStr
+	Annotation                  *Annotation
 }
 type PackageVerificationCode struct {
 	PackageVerificationCode             ValueStr
@@ -75,9 +84,13 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 		},
 		"licenseComments": update(&pkg.PackageLicenseComments),
 		"licenseConcluded": func(obj goraptor.Term) error {
-			pkgdls, err := p.requestDisjunctiveLicenseSet(obj)
+			pkgdls, _ := p.requestDisjunctiveLicenseSet(obj)
 			pkg.DisjunctiveLicenseSet = pkgdls
-			return err
+			pkglic, _ := p.requestLicense(obj)
+			pkg.PackageLicense = pkglic
+			pkgcls, _ := p.requestConjunctiveLicenseSet(obj)
+			pkg.ConjunctiveLicenseSet = pkgcls
+			return nil
 		},
 		"licenseDeclared":      update(&pkg.PackageLicenseDeclared),
 		"licenseInfoFromFiles": updateList(&pkg.PackageLicenseInfoFromFiles),
@@ -91,12 +104,27 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 			return nil
 		},
 		"relationship": func(obj goraptor.Term) error {
-			rel, err := p.requestPackageRelationship(obj)
+			rel, err := p.requestRelationship(obj)
 			pkg.PackageRelationship = rel
 			return err
 		},
 		"doap:homepage": update(&pkg.PackageHomepage),
 		"supplier":      update(&pkg.PackageSupplier),
+		"externalRef": func(obj goraptor.Term) error {
+			er, err := p.requestExternalRef(obj)
+			pkg.PackageExternalRef = er
+			return err
+		},
+		"originator":    update(&pkg.PackageOriginator),
+		"sourceInfo":    update((&pkg.PackageSourceInfo)),
+		"summary":       update((&pkg.PackageSummary)),
+		"filesAnalyzed": update((&pkg.FilesAnalyzed)),
+		"description":   update((&pkg.PackageDescription)),
+		"annotation": func(obj goraptor.Term) error {
+			an, err := p.requestAnnotation(obj)
+			pkg.Annotation = an
+			return err
+		},
 	}
 	return builder
 }

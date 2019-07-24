@@ -26,7 +26,12 @@ var (
 	typeAnnotation              = prefix("Annotation")
 	typeLicense                 = prefix("License")
 	typeExternalDocumentRef     = prefix("ExternalDocumentRef")
+	typeExternalRef             = prefix("ExternalRef")
 	typeProject                 = prefix("doap:Project")
+	typeReferenceType           = prefix("ReferenceType")
+	typeSnippetStartEndPointer  = prefix("j.0:StartEndPointer")
+	typeByteOffsetPointer       = prefix("j.0:ByteOffsetPointer")
+	typeLineCharPointer         = prefix("j.0:LineCharPointer")
 )
 
 // Parser Struct and associated methods
@@ -144,7 +149,7 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 			return builder.ptr, nil
 		}
 		if !checkCompatibleTypes(builder.t, t) {
-			return nil, fmt.Errorf("Incompatible Type")
+			return nil, fmt.Errorf("IncompatibleType")
 		}
 		return builder.ptr, nil
 	}
@@ -193,6 +198,11 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 	case t.Equals(typeAnnotation):
 		builder = p.MapAnnotation(new(Annotation))
 
+	case t.Equals(typeExternalRef):
+		builder = p.MapExternalRef(new(ExternalRef))
+	case t.Equals(typeReferenceType):
+		builder = p.MapReferenceType(new(ReferenceType))
+
 	case t.Equals(typeExternalDocumentRef):
 		builder = p.MapExternalDocumentRef(new(ExternalDocumentRef))
 
@@ -208,6 +218,14 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 	case t.Equals(typeConjunctiveLicenseSet):
 		builder = p.MapConjunctiveLicenseSet(new(ConjunctiveLicenseSet))
 
+	case t.Equals(typeSnippetStartEndPointer):
+		builder = p.MapSnippetStartEndPointer(new(SnippetStartEndPointer))
+
+	case t.Equals(typeLineCharPointer):
+		builder = p.MapLineCharPointer(new(LineCharPointer))
+
+	case t.Equals(typeByteOffsetPointer):
+		builder = p.MapByteOffsetPointer(new(ByteOffsetPointer))
 	default:
 		fmt.Println(t)
 		return nil, fmt.Errorf("ErrorTypeMatch")
@@ -248,7 +266,7 @@ func (p *Parser) requestElementType(node, t goraptor.Term) (interface{}, error) 
 	fmt.Println(builder)
 	if ok {
 		if !checkCompatibleTypes(builder.t, t) {
-			return nil, fmt.Errorf("Incompatible Type")
+			return nil, fmt.Errorf("%v and %v are Incompatible Type", builder.t, t)
 		}
 		return builder.ptr, nil
 	}

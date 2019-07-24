@@ -1,6 +1,8 @@
 package rdf2v1
 
 import (
+	"fmt"
+
 	"github.com/deltamobile/goraptor"
 )
 
@@ -30,6 +32,13 @@ func (p *Parser) requestSpdxElement(node goraptor.Term) (*SpdxElement, error) {
 	return obj.(*SpdxElement), err
 }
 
+// func (p *Parser) checkRelatedElement(node goraptor.Term) bool {
+// 	obj, err := p.requestElementType(node, typeSpdxElement)
+// 	if err != nil {
+// 		return nil
+// 	}
+// 	return obj.(*SpdxElement), err
+// }
 func (p *Parser) MapRelationship(rel *Relationship) *builder {
 	builder := &builder{t: typeRelationship, ptr: rel}
 	builder.updaters = map[string]updater{
@@ -44,16 +53,28 @@ func (p *Parser) MapRelationship(rel *Relationship) *builder {
 		// },
 		// update(&rel.RelatedSpdxElement),
 		"relatedSpdxElement": func(obj goraptor.Term) error {
-			pkg, _ := p.requestPackage(obj)
+			_, ok := builder.updaters["http://spdx.org/rdf/terms#relatedSpdxElement"]
+			if ok {
+				builder.updaters = map[string]updater{"relatedSpdxElement": update(&rel.relatedSpdxElement)}
+				return nil
+			}
+			pkg, err := p.requestPackage(obj)
 			rel.Package = append(rel.Package, pkg)
-			file, _ := p.requestFile(obj)
-			rel.File = append(rel.File, file)
-			se, _ := p.requestSpdxElement(obj)
-			rel.SpdxElement = se
-			return nil
+			if err != nil {
+				file, err := p.requestFile(obj)
+				rel.File = append(rel.File, file)
+				if err != nil {
+					se, err := p.requestSpdxElement(obj)
+					rel.SpdxElement = se
+					return err
+				}
+
+			} else {
+				fmt.Println("WWWWWWWWW")
+			}
+			return err
 		},
 	}
-
 	return builder
 }
 
