@@ -1,47 +1,44 @@
 package rdf2v1
 
 import (
-	"fmt"
-
 	"github.com/deltamobile/goraptor"
 )
 
 type Snippet struct {
-	SnippetName            ValueStr
-	SnippetCopyrightText   ValueStr
-	SnippetLicenseComments ValueStr
-	SnippetFromFile        *File
-	SnippetStartEndPointer []*SnippetStartEndPointer
-	// 	SnippetSPDXIdentifier string
-	// 	SnippetByteRangeStart int
-	// 	SnippetByteRangeEnd   int
-	// 	SnippetLineRangeStart int
-	// 	SnippetLineRangeEnd   int
+	SnippetName             ValueStr
+	SnippetCopyrightText    ValueStr
+	SnippetLicenseComments  ValueStr
+	SnippetFromFile         *File
+	SnippetStartEndPointer  []*SnippetStartEndPointer
 	SnippetLicenseConcluded ValueStr
 	SnippetComment          ValueStr
 	LicenseInfoInSnippet    []ValueStr
 }
 
-type SnippetStartEndPointer struct {
-	ByteOffsetPointer []*ByteOffsetPointer
-	LineCharPointer   []*LineCharPointer
-}
-type ByteOffsetPointer struct {
-	Reference ValueStr
-	Offset    ValueStr
-}
-type LineCharPointer struct {
-	Reference  ValueStr
-	LineNumber ValueStr
-}
 type ExternalRef struct {
 	ReferenceLocator  ValueStr
 	ReferenceType     *ReferenceType
 	ReferenceCategory ValueStr
 	ReferenceComment  ValueStr
 }
+
 type ReferenceType struct {
 	ReferenceType ValueStr
+}
+
+type SnippetStartEndPointer struct {
+	ByteOffsetPointer []*ByteOffsetPointer
+	LineCharPointer   []*LineCharPointer
+}
+
+type ByteOffsetPointer struct {
+	Reference ValueStr
+	Offset    ValueStr
+}
+
+type LineCharPointer struct {
+	Reference  ValueStr
+	LineNumber ValueStr
 }
 
 func (p *Parser) requestSnippet(node goraptor.Term) (*Snippet, error) {
@@ -88,7 +85,6 @@ func (p *Parser) requestLineCharPointer(node goraptor.Term) (*LineCharPointer, e
 	return obj.(*LineCharPointer), err
 }
 func (p *Parser) MapSnippet(s *Snippet) *builder {
-	fmt.Println("\n\n///Snippet\n")
 	builder := &builder{t: typeSnippet, ptr: s}
 	builder.updaters = map[string]updater{
 		"name":            update(&s.SnippetName),
@@ -112,7 +108,6 @@ func (p *Parser) MapSnippet(s *Snippet) *builder {
 }
 
 func (p *Parser) MapExternalRef(er *ExternalRef) *builder {
-	fmt.Println("\n\n///Snippet\n")
 	builder := &builder{t: typeExternalRef, ptr: er}
 	builder.updaters = map[string]updater{
 		"referenceLocator":  update(&er.ReferenceLocator),

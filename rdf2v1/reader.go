@@ -61,10 +61,7 @@ func (p *Parser) Parse() (*Document, *Snippet, error) {
 	var err error
 
 	for statement := range ch {
-		fmt.Println("PARSEFILE APPLIED")
-		fmt.Printf("%v", statement)
 		if err = p.ProcessTriple(statement); err != nil {
-			fmt.Println(err)
 			break
 		}
 	}
@@ -80,72 +77,36 @@ func (p *Parser) Free() {
 }
 
 func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
-	// defer fmt.Println("Works")
 	node := termStr(stm.Subject)
 
-	// fmt.Println("\n///PARSEFILE")
-	// fmt.Println("\nNODE:" + node)
-	// fmt.Println("\nPREDICATE:")
-	// fmt.Println(stm.Predicate)
-	// fmt.Println("\nOBJECT:")
-	// fmt.Println(stm.Object)
-	// fmt.Println("\nURINS:")
-	// fmt.Println(URInsType)
-	// defer fmt.Println("***********************************")
-
-	fmt.Println("\nstm.Predicate.Equals(URInsType)?", stm.Predicate.Equals(URInsType))
 	if stm.Predicate.Equals(URInsType) {
 		_, err := p.setNodeType(stm.Subject, stm.Object)
-
-		// fmt.Println("\na:\n")
-		fmt.Println(err)
 		return err
 	}
 
 	// apply function if it's a builder
 	builder, ok := p.Index[node]
-	// fmt.Printf("BUILDER: %#v\n", builder)
-	// fmt.Printf("BUILDER Creationinfo: %v\n", builder.updaters["creationInfo"])
 	if ok {
-		// PRINT BUILDER EACH TIME IT IS RETURNED
-		// defer fmt.Printf("APPLIED: %v\n", builder.ptr)
-		// defer fmt.Println("============================")
-		// defer fmt.Printf("%v:\n", shortPrefix(builder.t))
-		// defer fmt.Println("============================")
 		return builder.apply(stm.Predicate, stm.Object)
-
 	}
 
 	// buffer statement
 	if _, ok := p.Buffer[node]; !ok {
-		// fmt.Println("\nbuffer0000000000000000000000\n")
 		p.Buffer[node] = make([]*goraptor.Statement, 0)
 	}
 
 	p.Buffer[node] = append(p.Buffer[node], stm)
-	// fmt.Println("\n\n\n\n99999999999999999999999\n\n\n\n")
-	// fmt.Println(p.Buffer)
 	return nil
 }
 
 func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 	nodeStr := termStr(node)
-	// fmt.Printf("\nNODESTR:" + nodeStr + "\n")
-	builder, ok := p.Index[nodeStr] ////
-	fmt.Printf("\n///SetNodeType\n")
-	fmt.Println(ok)
-	fmt.Println("okieeeees")
+	builder, ok := p.Index[nodeStr]
 
 	if ok {
 		if !checkRaptorTypes(builder.t, t) && builder.checkPredicate("ns:type") {
-			//apply the type change
-			fmt.Printf("\ncheckRaptorTypes\n")
-			fmt.Println(builder.t)
-			fmt.Println(t)
-			fmt.Println(builder.checkPredicate("ns:type"))
 
 			if err := builder.apply(uri("ns:type"), t); err != nil {
-				fmt.Println(err)
 				return nil, err
 			}
 			return builder.ptr, nil
@@ -157,18 +118,14 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 	}
 
 	// new builder by type
-	fmt.Printf("\n//BUILDER\n")
 	switch {
 	// t is goraptor Object
 	case t.Equals(typeDocument):
 		p.Doc = new(Document)
 		builder = p.MapDocument(p.Doc)
-		// fmt.Printf("\n///BUILDER BACK FROM NEW BUILDER \n", builder)
-		// // fmt.Printf("\n%#v\n", builder)
 
 	case t.Equals(typeCreationInfo):
 		builder = p.MapCreationInfo(new(CreationInfo))
-		// fmt.Printf("%\n#v98765432\n", builder)
 
 	case t.Equals(typeExtractedLicensingInfo):
 		builder = p.MapExtractedLicensingInfo(new(ExtractedLicensingInfo))
@@ -230,8 +187,7 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 	case t.Equals(typeByteOffsetPointer):
 		builder = p.MapByteOffsetPointer(new(ByteOffsetPointer))
 	default:
-		fmt.Println(t)
-		return nil, fmt.Errorf("ErrorTypeMatch")
+		return nil, fmt.Errorf("New Builder: Types does not match.")
 	}
 
 	p.Index[nodeStr] = builder
@@ -266,7 +222,6 @@ func checkCompatibleTypes(input, required goraptor.Term) bool {
 
 func (p *Parser) requestElementType(node, t goraptor.Term) (interface{}, error) {
 	builder, ok := p.Index[termStr(node)]
-	fmt.Println(builder)
 	if ok {
 		if !checkCompatibleTypes(builder.t, t) {
 			return nil, fmt.Errorf("%v and %v are Incompatible Type", builder.t, t)
@@ -285,30 +240,12 @@ type builder struct {
 
 func (b *builder) apply(pred, obj goraptor.Term) error {
 	property := shortPrefix(pred)
-	fmt.Printf("Property: %#v\n", property)
 	f, ok := b.updaters[property]
-	// fmt.Printf("\nF: %#v", f)
 
-	// fmt.Printf("\nOK: %#v", ok)
 	if !ok {
 		return fmt.Errorf("Property %s is not supported for %s.", property, b.t)
 	}
-	fmt.Println("\napplyfunctionadone")
 	return f(obj)
-}
-
-// Converts goraptor.Term (Subject, Predicate and Object) to string.
-func termStr(term goraptor.Term) string {
-	switch t := term.(type) {
-	case *goraptor.Uri:
-		return string(*t)
-	case *goraptor.Blank:
-		return string(*t)
-	case *goraptor.Literal:
-		return t.Value
-	default:
-		return ""
-	}
 }
 
 // to check if builder contains a predicate
@@ -316,21 +253,3 @@ func (b *builder) checkPredicate(pred string) bool {
 	_, ok := b.updaters[pred]
 	return ok
 }
-
-// Uri, Literal and Blank are goraptors named types
-// Return *goraptor.Uri
-func uri(uri string) *goraptor.Uri {
-	return (*goraptor.Uri)(&uri)
-}
-
-// Return *goraptor.Literal
-func literal(lit string) *goraptor.Literal {
-	return &goraptor.Literal{Value: lit}
-}
-
-// Return *goraptor.Blank from string
-func blank(b string) *goraptor.Blank {
-	return (*goraptor.Blank)(&b)
-}
-
-type updater func(goraptor.Term) error

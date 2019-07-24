@@ -1,8 +1,6 @@
 package rdf2v1
 
 import (
-	"fmt"
-
 	"github.com/deltamobile/goraptor"
 )
 
@@ -32,26 +30,10 @@ func (p *Parser) requestSpdxElement(node goraptor.Term) (*SpdxElement, error) {
 	return obj.(*SpdxElement), err
 }
 
-// func (p *Parser) checkRelatedElement(node goraptor.Term) bool {
-// 	obj, err := p.requestElementType(node, typeSpdxElement)
-// 	if err != nil {
-// 		return nil
-// 	}
-// 	return obj.(*SpdxElement), err
-// }
 func (p *Parser) MapRelationship(rel *Relationship) *builder {
 	builder := &builder{t: typeRelationship, ptr: rel}
 	builder.updaters = map[string]updater{
 		"relationshipType": update(&rel.RelationshipType),
-		// "relatedSpdxElement": func(obj goraptor.Term) error {
-		// 	pkg, err := p.requestPackage(obj)
-		// 	if err != nil {
-		// 		return err
-		// 	}
-		// 	rel.Package = append(rel.Package, pkg)
-		// 	return nil
-		// },
-		// update(&rel.RelatedSpdxElement),
 		"relatedSpdxElement": func(obj goraptor.Term) error {
 			_, ok := builder.updaters["http://spdx.org/rdf/terms#relatedSpdxElement"]
 			if ok {
@@ -69,8 +51,6 @@ func (p *Parser) MapRelationship(rel *Relationship) *builder {
 					return err
 				}
 
-			} else {
-				fmt.Println("WWWWWWWW")
 			}
 			return nil
 		},

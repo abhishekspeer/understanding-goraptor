@@ -32,7 +32,7 @@ func main() {
 	fmt.Println("===================================================\n")
 	fmt.Println("Some Information Printed from the Document Returned\n")
 	fmt.Println("===================================================\n")
-	fmt.Println(sp)
+	fmt.Printf("%#v", sp)
 	// fmt.Printf("Relationship: %v\n\n", spdxdoc.Relationship[0].Package[0])
 	// fmt.Printf("Relationship: %#v\n\n", spdxdoc.Relationship[3].File[0])
 	// fmt.Printf("Relationship: %v\n\n", spdxdoc.Relationship[2])
@@ -63,7 +63,7 @@ func main() {
 }
 func Parse(input string) (*rdf2v1.Document, *rdf2v1.Snippet, error) {
 	parser := rdf2v1.NewParser(input)
-	defer fmt.Println("RDF Doc PARSED")
+	defer fmt.Println("RDF Document parsed successfully.\n")
 	defer parser.Free()
 	return parser.Parse()
 }

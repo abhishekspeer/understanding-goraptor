@@ -7,6 +7,8 @@ import (
 	"github.com/deltamobile/goraptor"
 )
 
+type updater func(goraptor.Term) error
+
 // takes in string updates string
 func update(val *ValueStr) updater {
 	key := false

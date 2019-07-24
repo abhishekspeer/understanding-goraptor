@@ -129,19 +129,20 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 	return builder
 }
 
-func (p *Parser) MapPackageVerificationCode(pkgvc *PackageVerificationCode) *builder {
-	builder := &builder{t: typePackageVerificationCode, ptr: pkgvc}
-	builder.updaters = map[string]updater{
-		"packageVerificationCodeValue":        update(&pkgvc.PackageVerificationCode),
-		"packageVerificationCodeExcludedFile": update(&pkgvc.PackageVerificationCodeExcludedFile),
-	}
-	return builder
-}
 func (p *Parser) MapPackageRelationship(pkgrel *PackageRelationship) *builder {
 	builder := &builder{t: typePackageVerificationCode, ptr: pkgrel}
 	builder.updaters = map[string]updater{
 		"relationshipType":   update(&pkgrel.Relationshiptype),
 		"relatedSpdxElement": update(&pkgrel.Relationshiptype),
+	}
+	return builder
+}
+
+func (p *Parser) MapPackageVerificationCode(pkgvc *PackageVerificationCode) *builder {
+	builder := &builder{t: typePackageVerificationCode, ptr: pkgvc}
+	builder.updaters = map[string]updater{
+		"packageVerificationCodeValue":        update(&pkgvc.PackageVerificationCode),
+		"packageVerificationCodeExcludedFile": update(&pkgvc.PackageVerificationCodeExcludedFile),
 	}
 	return builder
 }
