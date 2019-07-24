@@ -70,9 +70,9 @@ func (p *Parser) MapRelationship(rel *Relationship) *builder {
 				}
 
 			} else {
-				fmt.Println("WWWWWWWWW")
+				fmt.Println("WWWWWWWW")
 			}
-			return err
+			return nil
 		},
 	}
 	return builder
