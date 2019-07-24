@@ -17,11 +17,12 @@ func main() {
 		fmt.Printf("  print its contents.\n")
 		return
 	}
-	var spdxdoc *rdf2v1.Document
+	// var spdxdoc *rdf2v1.Document
+	// var sp *rdf2v1.Snippet
 	var err error
 
 	input := args[1]
-	spdxdoc, err = Parse(input)
+	spdxdoc, sp, err := Parse(input)
 
 	if err != nil {
 		fmt.Println("Parsing Error")
@@ -31,9 +32,12 @@ func main() {
 	fmt.Println("===================================================\n")
 	fmt.Println("Some Information Printed from the Document Returned\n")
 	fmt.Println("===================================================\n")
-	fmt.Printf("Relationship: %v\n\n", *(spdxdoc.Relationship[0]))
-	fmt.Printf("Relationship[2]: %v\n\n", spdxdoc.Relationship[2])
-	fmt.Printf("SpecVersion: %v\n\n", spdxdoc.SPDXVersion.Val)
+	fmt.Println(sp)
+	// fmt.Printf("Relationship: %v\n\n", spdxdoc.Relationship[0].Package[0])
+	// fmt.Printf("Relationship: %#v\n\n", spdxdoc.Relationship[3].File[0])
+	// fmt.Printf("Relationship: %v\n\n", spdxdoc.Relationship[2])
+	// fmt.Printf("Relationship: %v\n\n", spdxdoc.Relationship[3])
+	// fmt.Printf("SpecVersion: %v\n\n", spdxdoc.SPDXVersion.Val)
 	fmt.Printf("CreationInfo Creator: %v\n\n", spdxdoc.CreationInfo.Creator[0])
 	fmt.Printf("CreationInfo Create:%v\n\n", spdxdoc.CreationInfo.Create)
 	fmt.Printf("DocumentName: %v\n\n", spdxdoc.DocumentName.Val)
@@ -51,10 +55,13 @@ func main() {
 		DocumentName:    spdxdoc.DocumentName.Val,
 		DocumentComment: spdxdoc.DocumentComment.Val,
 	}
-	fmt.Printf("Creationinfo2v1: %v\n\n", ci2v1)
+	fmt.Println("===================================================")
+	fmt.Println("CreationInfo2_1\n")
+	fmt.Println("===================================================")
+	fmt.Printf("%#v\n\n", ci2v1)
 
 }
-func Parse(input string) (*rdf2v1.Document, error) {
+func Parse(input string) (*rdf2v1.Document, *rdf2v1.Snippet, error) {
 	parser := rdf2v1.NewParser(input)
 	defer fmt.Println("RDF Doc PARSED")
 	defer parser.Free()
