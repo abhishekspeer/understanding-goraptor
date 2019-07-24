@@ -1,6 +1,8 @@
 package rdf2v1
 
 import (
+	"fmt"
+
 	"github.com/deltamobile/goraptor"
 )
 
@@ -35,9 +37,11 @@ type ConjunctiveLicenseSet struct {
 	ExtractedLicensingInfo *ExtractedLicensingInfo
 }
 
+// ERROR
 func (p *Parser) requestFile(node goraptor.Term) (*File, error) {
 	obj, err := p.requestElementType(node, typeFile)
 	if err != nil {
+		fmt.Println("TTTTTTTTT")
 		return nil, err
 	}
 	return obj.(*File), err

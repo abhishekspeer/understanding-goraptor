@@ -53,9 +53,10 @@ func (p *Parser) Parse() (*Document, error) {
 	// PARSE FILE method - Takes the file location as an input
 	ch := p.Rdfparser.ParseFile(p.Input, "")
 	var err error
-	fmt.Println("PARSEFILE APPLIED")
 
 	for statement := range ch {
+		fmt.Println("PARSEFILE APPLIED")
+		fmt.Printf("%v", statement)
 		if err = p.ProcessTriple(statement); err != nil {
 			fmt.Println(err)
 			break
@@ -121,16 +122,23 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 }
 
 func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
-	// fmt.Printf("\n///SetNodeType\n")
 	nodeStr := termStr(node)
 	// fmt.Printf("\nNODESTR:" + nodeStr + "\n")
 	builder, ok := p.Index[nodeStr] ////
-	// fmt.Println(ok)
+	fmt.Printf("\n///SetNodeType\n")
+	fmt.Println(ok)
+	fmt.Println("okieeeees")
 
 	if ok {
 		if !checkRaptorTypes(builder.t, t) && builder.checkPredicate("ns:type") {
 			//apply the type change
+			fmt.Printf("\ncheckRaptorTypes\n")
+			fmt.Println(builder.t)
+			fmt.Println(t)
+			fmt.Println(builder.checkPredicate("ns:type"))
+
 			if err := builder.apply(uri("ns:type"), t); err != nil {
+				fmt.Println(err)
 				return nil, err
 			}
 			return builder.ptr, nil

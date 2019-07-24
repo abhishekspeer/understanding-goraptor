@@ -1,15 +1,18 @@
 package rdf2v1
 
-import "github.com/deltamobile/goraptor"
+import (
+	"github.com/deltamobile/goraptor"
+)
 
 type Relationship struct {
-	RelationshipType ValueStr
-	SpdxElement      *SpdxElement
-	File             *File
-	Package          []*Package
-	// RelationshipComment string
+	RelationshipType   ValueStr
+	Package            []*Package
+	File               []*File
+	relatedSpdxElement ValueStr
+	SpdxElement        *SpdxElement
 }
 type SpdxElement struct {
+	SpdxElement ValueStr
 }
 
 func (p *Parser) requestRelationship(node goraptor.Term) (*Relationship, error) {
@@ -39,12 +42,18 @@ func (p *Parser) MapRelationship(rel *Relationship) *builder {
 		// 	rel.Package = append(rel.Package, pkg)
 		// 	return nil
 		// },
+		// update(&rel.RelatedSpdxElement),
 		"relatedSpdxElement": func(obj goraptor.Term) error {
+			pkg, _ := p.requestPackage(obj)
+			rel.Package = append(rel.Package, pkg)
 			file, _ := p.requestFile(obj)
-			rel.File = file
+			rel.File = append(rel.File, file)
+			se, _ := p.requestSpdxElement(obj)
+			rel.SpdxElement = se
 			return nil
 		},
 	}
+
 	return builder
 }
 

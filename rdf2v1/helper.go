@@ -43,5 +43,7 @@ var rdfPrefixes = map[string]string{
 	"rdf:":  "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
 	"doap:": "http://usefulinc.com/ns/doap#",
 	"rdfs:": "http://www.w3.org/2000/01/rdf-schema#",
-	"":      baseUri,
+	"j.0:":  "http://www.w3.org/2009/pointers#",
+	// "":      "http://spdx.org/spdxdocs/spdx-example-444504E0-4F89-41D3-9A0C-0305E82C3301#",
+	"": baseUri,
 }

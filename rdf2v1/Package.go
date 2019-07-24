@@ -10,20 +10,24 @@ type Package struct {
 	PackageFileName             ValueStr
 	PackageDownloadLocation     ValueStr
 	PackageVerificationCode     *PackageVerificationCode
-	PackageChecksum             *Checksum
+	PackageChecksum             []*Checksum
 	PackageLicenseComments      ValueStr
-	PackageLicenseConcluded     []ValueStr
+	DisjunctiveLicenseSet       *DisjunctiveLicenseSet
 	PackageLicenseInfoFromFiles []ValueStr
 	PackageLicenseDeclared      ValueStr
 	PackageCopyrightText        ValueStr
-	Files                       []*File
-	SnippetRelationship         *Relationship
+	File                        []*File
+	PackageRelationship         *PackageRelationship
 	PackageHomepage             ValueStr
 	PackageSupplier             ValueStr
 }
 type PackageVerificationCode struct {
 	PackageVerificationCode             ValueStr
 	PackageVerificationCodeExcludedFile ValueStr
+}
+type PackageRelationship struct {
+	Relationshiptype   ValueStr
+	relatedSpdxElement ValueStr
 }
 
 func (p *Parser) requestPackage(node goraptor.Term) (*Package, error) {
@@ -32,6 +36,13 @@ func (p *Parser) requestPackage(node goraptor.Term) (*Package, error) {
 		return nil, err
 	}
 	return obj.(*Package), err
+}
+func (p *Parser) requestPackageRelationship(node goraptor.Term) (*PackageRelationship, error) {
+	obj, err := p.requestElementType(node, typeRelationship)
+	if err != nil {
+		return nil, err
+	}
+	return obj.(*PackageRelationship), err
 }
 
 func (p *Parser) requestPackageVerificationCode(node goraptor.Term) (*PackageVerificationCode, error) {
@@ -56,11 +67,18 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 		},
 		"checksum": func(obj goraptor.Term) error {
 			pkgcksum, err := p.requestChecksum(obj)
-			pkg.PackageChecksum = pkgcksum
+			if err != nil {
+				return err
+			}
+			pkg.PackageChecksum = append(pkg.PackageChecksum, pkgcksum)
 			return err
 		},
-		"licenseComments":      update(&pkg.PackageLicenseComments),
-		"licenseConcluded":     updateList(&pkg.PackageLicenseConcluded),
+		"licenseComments": update(&pkg.PackageLicenseComments),
+		"licenseConcluded": func(obj goraptor.Term) error {
+			pkgdls, err := p.requestDisjunctiveLicenseSet(obj)
+			pkg.DisjunctiveLicenseSet = pkgdls
+			return err
+		},
 		"licenseDeclared":      update(&pkg.PackageLicenseDeclared),
 		"licenseInfoFromFiles": updateList(&pkg.PackageLicenseInfoFromFiles),
 		"copyrightText":        update(&pkg.PackageCopyrightText),
@@ -69,17 +87,16 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 			if err != nil {
 				return err
 			}
-			pkg.Files = append(pkg.Files, file)
+			pkg.File = append(pkg.File, file)
 			return nil
 		},
 		"relationship": func(obj goraptor.Term) error {
-			rel, err := p.requestRelationship(obj)
-			pkg.SnippetRelationship = rel
+			rel, err := p.requestPackageRelationship(obj)
+			pkg.PackageRelationship = rel
 			return err
 		},
 		"doap:homepage": update(&pkg.PackageHomepage),
 		"supplier":      update(&pkg.PackageSupplier),
-		// "externalRef":
 	}
 	return builder
 }
@@ -89,6 +106,14 @@ func (p *Parser) MapPackageVerificationCode(pkgvc *PackageVerificationCode) *bui
 	builder.updaters = map[string]updater{
 		"packageVerificationCodeValue":        update(&pkgvc.PackageVerificationCode),
 		"packageVerificationCodeExcludedFile": update(&pkgvc.PackageVerificationCodeExcludedFile),
+	}
+	return builder
+}
+func (p *Parser) MapPackageRelationship(pkgrel *PackageRelationship) *builder {
+	builder := &builder{t: typePackageVerificationCode, ptr: pkgrel}
+	builder.updaters = map[string]updater{
+		"relationshipType":   update(&pkgrel.Relationshiptype),
+		"relatedSpdxElement": update(&pkgrel.Relationshiptype),
 	}
 	return builder
 }
