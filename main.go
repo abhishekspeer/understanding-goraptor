@@ -17,7 +17,7 @@ func main() {
 		fmt.Printf("  print its contents.\n")
 		return
 	}
-	// var spdxdoc *rdf2v1.Document
+	var spdxdoc *rdf2v1.Document
 	// var sp *rdf2v1.Snippet
 	var err error
 
@@ -34,7 +34,7 @@ func main() {
 	fmt.Println("===================================================\n")
 	fmt.Println("%#v\n\n", sp)
 	// fmt.Printf("Relationship: %v\n\n", spdxdoc.Relationship[0].Package[0])
-	// fmt.Printf("Relationship: %#v\n\n", spdxdoc.Relationship[3].File[0])
+	fmt.Printf("\nRelationship: %v\n\n", spdxdoc.Relationship[3].File)
 	// fmt.Printf("Relationship: %v\n\n", spdxdoc.Relationship[2])
 	// fmt.Printf("Relationship: %v\n\n", spdxdoc.Relationship[3])
 	// fmt.Printf("SpecVersion: %v\n\n", spdxdoc.SPDXVersion.Val)
@@ -43,11 +43,7 @@ func main() {
 	fmt.Printf("DocumentName: %v\n\n", spdxdoc.DocumentName.Val)
 	fmt.Printf("DocumentComment: %v\n\n", spdxdoc.DocumentComment)
 
-	iniSpec := spdxdoc.SPDXVersion
-	intDi := spdxdoc.DataLicense
-	intCi := spdxdoc.CreationInfo
-	intAnn := spdxdoc.Annotation
-	iniEdr := spdxdoc.ExternalDocumentRef
+	// iniEdr := spdxdoc.ExternalDocumentRef
 	// intRel := spdxdoc.Relationship
 	stdRel := make([]spdx.Relationship2_1, 4)
 	fmt.Printf("Docummment: %v\n\n", stdRel[0])
@@ -59,36 +55,15 @@ func main() {
 	// }
 	// intRel := spdxdoc.Relationship
 
-	stdCi := spdx.CreationInfo2_1{
-
-		SPDXVersion:                iniSpec.Val,
-		DataLicense:                intDi.Val,
-		DocumentName:               spdxdoc.DocumentName.Val,
-		ExternalDocumentReferences: iniEdr.ExternalDocumentId.L(),
-		Created:                    intCi.Create.Val(),
-		CreatorComment:             intCi.Comment.V(),
-		DocumentComment:            spdxdoc.DocumentComment.V(),
-	}
-	fmt.Println("===================================================")
-	fmt.Println("CreationInfo2_1\n")
-	fmt.Println("===================================================")
-	fmt.Printf("%#v\n\n", stdCi.ExternalDocumentReferences)
-
-	stdAnn := spdx.Annotation2_1{
-		Annotator:         intAnn.Annotator.Val,
-		AnnotatorType:     intAnn.AnnotationType.Val,
-		AnnotationDate:    intAnn.AnnotationDate.Val(),
-		AnnotationComment: intAnn.AnnotationComment.Val,
-	}
-	fmt.Println("===================================================")
-	fmt.Println("Annotation2_1\n")
-	fmt.Println("===================================================")
-	fmt.Printf("%#v\n\n", stdAnn)
-
 	// stdRel := spdx.Relationship2_1{
 	// 	Relationship: intRel.RelationshipType.Val,
 	// 	// RelationshipComment:
 	// }
+
+	// FINAL TRANSLATED DOCUMENT
+	doc2v1 := transferDocument(spdxdoc)
+	fmt.Printf("%T", doc2v1)
+
 }
 
 func Parse(input string) (*rdf2v1.Document, *rdf2v1.Snippet, error) {
@@ -96,4 +71,18 @@ func Parse(input string) (*rdf2v1.Document, *rdf2v1.Snippet, error) {
 	defer fmt.Println("RDF Document parsed successfully.\n")
 	defer parser.Free()
 	return parser.Parse()
+}
+
+func transferDocument(spdxdoc *rdf2v1.Document) *spdx.Document2_1 {
+
+	stdDoc := spdx.Document2_1{
+
+		// CreationInfo: transferCreationInfo(spdxdoc),
+		// Packages:      transferPackages(spdxdoc),
+		// OtherLicenses: transferOtherLicenses(spdxdoc),
+		// Relationships: transferRelationships(spdxdoc),
+		// Annotations:   transferAnnotation(spdxdoc),
+		// Reviews:       transferReview(spdxdoc),
+	}
+	return &stdDoc
 }
