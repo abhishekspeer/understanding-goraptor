@@ -18,11 +18,11 @@ func main() {
 		return
 	}
 	var spdxdoc *rdf2v1.Document
-	// var sp *rdf2v1.Snippet
+	var sp *rdf2v1.Snippet
 	var err error
 
 	input := args[1]
-	spdxdoc, sp, err := Parse(input)
+	spdxdoc, sp, err = Parse(input)
 
 	if err != nil {
 		fmt.Println("Parsing Error")
@@ -51,13 +51,13 @@ func main() {
 	fmt.Println("FINAL TRANSLATED DOCUMENT")
 	// var doc2v1 *spdx.Document2_1
 	doc2v1 := TransferDocument(spdxdoc)
-	fmt.Printf("%v", doc2v1.OtherLicenses[0])
+	fmt.Printf("%T", doc2v1.Packages[0].Files[0])
 
 }
 
 func Parse(input string) (*rdf2v1.Document, *rdf2v1.Snippet, error) {
 	parser := rdf2v1.NewParser(input)
-	defer fmt.Println("RDF Document parsed successfully.\n")
+	defer fmt.Printf("RDF Document parsed successfully.\n")
 	defer parser.Free()
 	return parser.Parse()
 }
@@ -80,7 +80,7 @@ func TransferDocument(spdxdoc *rdf2v1.Document) *spdx.Document2_1 {
 	stdDoc := spdx.Document2_1{
 
 		CreationInfo:  transferCreationInfo(spdxdoc),
-		// Packages:      transferPackages(spdxdoc),
+		Packages:      transferPackages(spdxdoc),
 		OtherLicenses: transferOtherLicenses(spdxdoc),
 		// Relationships: transferRelationships(spdxdoc),
 		// Annotations:   transferAnnotation(spdxdoc),

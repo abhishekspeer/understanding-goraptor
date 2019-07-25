@@ -43,3 +43,12 @@ func ExtractChecksumAlgo(str string) string {
 	str = strings.ToUpper(str)
 	return str
 }
+
+// Takes in the checksum, compares it's algo with a string, if matches returns the algo
+func AlgoIdentifier(cksum *Checksum, t string) string {
+	algo := ExtractChecksumAlgo(cksum.Algorithm.Val)
+	if strings.Contains(algo, t) {
+		return t
+	}
+	return ""
+}
