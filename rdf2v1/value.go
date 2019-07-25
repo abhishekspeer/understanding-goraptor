@@ -14,11 +14,7 @@ type Value interface {
 
 // string
 type ValueStr struct {
-	Val  string
-	List []string
-}
-type ValueStrList struct {
-	Val []ValueStr
+	Val string
 }
 
 // ValueStr from string
@@ -27,15 +23,8 @@ func Str(v string) ValueStr { return ValueStr{} }
 // string from ValueStr
 func (v ValueStr) V() string { return v.Val }
 
-func (v ValueStr) L() []string { return v.List }
+// func (v ValueList) L() []string {
 
-// var str []string
-// for _, i := range v.List {
-// 	str = append(str, i.V())
-// 	return nil
-// }
-// return str
-// }
 func (v ValueStr) Equal(w ValueStr) bool { return v.Val == w.Val }
 
 // bool
@@ -101,4 +90,12 @@ func ValueDateNew(val string) ValueDate {
 	var valuedate ValueDate
 	(&valuedate).SetValue(val)
 	return valuedate
+}
+
+func ValueList(list []ValueStr) []string {
+	var str []string
+	for _, v := range list {
+		str = append(str, v.Val)
+	}
+	return str
 }
