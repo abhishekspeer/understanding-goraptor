@@ -163,21 +163,24 @@ func transferOtherLicenses(spdxdoc *rdf2v1.Document) []*spdx.OtherLicense2_1 {
 	return &stdOl
 }
 
-func transferArtifactOfProject(spdxdoc *rdf2v1.Document) *spdx.ArtifactOfProject2_1 {
-	// var stdAop spdx.ArtifactOfProject2_1
+func transferArtifactOfProject(spdxdoc *rdf2v1.Document) []*spdx.ArtifactOfProject2_1 {
+	var arrAop []*spdx.ArtifactOfProject2_1
 	for i, _ := range spdxdoc.Relationship {
 		k := spdxdoc.Relationship[i]
 		for _, b := range k.File {
 			file := b
+			for _, a := range file.Project {
 
-			stdAop := spdx.ArtifactOfProject2_1{
-				Name:     file.Project.Name.Val,
-				HomePage: file.Project.Homepage.Val,
-				URI:      "",
+				stdAop := spdx.ArtifactOfProject2_1{
+					Name:     a.Name.Val,
+					HomePage: a.Homepage.Val,
+					URI:      "",
+				}
+
+				pointer := &stdAop
+				arrAop = append(arrAop, pointer)
 			}
-
-			return &stdAop
 		}
 	}
-	return nil
+	return arrAop
 }

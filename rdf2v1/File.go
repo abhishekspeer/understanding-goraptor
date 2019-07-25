@@ -15,10 +15,10 @@ type File struct {
 	FileContributor        []ValueStr
 	FileComment            ValueStr
 	FileLicenseComments    ValueStr
-	FileType               ValueStr
+	FileType               []ValueStr
 	FileNoticeText         ValueStr
 	Annotation             *Annotation
-	Project                *Project
+	Project                []*Project
 	SnippetLicense         *License
 	FileDependency         *File
 	FileRelationship       *Relationship
@@ -59,7 +59,7 @@ func (p *Parser) MapFile(file *File) *builder {
 			file.FileChecksum = cksum
 			return err
 		},
-		"fileType": updateTrimPrefix(baseUri, &file.FileType),
+		"fileType": updateList(&file.FileType),
 		"licenseConcluded": func(obj goraptor.Term) error {
 			lic, err := p.requestLicense(obj)
 			file.SnippetLicense = lic
@@ -87,7 +87,10 @@ func (p *Parser) MapFile(file *File) *builder {
 		},
 		"artifactOf": func(obj goraptor.Term) error {
 			pro, err := p.requestProject(obj)
-			file.Project = pro
+			if err != nil {
+				return err
+			}
+			file.Project = append(file.Project, pro)
 			return err
 		},
 		"fileDependency": func(obj goraptor.Term) error {
