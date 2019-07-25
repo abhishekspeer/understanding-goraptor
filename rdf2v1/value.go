@@ -79,11 +79,11 @@ func ValueCreatorNew(val string) ValueCreator {
 }
 
 type ValueDate struct {
-	val string
+	Val string
 }
 
-func (d ValueDate) Val() string        { return d.val }
-func (d *ValueDate) SetValue(v string) { d.val = v }
+func (d ValueDate) ValDate() string    { return d.Val }
+func (d *ValueDate) SetValue(v string) { d.Val = v }
 
 // New ValueDate.
 func ValueDateNew(val string) ValueDate {
