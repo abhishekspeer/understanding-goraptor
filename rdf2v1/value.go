@@ -5,20 +5,37 @@ import (
 	"strings"
 )
 
-func Str_ValStr(v string) ValueStr { return ValueStr{v} }
+func Str_ValStr(v string) ValueStr { return ValueStr{} }
 
 // interface for elements
 type Value interface {
-	Val() string
+	V() string
 }
 
 // string
 type ValueStr struct {
-	Val string
+	Val  string
+	List []string
+}
+type ValueStrList struct {
+	Val []ValueStr
 }
 
-func Str(v string) ValueStr              { return ValueStr{v} }
-func (v ValueStr) V() string             { return v.Val }
+// ValueStr from string
+func Str(v string) ValueStr { return ValueStr{} }
+
+// string from ValueStr
+func (v ValueStr) V() string { return v.Val }
+
+func (v ValueStr) L() []string { return v.List }
+
+// var str []string
+// for _, i := range v.List {
+// 	str = append(str, i.V())
+// 	return nil
+// }
+// return str
+// }
 func (v ValueStr) Equal(w ValueStr) bool { return v.Val == w.Val }
 
 // bool
@@ -42,7 +59,7 @@ type ValueCreator struct {
 }
 
 // Get the original value of this ValueCreator
-func (c ValueCreator) Val() string { return c.val }
+func (c ValueCreator) V() string { return c.val }
 
 // Get the `what` part from the format `what: name (email)`.
 func (c ValueCreator) What() string { return c.what }
@@ -76,7 +93,7 @@ type ValueDate struct {
 	val string
 }
 
-func (d ValueDate) V() string          { return d.val }
+func (d ValueDate) Val() string        { return d.val }
 func (d *ValueDate) SetValue(v string) { d.val = v }
 
 // New ValueDate.
