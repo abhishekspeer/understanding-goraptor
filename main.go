@@ -104,7 +104,7 @@ func transferCreationInfo(spdxdoc *rdf2v1.Document) *spdx.CreationInfo2_1 {
 		DocumentName:               spdxdoc.DocumentName.Val,
 		DocumentNamespace:          "",
 		ExternalDocumentReferences: listExtDocRef,
-		LicenseListVersion:         "",
+		LicenseListVersion:         spdxdoc.CreationInfo.LicenseListVersion.Val,
 		Created:                    spdxdoc.CreationInfo.Create.Val,
 		CreatorComment:             spdxdoc.CreationInfo.Comment.Val,
 		DocumentComment:            spdxdoc.DocumentComment.Val,
@@ -151,9 +151,9 @@ func transferFile(spdxdoc *rdf2v1.Document) []*spdx.File2_1 {
 				FileName:           file.FileName.Val,
 				FileSPDXIdentifier: "",
 				FileType:           rdf2v1.ValueList(file.FileType),
-				FileChecksumSHA1:   "", // DISCUSS
-				FileChecksumSHA256: "",
-				FileChecksumMD5:    "",
+				FileChecksumSHA1:   AlgoIdentifier(pkg.Checksum, "SHA1"),, // DISCUSS
+				FileChecksumSHA256: AlgoIdentifier(pkg.Checksum, "SHA256"),,
+				FileChecksumMD5:    AlgoIdentifier(pkg.Checksum, "MD5"),,
 				// LicenseConcluded:   "", //DISCUSS
 				LicenseInfoInFile:  rdf2v1.ValueList(file.LicenseInfoInFile),
 				LicenseComments:    file.FileLicenseComments.V(),
@@ -199,9 +199,9 @@ func transferPackages(spdxdoc *rdf2v1.Document) []*spdx.Package2_1 {
 				// IsFilesAnalyzedTagPresent:          "",
 				PackageVerificationCode:             pkg.Annotation.AnnotationComment.Val,
 				PackageVerificationCodeExcludedFile: "", //DISCUSS
-				PackageChecksumSHA1:                 pkg.PackageName.Val,
-				PackageChecksumSHA256:               "",
-				PackageChecksumMD5:                  "",
+				PackageChecksumSHA1:                 AlgoIdentifier(pkg.Checksum, "SHA1"),
+				PackageChecksumSHA256:               AlgoIdentifier(pkg.Checksum, "SHA256"),
+				PackageChecksumMD5:                  AlgoIdentifier(pkg.Checksum, "MD5"),
 				PackageHomePage:                     "",
 				PackageSourceInfo:                   "",
 				PackageLicenseConcluded:             "",
