@@ -12,15 +12,16 @@ type Formatter struct {
 	fileIds    map[string]goraptor.Term
 }
 
+// Initialses a new Formatter Interface
 func NewFormatter(output *os.File, format string) *Formatter {
 
-	// Initialses a new goraptor.NewSerializer
+	// a new goraptor.NewSerializer
 	s := goraptor.NewSerializer(format)
 
 	s.StartStream(output, baseUri)
 
 	// goraptor.NamespaceHandler:
-	// A handler function to be called when the parser encounters a namespace.
+	// handler function to be called when the parser encounters a namespace.
 	s.SetNamespace("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 	s.SetNamespace("", "http://spdx.org/rdf/terms#")
 	s.SetNamespace("rdfs", "http://www.w3.org/2000/01/rdf-schema#")
@@ -32,4 +33,10 @@ func NewFormatter(output *os.File, format string) *Formatter {
 		nodeIds:    make(map[string]int),
 		fileIds:    make(map[string]goraptor.Term),
 	}
+}
+
+// Free the serializer
+func (f *Formatter) Close() {
+	f.serializer.EndStream()
+	f.serializer.Free()
 }
