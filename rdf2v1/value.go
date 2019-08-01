@@ -5,8 +5,6 @@ import (
 	"strings"
 )
 
-func Str_ValStr(v string) ValueStr { return ValueStr{} }
-
 // interface for elements
 type Value interface {
 	V() string
@@ -18,7 +16,7 @@ type ValueStr struct {
 }
 
 // ValueStr from string
-func Str(v string) ValueStr { return ValueStr{} }
+func Str(v string) ValueStr { return ValueStr{v} }
 
 // string from ValueStr
 func (v ValueStr) V() string { return v.Val }
