@@ -31,3 +31,15 @@ func (p *Parser) MapCreationInfo(ci *CreationInfo) *builder {
 	}
 	return builder
 }
+
+func MatchCreator(ci *CreationInfo, creator string) []string {
+
+	var val []string
+	for _, c := range ValueList(ci.Creator) {
+		subkey, subvalue, _ := extractSubs(c)
+		if subkey == creator {
+			val = append(val, subvalue)
+		}
+	}
+	return val
+}
