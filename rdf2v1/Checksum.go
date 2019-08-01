@@ -52,11 +52,3 @@ func AlgoIdentifier(cksum *Checksum, t string) string {
 	}
 	return ""
 }
-
-func ChecksumIdentifier(cksum *Checksum, t string) string {
-	algo := ExtractChecksumAlgo(cksum.Algorithm.Val)
-	if strings.Contains(algo, t) {
-		return t
-	}
-	return ""
-}

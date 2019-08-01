@@ -19,6 +19,11 @@ var rdfPrefixes = map[string]string{
 	"":      baseUri,
 }
 
+// simple key value pair struct
+type pair struct {
+	key, val string
+}
+
 // Converts typeX to its full URI accorinding to rdfPrefixes,
 // if no : is found in the string it'll assume it as "spdx:" and expand to baseUri
 func prefix(k string) *goraptor.Uri {

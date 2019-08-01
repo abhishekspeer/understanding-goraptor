@@ -151,9 +151,9 @@ func transferFile(spdxdoc *rdf2v1.Document) []*spdx.File2_1 {
 				FileName:           file.FileName.Val,
 				FileSPDXIdentifier: "",
 				FileType:           rdf2v1.ValueList(file.FileType),
-				FileChecksumSHA1:   AlgoIdentifier(pkg.Checksum, "SHA1"),, // DISCUSS
-				FileChecksumSHA256: AlgoIdentifier(pkg.Checksum, "SHA256"),,
-				FileChecksumMD5:    AlgoIdentifier(pkg.Checksum, "MD5"),,
+				FileChecksumSHA1:   rdf2v1.AlgoIdentifier(file.FileChecksum, "SHA1"), // DISCUSS
+				FileChecksumSHA256: rdf2v1.AlgoIdentifier(file.FileChecksum, "SHA256"),
+				FileChecksumMD5:    rdf2v1.AlgoIdentifier(file.FileChecksum, "MD5"),
 				// LicenseConcluded:   "", //DISCUSS
 				LicenseInfoInFile:  rdf2v1.ValueList(file.LicenseInfoInFile),
 				LicenseComments:    file.FileLicenseComments.V(),
