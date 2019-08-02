@@ -1,6 +1,7 @@
 package rdf2v1
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/deltamobile/goraptor"
@@ -80,4 +81,48 @@ func literal(lit string) *goraptor.Literal {
 // Return *goraptor.Blank from string
 func blank(b string) *goraptor.Blank {
 	return (*goraptor.Blank)(&b)
+}
+
+func extractSubs(value string) (string, string, error) {
+	// parse the value to see if it's a valid subvalue format
+	sp := strings.SplitN(value, ":", 2)
+	if len(sp) == 1 {
+		return "", "", fmt.Errorf("invalid subvalue format for %s (no colon found)", value)
+	}
+
+	subkey := strings.TrimSpace(sp[0])
+	subvalue := strings.TrimSpace(sp[1])
+
+	return subkey, subvalue, nil
+}
+
+func ExtractValueType(value string, t string) string {
+	subkey, subvalue, _ := extractSubs(value)
+	if subkey == t {
+		return subvalue
+	}
+	return ""
+}
+func ExtractKeyValue(value string, sub string) string {
+	// parse the value to see if it's a valid subvalue format
+	subkey, subvalue, _ := extractSubs(value)
+	if sub == "subkey" {
+		return subkey
+	} else if sub == "subvalue" {
+		return subvalue
+	} else {
+		return ""
+	}
+}
+
+func ExtractCodeAndExcludes(value string) (string, string) {
+
+	sp := strings.SplitN(value, "(excludes:", 2)
+	if len(sp) < 2 {
+		return value, ""
+	}
+	code := strings.TrimSpace(sp[0])
+	parsedSp := strings.SplitN(sp[1], ")", 2)
+	fileName := strings.TrimSpace(parsedSp[0])
+	return code, fileName
 }
