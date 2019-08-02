@@ -17,7 +17,7 @@ type File struct {
 	FileLicenseComments    ValueStr
 	FileType               []ValueStr
 	FileNoticeText         ValueStr
-	Annotation             *Annotation
+	Annotation             []*Annotation
 	Project                []*Project
 	SnippetLicense         *License
 	FileDependency         *File
@@ -82,7 +82,7 @@ func (p *Parser) MapFile(file *File) *builder {
 		"fileContributor":   updateList(&file.FileContributor),
 		"annotation": func(obj goraptor.Term) error {
 			an, err := p.requestAnnotation(obj)
-			file.Annotation = an
+			file.Annotation = append(file.Annotation, an)
 			return err
 		},
 		"artifactOf": func(obj goraptor.Term) error {
