@@ -103,6 +103,10 @@ func ExtractValueType(value string, t string) string {
 	}
 	return ""
 }
+func ExtractKey(value string) string {
+	subkey, _, _ := extractSubs(value)
+	return subkey
+}
 func ExtractKeyValue(value string, sub string) string {
 	// parse the value to see if it's a valid subvalue format
 	subkey, subvalue, _ := extractSubs(value)

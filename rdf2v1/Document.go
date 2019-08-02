@@ -1,9 +1,6 @@
 package rdf2v1
 
 import (
-	"fmt"
-	"strings"
-
 	"github.com/deltamobile/goraptor"
 )
 
@@ -118,17 +115,4 @@ func (p *Parser) MapExternalDocumentRef(edr *ExternalDocumentRef) *builder {
 	}
 	return builder
 
-}
-
-func extractDocumentInfo(value string) (string, string, error) {
-	// parse the value to see if it's a valid subvalue format
-	sp := strings.SplitN(value, "#", 2)
-	if len(sp) == 1 {
-		return "", "", fmt.Errorf("invalid subvalue format for %s (no hash found)", value)
-	}
-
-	subkey := strings.TrimSpace(sp[0])
-	subvalue := strings.TrimSpace(sp[1])
-
-	return subkey, subvalue, nil
 }

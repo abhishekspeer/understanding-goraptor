@@ -41,7 +41,7 @@ type Parser struct {
 	Index     map[string]*builder
 	Buffer    map[string][]*goraptor.Statement
 	Doc       *Document
-	Snip      *Snippet
+	Snip      []*Snippet
 }
 
 // NewParser uses goraptor.NewParser to initialse a new parser interface
@@ -55,7 +55,7 @@ func NewParser(input string) *Parser {
 	}
 }
 
-func (p *Parser) Parse() (*Document, *Snippet, error) {
+func (p *Parser) Parse() (*Document, []*Snippet, error) {
 	// PARSE FILE method - Takes the file location as an input
 	ch := p.Rdfparser.ParseFile(p.Input, "")
 	var err error
@@ -158,6 +158,7 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 
 	case t.Equals(typeExternalRef):
 		builder = p.MapExternalRef(new(ExternalRef))
+
 	case t.Equals(typeReferenceType):
 		builder = p.MapReferenceType(new(ReferenceType))
 
@@ -168,8 +169,7 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 		builder = p.MapProject(new(Project))
 
 	case t.Equals(typeSnippet):
-		p.Snip = new(Snippet)
-		builder = p.MapSnippet(p.Snip)
+		builder = p.MapSnippet(new(Snippet))
 
 	case t.Equals(typeSpdxElement):
 		builder = p.MapSpdxElement(new(SpdxElement))

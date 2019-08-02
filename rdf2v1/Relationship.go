@@ -5,11 +5,12 @@ import (
 )
 
 type Relationship struct {
-	RelationshipType   ValueStr
-	Package            []*Package
-	File               []*File
-	relatedSpdxElement ValueStr
-	SpdxElement        *SpdxElement
+	RelationshipType    ValueStr
+	Package             []*Package
+	File                []*File
+	relatedSpdxElement  ValueStr
+	SpdxElement         *SpdxElement
+	RelationshipComment ValueStr
 }
 type SpdxElement struct {
 	SpdxElement ValueStr
@@ -34,6 +35,7 @@ func (p *Parser) MapRelationship(rel *Relationship) *builder {
 	builder := &builder{t: typeRelationship, ptr: rel}
 	builder.updaters = map[string]updater{
 		"relationshipType": update(&rel.RelationshipType),
+		"rdfs:comment":     update(&rel.RelationshipComment),
 		"relatedSpdxElement": func(obj goraptor.Term) error {
 			_, ok := builder.updaters["http://spdx.org/rdf/terms#relatedSpdxElement"]
 			if ok {

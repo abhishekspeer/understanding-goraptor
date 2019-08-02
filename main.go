@@ -18,7 +18,7 @@ func main() {
 		return
 	}
 	var spdxdoc *rdf2v1.Document
-	var sp *rdf2v1.Snippet
+	var sp []*rdf2v1.Snippet
 	var err error
 
 	input := args[1]
@@ -32,7 +32,7 @@ func main() {
 	// fmt.Println("===================================================\n")
 	// fmt.Println("Some Information Printed from the Document Returned\n")
 	// fmt.Println("===================================================\n")
-	fmt.Println("%T\n\n", sp)
+	fmt.Printf("%T\n\n", sp)
 	// // fmt.Printf("Relationship: %v\n\n", spdxdoc.Relationship[0].Package[0])
 	// fmt.Printf("\nRelationship: %v\n\n", spdxdoc.Relationship[3].File)
 	// // fmt.Printf("Relationship: %v\n\n", spdxdoc.Relationship[2])
@@ -52,11 +52,11 @@ func main() {
 	// fmt.Printf("%v\n", spdxdoc.DocumentNamespace)
 	// var doc2v1 *spdx.Document2_1
 	doc2v1 := TransferDocument(spdxdoc)
-	fmt.Printf("%v\n", doc2v1.Annotations[0])
+	fmt.Printf("%#v\n", doc2v1)
 
 }
 
-func Parse(input string) (*rdf2v1.Document, *rdf2v1.Snippet, error) {
+func Parse(input string) (*rdf2v1.Document, []*rdf2v1.Snippet, error) {
 	parser := rdf2v1.NewParser(input)
 	defer fmt.Printf("RDF Document parsed successfully.\n")
 	defer parser.Free()
@@ -66,12 +66,12 @@ func TransferDocument(spdxdoc *rdf2v1.Document) *spdx.Document2_1 {
 
 	stdDoc := spdx.Document2_1{
 
-		// CreationInfo:  transferCreationInfo(spdxdoc),
-		// Packages:      transferPackages(spdxdoc),
-		// OtherLicenses: transferOtherLicenses(spdxdoc),
-		// Relationships: transferRelationships(spdxdoc),
-		Annotations: transferAnnotation(spdxdoc),
-		// Reviews:       transferReview(spdxdoc),
+		CreationInfo:  transferCreationInfo(spdxdoc),
+		Packages:      transferPackages(spdxdoc),
+		OtherLicenses: transferOtherLicenses(spdxdoc),
+		Relationships: transferRelationships(spdxdoc),
+		Annotations:   transferAnnotation(spdxdoc),
+		Reviews:       transferReview(spdxdoc),
 	}
 	return &stdDoc
 }
@@ -168,19 +168,39 @@ func transferAnnotation(spdxdoc *rdf2v1.Document) []*spdx.Annotation2_1 {
 	return arrAnn
 }
 
-// Discuss location
-// func transferReview(spdxdoc *rdf2v1.Document) *([]spdx.Review2_1) {
+func transferReview(spdxdoc *rdf2v1.Document) []*spdx.Review2_1 {
+	var arrRev []*spdx.Review2_1
+	for _, a := range spdxdoc.Review {
+		if a != nil {
+			stdRev := spdx.Review2_1{
+				Reviewer:      a.Reviewer.Val,
+				ReviewerType:  rdf2v1.ExtractKey(a.Reviewer.Val),
+				ReviewDate:    a.ReviewDate.Val,
+				ReviewComment: a.ReviewComment.Val,
+			}
+			pointer := &stdRev
+			arrRev = append(arrRev, pointer)
+		}
+	}
 
-// 	stdRev := spdx.Review2_1{
-// 		Reviewer:      spdxdoc.Review.Reviewer.Val,
-// 		ReviewerType:  "",
-// 		ReviewDate:    spdxdoc.Review.ReviewDate.Val,
-// 		ReviewComment: spdxdoc.Review.ReviewComment.Val,
-// 	}
+	return arrRev
+}
 
-// 	return &stdRev
-// }
+func transferRelationships(spdxdoc *rdf2v1.Document) []*spdx.Relationship2_1 {
+	var arrRel []*spdx.Relationship2_1
+	for _, a := range spdxdoc.Relationship {
+		if a != nil {
+			stdRel := spdx.Relationship2_1{
+				Relationship:        a.RelationshipType.Val,
+				RelationshipComment: a.RelationshipComment.Val,
+			}
+			pointer := &stdRel
+			arrRel = append(arrRel, pointer)
+		}
+	}
 
+	return arrRel
+}
 func transferFile(spdxdoc *rdf2v1.Document) []*spdx.File2_1 {
 	var arrFile []*spdx.File2_1
 	for _, a := range spdxdoc.Relationship {
@@ -197,13 +217,13 @@ func transferFile(spdxdoc *rdf2v1.Document) []*spdx.File2_1 {
 							FileChecksumSHA256: rdf2v1.AlgoIdentifier(b.FileChecksum, "SHA256"),
 							FileChecksumMD5:    rdf2v1.AlgoIdentifier(b.FileChecksum, "MD5"),
 							// LicenseConcluded:   "", //DISCUSS
-							LicenseInfoInFile: rdf2v1.ValueList(b.LicenseInfoInFile),
-							LicenseComments:   b.FileLicenseComments.V(),
-							FileCopyrightText: b.FileCopyrightText.V(),
-							// ArtifactOfProjects: transferArtifactOfProject(spdxdoc),
-							FileComment:     b.FileComment.Val,
-							FileNotice:      b.FileNoticeText.Val,
-							FileContributor: rdf2v1.ValueList(b.FileContributor),
+							LicenseInfoInFile:  rdf2v1.ValueList(b.LicenseInfoInFile),
+							LicenseComments:    b.FileLicenseComments.V(),
+							FileCopyrightText:  b.FileCopyrightText.V(),
+							ArtifactOfProjects: transferArtifactOfProject(spdxdoc),
+							FileComment:        b.FileComment.Val,
+							FileNotice:         b.FileNoticeText.Val,
+							FileContributor:    rdf2v1.ValueList(b.FileContributor),
 							// FileDependencies:   "",//DISCUSS
 							// Snippets:           "",//DISCUSS
 						}
@@ -292,25 +312,12 @@ func transferOtherLicenses(spdxdoc *rdf2v1.Document) []*spdx.OtherLicense2_1 {
 
 func transferArtifactOfProject(spdxdoc *rdf2v1.Document) []*spdx.ArtifactOfProject2_1 {
 	var arrAop []*spdx.ArtifactOfProject2_1
-	fmt.Printf("11111111111111111111%v")
 	for _, a := range spdxdoc.Relationship {
-		fmt.Printf("22222222222222%v", a)
-
 		if a != nil {
-			fmt.Printf("33333333333333333%v", a)
-
 			if a.File != nil {
-				fmt.Printf("4444444444444%v", a.File)
-
 				for _, b := range a.File {
-					fmt.Printf("55555555555555555%v", b)
-
-					if b.Project != nil {
-						fmt.Printf("6666666666666666%v", b.Project)
-
+					if b != nil {
 						for _, c := range b.Project {
-							fmt.Printf("7777777777777%v", a)
-
 							stdAop := spdx.ArtifactOfProject2_1{
 								Name:     c.Name.Val,
 								HomePage: c.Homepage.Val,
@@ -321,6 +328,7 @@ func transferArtifactOfProject(spdxdoc *rdf2v1.Document) []*spdx.ArtifactOfProje
 							arrAop = append(arrAop, pointer)
 						}
 					}
+
 				}
 			}
 		}
@@ -328,3 +336,21 @@ func transferArtifactOfProject(spdxdoc *rdf2v1.Document) []*spdx.ArtifactOfProje
 
 	return arrAop
 }
+
+// func transferSnippets(sp []*rdf2v1.Snippet) []*spdx.Snippet2_1 {
+// 	var arrSn []*spdx.Snippet2_1
+// 	for _, a := range sp {
+// 		if a != nil {
+// 			stdSn := spdx.Snippet2_1{
+// 				SnippetLicenseComments:  a.SnippetLicenseComments.Val,
+// 				SnippetCopyrightText:    a.SnippetCopyrightText.Val,
+// 				SnippetLicenseConcluded: a.SnippetLicenseConcluded.Val, //DISCUSS: Not in RDF file
+// 				SnippetComment:          a.SnippetComment.Val,
+// 				LicenseInfoInSnippet:    a.LicenseName,                 // DISCUSS: more than one fields in RDF but string in standard struct
+// 			}
+// 			pointer := &stdSn
+// 			arrSn = append(arrSn, pointer)
+// 		}
+// 	}
+// 	return arrSn
+// }
