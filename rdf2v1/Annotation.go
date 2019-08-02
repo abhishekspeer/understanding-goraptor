@@ -1,6 +1,8 @@
 package rdf2v1
 
-import "github.com/deltamobile/goraptor"
+import (
+	"github.com/deltamobile/goraptor"
+)
 
 type Annotation struct {
 	Annotator         ValueStr
