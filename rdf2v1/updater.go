@@ -36,7 +36,7 @@ func updateTrimPrefix(prefix string, ptr *ValueStr) updater {
 
 func updateList(sl *[]ValueStr) updater {
 	return func(term goraptor.Term) error {
-		*sl = append(*sl, Str_ValStr(termStr(term))) // convert Str to ValStr
+		*sl = append(*sl, Str(termStr(term))) // convert Str to ValStr
 		return nil
 	}
 }

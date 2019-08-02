@@ -10,6 +10,7 @@ type Package struct {
 	PackageFileName             ValueStr
 	PackageDownloadLocation     ValueStr
 	PackageVerificationCode     *PackageVerificationCode
+	PackageComment              ValueStr
 	PackageChecksum             []*Checksum
 	PackageLicense              *License
 	PackageLicenseComments      ValueStr
@@ -28,7 +29,7 @@ type Package struct {
 	FilesAnalyzed               ValueStr
 	PackageSummary              ValueStr
 	PackageDescription          ValueStr
-	Annotation                  *Annotation
+	Annotation                  []*Annotation
 }
 type PackageVerificationCode struct {
 	PackageVerificationCode             ValueStr
@@ -122,10 +123,10 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 		"description":   update((&pkg.PackageDescription)),
 		"annotation": func(obj goraptor.Term) error {
 			an, err := p.requestAnnotation(obj)
-			pkg.Annotation = an
+			pkg.Annotation = append(pkg.Annotation, an)
 			return err
 		},
-	}
+		"rdfs:comment": update(&pkg.PackageComment)}
 	return builder
 }
 

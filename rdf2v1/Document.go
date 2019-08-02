@@ -1,6 +1,9 @@
 package rdf2v1
 
 import (
+	"fmt"
+	"strings"
+
 	"github.com/deltamobile/goraptor"
 )
 
@@ -10,11 +13,13 @@ type Document struct {
 	CreationInfo           *CreationInfo
 	Review                 []*Review
 	DocumentName           ValueStr
+	DocumentNamespace      ValueStr
+	SPDXID                 ValueStr
 	DocumentComment        ValueStr
 	ExtractedLicensingInfo []*ExtractedLicensingInfo
 	Relationship           []*Relationship
 	License                *License
-	Annotation             *Annotation
+	Annotation             []*Annotation
 	ExternalDocumentRef    *ExternalDocumentRef
 }
 
@@ -42,7 +47,6 @@ func (p *Parser) requestExternalDocumentRef(node goraptor.Term) (*ExternalDocume
 
 func (p *Parser) MapDocument(doc *Document) *builder {
 	builder := &builder{t: typeDocument, ptr: doc}
-
 	builder.updaters = map[string]updater{
 		"specVersion": update(&doc.SPDXVersion),
 		// Example: gets CC0-1.0 from "http://spdx.org/licenses/CC0-1.0"
@@ -84,7 +88,10 @@ func (p *Parser) MapDocument(doc *Document) *builder {
 		},
 		"annotation": func(obj goraptor.Term) error {
 			an, err := p.requestAnnotation(obj)
-			doc.Annotation = an
+			if err != nil {
+				return err
+			}
+			doc.Annotation = append(doc.Annotation, an)
 			return err
 		},
 		"externalDocumentRef": func(obj goraptor.Term) error {
@@ -111,4 +118,17 @@ func (p *Parser) MapExternalDocumentRef(edr *ExternalDocumentRef) *builder {
 	}
 	return builder
 
+}
+
+func extractDocumentInfo(value string) (string, string, error) {
+	// parse the value to see if it's a valid subvalue format
+	sp := strings.SplitN(value, "#", 2)
+	if len(sp) == 1 {
+		return "", "", fmt.Errorf("invalid subvalue format for %s (no hash found)", value)
+	}
+
+	subkey := strings.TrimSpace(sp[0])
+	subvalue := strings.TrimSpace(sp[1])
+
+	return subkey, subvalue, nil
 }

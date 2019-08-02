@@ -65,7 +65,6 @@ func (p *Parser) Parse() (*Document, *Snippet, error) {
 			break
 		}
 	}
-
 	return p.Doc, p.Snip, err
 }
 

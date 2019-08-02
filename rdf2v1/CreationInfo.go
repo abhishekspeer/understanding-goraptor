@@ -32,7 +32,7 @@ func (p *Parser) MapCreationInfo(ci *CreationInfo) *builder {
 	return builder
 }
 
-func MatchCreator(ci *CreationInfo, creator string) []string {
+func ExtractCreator(ci *CreationInfo, creator string) []string {
 
 	var val []string
 	for _, c := range ValueList(ci.Creator) {
