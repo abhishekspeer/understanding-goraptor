@@ -52,7 +52,7 @@ func main() {
 	// fmt.Printf("%v\n", spdxdoc.DocumentNamespace)
 	// var doc2v1 *spdx.Document2_1
 	doc2v1 := TransferDocument(spdxdoc)
-	fmt.Printf("%v\n", doc2v1.Annotations[2])
+	fmt.Printf("%v\n", doc2v1.Annotations[0])
 
 }
 
@@ -66,7 +66,7 @@ func TransferDocument(spdxdoc *rdf2v1.Document) *spdx.Document2_1 {
 
 	stdDoc := spdx.Document2_1{
 
-		// CreationInfo: transferCreationInfo(spdxdoc),
+		// CreationInfo:  transferCreationInfo(spdxdoc),
 		// Packages:      transferPackages(spdxdoc),
 		// OtherLicenses: transferOtherLicenses(spdxdoc),
 		// Relationships: transferRelationships(spdxdoc),
@@ -92,9 +92,9 @@ func transferCreationInfo(spdxdoc *rdf2v1.Document) *spdx.CreationInfo2_1 {
 		DocumentNamespace:          "",
 		ExternalDocumentReferences: listExtDocRef,
 		LicenseListVersion:         spdxdoc.CreationInfo.LicenseListVersion.Val,
-		CreatorPersons:             rdf2v1.MatchCreator(spdxdoc.CreationInfo, "Person"),
-		CreatorOrganizations:       rdf2v1.MatchCreator(spdxdoc.CreationInfo, "Organization"),
-		CreatorTools:               rdf2v1.MatchCreator(spdxdoc.CreationInfo, "Tool"),
+		CreatorPersons:             rdf2v1.ExtractCreator(spdxdoc.CreationInfo, "Person"),
+		CreatorOrganizations:       rdf2v1.ExtractCreator(spdxdoc.CreationInfo, "Organization"),
+		CreatorTools:               rdf2v1.ExtractCreator(spdxdoc.CreationInfo, "Tool"),
 		Created:                    spdxdoc.CreationInfo.Create.Val,
 		CreatorComment:             spdxdoc.CreationInfo.Comment.Val,
 		DocumentComment:            spdxdoc.DocumentComment.Val,
@@ -106,12 +106,12 @@ func transferAnnotation(spdxdoc *rdf2v1.Document) []*spdx.Annotation2_1 {
 	var arrAnn []*spdx.Annotation2_1
 	for _, an := range spdxdoc.Annotation {
 		stdAnn := spdx.Annotation2_1{
-			Annotator:                an.Annotator.Val,
+			Annotator:                rdf2v1.ExtractKeyValue(an.Annotator.Val, "subvalue"),
+			AnnotatorType:            rdf2v1.ExtractKeyValue(an.Annotator.Val, "subkey"),
 			AnnotationType:           an.AnnotationType.Val,
 			AnnotationDate:           an.AnnotationDate.Val,
 			AnnotationComment:        an.AnnotationComment.Val,
 			AnnotationSPDXIdentifier: "",
-			AnnotatorType:            "",
 		}
 		pointer := &stdAnn
 		arrAnn = append(arrAnn, pointer)
@@ -125,12 +125,36 @@ func transferAnnotation(spdxdoc *rdf2v1.Document) []*spdx.Annotation2_1 {
 						for _, an := range b.Annotation {
 
 							stdAnn := spdx.Annotation2_1{
-								Annotator:                an.Annotator.Val,
+								Annotator:                rdf2v1.ExtractKeyValue(an.Annotator.Val, "subvalue"),
+								AnnotatorType:            rdf2v1.ExtractKeyValue(an.Annotator.Val, "subkey"),
 								AnnotationType:           an.AnnotationType.Val,
 								AnnotationDate:           an.AnnotationDate.Val,
 								AnnotationComment:        an.AnnotationComment.Val,
 								AnnotationSPDXIdentifier: "",
-								AnnotatorType:            "",
+							}
+							pointer := &stdAnn
+							arrAnn = append(arrAnn, pointer)
+						}
+					}
+				}
+			}
+		}
+
+	}
+	for _, a := range spdxdoc.Relationship {
+		if a != nil {
+			if a.File != nil {
+				for _, b := range a.File {
+					if b != nil {
+						for _, an := range b.Annotation {
+
+							stdAnn := spdx.Annotation2_1{
+								Annotator:                rdf2v1.ExtractKeyValue(an.Annotator.Val, "subvalue"),
+								AnnotatorType:            rdf2v1.ExtractKeyValue(an.Annotator.Val, "subkey"),
+								AnnotationType:           an.AnnotationType.Val,
+								AnnotationDate:           an.AnnotationDate.Val,
+								AnnotationComment:        an.AnnotationComment.Val,
+								AnnotationSPDXIdentifier: "",
 							}
 							pointer := &stdAnn
 							arrAnn = append(arrAnn, pointer)
@@ -159,32 +183,35 @@ func transferAnnotation(spdxdoc *rdf2v1.Document) []*spdx.Annotation2_1 {
 
 func transferFile(spdxdoc *rdf2v1.Document) []*spdx.File2_1 {
 	var arrFile []*spdx.File2_1
-	for i, _ := range spdxdoc.Relationship {
-		k := spdxdoc.Relationship[i]
-		for _, b := range k.File {
-			file := b
+	for _, a := range spdxdoc.Relationship {
+		if a != nil {
+			if a.File != nil {
+				for _, b := range a.File {
+					if b != nil {
+						stdFile := spdx.File2_1{
 
-			stdFile := spdx.File2_1{
-
-				FileName:           file.FileName.Val,
-				FileSPDXIdentifier: "",
-				FileType:           rdf2v1.ValueList(file.FileType),
-				FileChecksumSHA1:   rdf2v1.AlgoIdentifier(file.FileChecksum, "SHA1"), // DISCUSS
-				FileChecksumSHA256: rdf2v1.AlgoIdentifier(file.FileChecksum, "SHA256"),
-				FileChecksumMD5:    rdf2v1.AlgoIdentifier(file.FileChecksum, "MD5"),
-				// LicenseConcluded:   "", //DISCUSS
-				LicenseInfoInFile:  rdf2v1.ValueList(file.LicenseInfoInFile),
-				LicenseComments:    file.FileLicenseComments.V(),
-				FileCopyrightText:  file.FileCopyrightText.V(),
-				ArtifactOfProjects: transferArtifactOfProject(spdxdoc),
-				FileComment:        file.FileComment.Val,
-				FileNotice:         file.FileNoticeText.Val,
-				FileContributor:    rdf2v1.ValueList(file.FileContributor),
-				// FileDependencies:   "",//DISCUSS
-				// Snippets:           "",//DISCUSS
+							FileName:           b.FileName.Val,
+							FileSPDXIdentifier: "",
+							FileType:           rdf2v1.ValueList(b.FileType),
+							FileChecksumSHA1:   rdf2v1.AlgoIdentifier(b.FileChecksum, "SHA1"), // DISCUSS
+							FileChecksumSHA256: rdf2v1.AlgoIdentifier(b.FileChecksum, "SHA256"),
+							FileChecksumMD5:    rdf2v1.AlgoIdentifier(b.FileChecksum, "MD5"),
+							// LicenseConcluded:   "", //DISCUSS
+							LicenseInfoInFile: rdf2v1.ValueList(b.LicenseInfoInFile),
+							LicenseComments:   b.FileLicenseComments.V(),
+							FileCopyrightText: b.FileCopyrightText.V(),
+							// ArtifactOfProjects: transferArtifactOfProject(spdxdoc),
+							FileComment:     b.FileComment.Val,
+							FileNotice:      b.FileNoticeText.Val,
+							FileContributor: rdf2v1.ValueList(b.FileContributor),
+							// FileDependencies:   "",//DISCUSS
+							// Snippets:           "",//DISCUSS
+						}
+						pointer := &stdFile
+						arrFile = append(arrFile, pointer)
+					}
+				}
 			}
-			pointer := &stdFile
-			arrFile = append(arrFile, pointer)
 		}
 	}
 	return arrFile
@@ -193,48 +220,53 @@ func transferFile(spdxdoc *rdf2v1.Document) []*spdx.File2_1 {
 func transferPackages(spdxdoc *rdf2v1.Document) []*spdx.Package2_1 {
 	var arrPkg []*spdx.Package2_1
 	for _, a := range spdxdoc.Relationship {
-		rel := a
-		for _, b := range rel.Package {
-			pkg := b
+		if a != nil {
+			if a.Package != nil {
+				for _, b := range a.Package {
 
-			stdPkg := spdx.Package2_1{
-				// IsUnpackaged: "",
-				PackageName:           pkg.PackageName.Val,
-				PackageSPDXIdentifier: "",
-				PackageVersion:        pkg.PackageVersionInfo.Val,
-				PackageFileName:       pkg.PackageFileName.Val,
+					if b != nil {
+						stdPkg := spdx.Package2_1{
+							IsUnpackaged:          b.PackageName.Val == "",
+							PackageName:           b.PackageName.Val,
+							PackageSPDXIdentifier: "",
+							PackageVersion:        b.PackageVersionInfo.Val,
+							PackageFileName:       b.PackageFileName.Val,
 
-				PackageSupplierPerson:       "",
-				PackageSupplierOrganization: "",
-				// PackageSupplierNOASSERTION:  "",
+							PackageSupplierPerson:       rdf2v1.ExtractValueType(b.PackageSupplier.Val, "Person"),
+							PackageSupplierOrganization: rdf2v1.ExtractValueType(b.PackageSupplier.Val, "Organization"),
+							PackageSupplierNOASSERTION:  b.PackageSupplier.Val == "NOASSERTION",
 
-				PackageOriginatorPerson:       "",
-				PackageOriginatorOrganization: "",
-				// PackageOriginatorNOASSERTION:  "",
+							PackageOriginatorPerson:       rdf2v1.ExtractValueType(b.PackageOriginator.Val, "Person"),
+							PackageOriginatorOrganization: rdf2v1.ExtractValueType(b.PackageOriginator.Val, "Organization"),
+							PackageOriginatorNOASSERTION:  b.PackageOriginator.Val == "NOASSERTION",
 
-				PackageDownloadLocation: pkg.PackageDownloadLocation.Val,
-				// FilesAnalyzed:                      "",
-				// IsFilesAnalyzedTagPresent:          "",
-				// PackageVerificationCode:             pkg.Annotation.AnnotationComment.Val,
-				PackageVerificationCodeExcludedFile: "", //DISCUSS
-				// PackageChecksumSHA1:                 rdf2v1.AlgoIdentifier(pkg.PackageChecksum, "SHA1"),
-				// PackageChecksumSHA256:               rdf2v1.AlgoIdentifier(pkg.Checksum, "SHA256"),
-				// PackageChecksumMD5:                  rdf2v1.AlgoIdentifier(pkg.Checksum, "MD5"),
-				PackageHomePage:         "",
-				PackageSourceInfo:       "",
-				PackageLicenseConcluded: "",
-				// PackageLicenseInfoFromFiles: "",
-				PackageLicenseDeclared: pkg.PackageLicenseDeclared.Val,
-				PackageLicenseComments: pkg.PackageLicenseComments.Val,
-				PackageCopyrightText:   pkg.PackageCopyrightText.Val,
-				PackageSummary:         pkg.PackageSummary.Val,
-				PackageDescription:     pkg.PackageDescription.Val,
-				PackageComment:         "", //not in rdf
-				// PackageExternalReferences:   "",
-				Files: transferFile(spdxdoc),
+							PackageDownloadLocation:             b.PackageDownloadLocation.Val,
+							FilesAnalyzed:                       !(b.PackageName.Val == ""),
+							IsFilesAnalyzedTagPresent:           b.PackageName.Val == "",
+							PackageVerificationCode:             b.PackageVerificationCode.PackageVerificationCode.Val,
+							PackageVerificationCodeExcludedFile: b.PackageVerificationCode.PackageVerificationCodeExcludedFile.Val,
+							// PackageChecksumSHA1:                 rdf2v1.AlgoIdentifier(b.PackageChecksum, "SHA1"),
+							// PackageChecksumSHA256:               rdf2v1.AlgoIdentifier(b.PackageChecksumMD5, "SHA256"),
+							// PackageChecksumMD5:                  rdf2v1.AlgoIdentifier(b.PackageChecksum, "MD5"),
+							PackageHomePage:         b.PackageHomepage.Val,
+							PackageSourceInfo:       b.PackageSourceInfo.Val,
+							PackageLicenseConcluded: "",
+							// PackageLicenseInfoFromFiles: //DISCUSS
+							PackageLicenseDeclared: b.PackageLicenseDeclared.Val,
+							PackageLicenseComments: b.PackageLicenseComments.Val,
+							PackageCopyrightText:   b.PackageCopyrightText.Val,
+							PackageSummary:         b.PackageSummary.Val,
+							PackageDescription:     b.PackageDescription.Val,
+							PackageComment:         b.PackageComment.Val,
+							// PackageExternalReferences:   "", //DISCUSS
+							Files: transferFile(spdxdoc),
+						}
+
+						pointer := &stdPkg
+						arrPkg = append(arrPkg, pointer)
+					}
+				}
 			}
-			pointer := &stdPkg
-			arrPkg = append(arrPkg, pointer)
 		}
 	}
 	return arrPkg
@@ -243,37 +275,56 @@ func transferPackages(spdxdoc *rdf2v1.Document) []*spdx.Package2_1 {
 func transferOtherLicenses(spdxdoc *rdf2v1.Document) []*spdx.OtherLicense2_1 {
 	var arrOl []*spdx.OtherLicense2_1
 	for _, a := range spdxdoc.ExtractedLicensingInfo {
-		stdOl := spdx.OtherLicense2_1{
-			LicenseIdentifier: a.LicenseIdentifier.Val,
-			ExtractedText:     a.ExtractedText.Val,
-			// LicenseName:            a.LicenseName,// DISCUSS: more than one fields in RDF but string in standard struct
-			// LicenseCrossReferences: rdf2v1.ValueList(a),//DISCUSS: Not in RDF file
-			LicenseComment: a.LicenseComment.Val,
+		if a != nil {
+			stdOl := spdx.OtherLicense2_1{
+				LicenseIdentifier: a.LicenseIdentifier.Val,
+				ExtractedText:     a.ExtractedText.Val,
+				// LicenseName:            a.LicenseName,// DISCUSS: more than one fields in RDF but string in standard struct
+				// LicenseCrossReferences: rdf2v1.ValueList(a),//DISCUSS: Not in RDF file
+				LicenseComment: a.LicenseComment.Val,
+			}
+			pointer := &stdOl
+			arrOl = append(arrOl, pointer)
 		}
-		pointer := &stdOl
-		arrOl = append(arrOl, pointer)
 	}
 	return arrOl
 }
 
 func transferArtifactOfProject(spdxdoc *rdf2v1.Document) []*spdx.ArtifactOfProject2_1 {
 	var arrAop []*spdx.ArtifactOfProject2_1
-	for i, _ := range spdxdoc.Relationship {
-		k := spdxdoc.Relationship[i]
-		for _, b := range k.File {
-			file := b
-			for _, a := range file.Project {
+	fmt.Printf("11111111111111111111%v")
+	for _, a := range spdxdoc.Relationship {
+		fmt.Printf("22222222222222%v", a)
 
-				stdAop := spdx.ArtifactOfProject2_1{
-					Name:     a.Name.Val,
-					HomePage: a.Homepage.Val,
-					URI:      "",
+		if a != nil {
+			fmt.Printf("33333333333333333%v", a)
+
+			if a.File != nil {
+				fmt.Printf("4444444444444%v", a.File)
+
+				for _, b := range a.File {
+					fmt.Printf("55555555555555555%v", b)
+
+					if b.Project != nil {
+						fmt.Printf("6666666666666666%v", b.Project)
+
+						for _, c := range b.Project {
+							fmt.Printf("7777777777777%v", a)
+
+							stdAop := spdx.ArtifactOfProject2_1{
+								Name:     c.Name.Val,
+								HomePage: c.Homepage.Val,
+								URI:      "",
+							}
+
+							pointer := &stdAop
+							arrAop = append(arrAop, pointer)
+						}
+					}
 				}
-
-				pointer := &stdAop
-				arrAop = append(arrAop, pointer)
 			}
 		}
 	}
+
 	return arrAop
 }
