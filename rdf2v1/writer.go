@@ -59,6 +59,25 @@ func (f *Formatter) add(to, key, value goraptor.Term) error {
 		Object:    value,
 	})
 }
+func (f *Formatter) addTerm(to goraptor.Term, key string, value goraptor.Term) error {
+	return f.add(to, prefix(key), value)
+}
+
+func (f *Formatter) addPairs(to goraptor.Term, pairs ...pair) error {
+	for _, p := range pairs {
+		if err := f.addLiteral(to, p.key, p.val); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (f *Formatter) addLiteral(to goraptor.Term, key, value string) error {
+	if value == "" {
+		return nil
+	}
+	return f.add(to, prefix(key), &goraptor.Literal{Value: value})
+}
 
 // Close to free the serializer
 func (f *Formatter) Close() {
