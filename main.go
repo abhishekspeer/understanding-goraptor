@@ -213,7 +213,7 @@ func transferFile(spdxdoc *rdf2v1.Document) []*spdx.File2_1 {
 							FileName:           b.FileName.Val,
 							FileSPDXIdentifier: "",
 							FileType:           rdf2v1.ValueList(b.FileType),
-							FileChecksumSHA1:   rdf2v1.AlgoIdentifier(b.FileChecksum, "SHA1"), // DISCUSS
+							FileChecksumSHA1:   rdf2v1.AlgoIdentifier(b.FileChecksum, "SHA1"),
 							FileChecksumSHA256: rdf2v1.AlgoIdentifier(b.FileChecksum, "SHA256"),
 							FileChecksumMD5:    rdf2v1.AlgoIdentifier(b.FileChecksum, "MD5"),
 							// LicenseConcluded:   "", //DISCUSS
@@ -265,12 +265,12 @@ func transferPackages(spdxdoc *rdf2v1.Document) []*spdx.Package2_1 {
 							IsFilesAnalyzedTagPresent:           b.PackageName.Val == "",
 							PackageVerificationCode:             b.PackageVerificationCode.PackageVerificationCode.Val,
 							PackageVerificationCodeExcludedFile: b.PackageVerificationCode.PackageVerificationCodeExcludedFile.Val,
-							// PackageChecksumSHA1:                 rdf2v1.AlgoIdentifier(b.PackageChecksum, "SHA1"),
-							// PackageChecksumSHA256:               rdf2v1.AlgoIdentifier(b.PackageChecksumMD5, "SHA256"),
-							// PackageChecksumMD5:                  rdf2v1.AlgoIdentifier(b.PackageChecksum, "MD5"),
-							PackageHomePage:         b.PackageHomepage.Val,
-							PackageSourceInfo:       b.PackageSourceInfo.Val,
-							PackageLicenseConcluded: "",
+							PackageChecksumSHA1:                 rdf2v1.AlgoIdentifier(b.PackageChecksum, "SHA1"),
+							PackageChecksumSHA256:               rdf2v1.AlgoIdentifier(b.PackageChecksum, "SHA256"),
+							PackageChecksumMD5:                  rdf2v1.AlgoIdentifier(b.PackageChecksum, "MD5"),
+							PackageHomePage:                     b.PackageHomepage.Val,
+							PackageSourceInfo:                   b.PackageSourceInfo.Val,
+							PackageLicenseConcluded:             "",
 							// PackageLicenseInfoFromFiles: //DISCUSS
 							PackageLicenseDeclared: b.PackageLicenseDeclared.Val,
 							PackageLicenseComments: b.PackageLicenseComments.Val,
@@ -337,20 +337,20 @@ func transferArtifactOfProject(spdxdoc *rdf2v1.Document) []*spdx.ArtifactOfProje
 	return arrAop
 }
 
-// func transferSnippets(sp []*rdf2v1.Snippet) []*spdx.Snippet2_1 {
-// 	var arrSn []*spdx.Snippet2_1
-// 	for _, a := range sp {
-// 		if a != nil {
-// 			stdSn := spdx.Snippet2_1{
-// 				SnippetLicenseComments:  a.SnippetLicenseComments.Val,
-// 				SnippetCopyrightText:    a.SnippetCopyrightText.Val,
-// 				SnippetLicenseConcluded: a.SnippetLicenseConcluded.Val, //DISCUSS: Not in RDF file
-// 				SnippetComment:          a.SnippetComment.Val,
-// 				LicenseInfoInSnippet:    a.LicenseName,                 // DISCUSS: more than one fields in RDF but string in standard struct
-// 			}
-// 			pointer := &stdSn
-// 			arrSn = append(arrSn, pointer)
-// 		}
-// 	}
-// 	return arrSn
-// }
+func transferSnippets(sp []*rdf2v1.Snippet) []*spdx.Snippet2_1 {
+	var arrSn []*spdx.Snippet2_1
+	for _, a := range sp {
+		if a != nil {
+			stdSn := spdx.Snippet2_1{
+				SnippetLicenseComments:  a.SnippetLicenseComments.Val,
+				SnippetCopyrightText:    a.SnippetCopyrightText.Val,
+				SnippetLicenseConcluded: a.SnippetLicenseConcluded.Val, //DISCUSS: Not in RDF file
+				SnippetComment:          a.SnippetComment.Val,
+				LicenseInfoInSnippet:    a.LicenseName, // DISCUSS: more than one fields in RDF but string in standard struct
+			}
+			pointer := &stdSn
+			arrSn = append(arrSn, pointer)
+		}
+	}
+	return arrSn
+}
