@@ -11,7 +11,7 @@ type Package struct {
 	PackageDownloadLocation     ValueStr
 	PackageVerificationCode     *PackageVerificationCode
 	PackageComment              ValueStr
-	PackageChecksum             []*Checksum
+	PackageChecksum             *Checksum
 	PackageLicense              *License
 	PackageLicenseComments      ValueStr
 	DisjunctiveLicenseSet       *DisjunctiveLicenseSet
@@ -77,10 +77,7 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 		},
 		"checksum": func(obj goraptor.Term) error {
 			pkgcksum, err := p.requestChecksum(obj)
-			if err != nil {
-				return err
-			}
-			pkg.PackageChecksum = append(pkg.PackageChecksum, pkgcksum)
+			pkg.PackageChecksum = pkgcksum
 			return err
 		},
 		"licenseComments": update(&pkg.PackageLicenseComments),
