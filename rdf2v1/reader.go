@@ -7,7 +7,8 @@ import (
 )
 
 var (
-	URInsType = uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+	URInsType         = uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+	DocumentNamespace = ""
 
 	typeDocument                = prefix("SpdxDocument")
 	typeCreationInfo            = prefix("CreationInfo")
@@ -77,6 +78,12 @@ func (p *Parser) Free() {
 
 func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 	node := termStr(stm.Subject)
+	ns, id, _ := ExtractNs(node)
+	if id == "SPDXRef-DOCUMENT" {
+		if DocumentNamespace == "" {
+			DocumentNamespace = ns
+		}
+	}
 
 	if stm.Predicate.Equals(URInsType) {
 		_, err := p.setNodeType(stm.Subject, stm.Object)
