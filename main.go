@@ -51,8 +51,12 @@ func main() {
 	fmt.Println("\n\nFINAL TRANSLATED DOCUMENT")
 	// fmt.Printf("%v\n", spdxdoc.DocumentNamespace)
 	// var doc2v1 *spdx.Document2_1
-	doc2v1 := TransferDocument(spdxdoc)
-	fmt.Printf("%#v\n", doc2v1)
+	doc2v1 := TransferDocument(spdxdoc, sp)
+	fmt.Printf("%T\n\n\n", doc2v1)
+
+	// WRITER
+	output := os.Stdout
+	err = rdf2v1.Write(output, spdxdoc)
 
 }
 
@@ -62,12 +66,12 @@ func Parse(input string) (*rdf2v1.Document, []*rdf2v1.Snippet, error) {
 	defer parser.Free()
 	return parser.Parse()
 }
-func TransferDocument(spdxdoc *rdf2v1.Document) *spdx.Document2_1 {
+func TransferDocument(spdxdoc *rdf2v1.Document, sp []*rdf2v1.Snippet) *spdx.Document2_1 {
 
 	stdDoc := spdx.Document2_1{
 
 		CreationInfo:  transferCreationInfo(spdxdoc),
-		Packages:      transferPackages(spdxdoc),
+		Packages:      transferPackages(spdxdoc, sp),
 		OtherLicenses: transferOtherLicenses(spdxdoc),
 		Relationships: transferRelationships(spdxdoc),
 		Annotations:   transferAnnotation(spdxdoc),
@@ -201,7 +205,7 @@ func transferRelationships(spdxdoc *rdf2v1.Document) []*spdx.Relationship2_1 {
 
 	return arrRel
 }
-func transferFile(spdxdoc *rdf2v1.Document) []*spdx.File2_1 {
+func transferFile(spdxdoc *rdf2v1.Document, sp []*rdf2v1.Snippet) []*spdx.File2_1 {
 	var arrFile []*spdx.File2_1
 	for _, a := range spdxdoc.Relationship {
 		if a != nil {
@@ -225,7 +229,7 @@ func transferFile(spdxdoc *rdf2v1.Document) []*spdx.File2_1 {
 							FileNotice:         b.FileNoticeText.Val,
 							FileContributor:    rdf2v1.ValueList(b.FileContributor),
 							// FileDependencies:   "",//DISCUSS
-							// Snippets:           "",//DISCUSS
+							Snippets: transferSnippets(sp),
 						}
 						pointer := &stdFile
 						arrFile = append(arrFile, pointer)
@@ -237,7 +241,7 @@ func transferFile(spdxdoc *rdf2v1.Document) []*spdx.File2_1 {
 	return arrFile
 }
 
-func transferPackages(spdxdoc *rdf2v1.Document) []*spdx.Package2_1 {
+func transferPackages(spdxdoc *rdf2v1.Document, sp []*rdf2v1.Snippet) []*spdx.Package2_1 {
 	var arrPkg []*spdx.Package2_1
 	for _, a := range spdxdoc.Relationship {
 		if a != nil {
@@ -279,7 +283,7 @@ func transferPackages(spdxdoc *rdf2v1.Document) []*spdx.Package2_1 {
 							PackageDescription:     b.PackageDescription.Val,
 							PackageComment:         b.PackageComment.Val,
 							// PackageExternalReferences:   "", //DISCUSS
-							Files: transferFile(spdxdoc),
+							Files: transferFile(spdxdoc, sp),
 						}
 
 						pointer := &stdPkg
@@ -346,7 +350,7 @@ func transferSnippets(sp []*rdf2v1.Snippet) []*spdx.Snippet2_1 {
 				SnippetCopyrightText:    a.SnippetCopyrightText.Val,
 				SnippetLicenseConcluded: a.SnippetLicenseConcluded.Val, //DISCUSS: Not in RDF file
 				SnippetComment:          a.SnippetComment.Val,
-				LicenseInfoInSnippet:    a.LicenseName, // DISCUSS: more than one fields in RDF but string in standard struct
+				// LicenseInfoInSnippet:    a.LicenseInfoInSnippet, // DISCUSS: more than one fields in RDF but string in standard struct
 			}
 			pointer := &stdSn
 			arrSn = append(arrSn, pointer)

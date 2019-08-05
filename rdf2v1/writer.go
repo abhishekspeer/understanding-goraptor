@@ -7,6 +7,13 @@ import (
 	"github.com/deltamobile/goraptor"
 )
 
+func Write(output *os.File, doc *Document) error {
+	f := NewFormatter(output, "rdfxml-abbrev")
+	_, err := f.Document(doc)
+	f.Close()
+	return err
+}
+
 // Formatter struct to write the output
 type Formatter struct {
 	serializer *goraptor.Serializer
@@ -77,6 +84,56 @@ func (f *Formatter) addLiteral(to goraptor.Term, key, value string) error {
 		return nil
 	}
 	return f.add(to, prefix(key), &goraptor.Literal{Value: value})
+}
+
+func (f *Formatter) Document(doc *Document) (docId goraptor.Term, err error) {
+
+	_docId := goraptor.Blank("doc")
+	docId = &_docId
+
+	if err = f.setNodeType(docId, "SpdxDocument"); err != nil {
+		return
+	}
+
+	if err = f.addLiteral(docId, "specVersion", doc.SPDXVersion.Val); err != nil {
+		return
+	}
+
+	if err = f.addTerm(docId, "dataLicense", uri(licenseUri+doc.DataLicense.Val)); err != nil {
+		return
+	}
+
+	// if id, err := f.CreationInfo(doc.CreationInfo); err == nil {
+	// 	if err = f.addTerm(docId, "creationInfo", id); err != nil {
+	// 		return docId, err
+	// 	}
+	// } else {
+	// 	return docId, err
+	// }
+
+	if err = f.addLiteral(docId, "rdfs:comment", doc.DocumentComment.Val); err != nil {
+		return
+	}
+
+	/*
+		if err = f.Reviews(docId, "reviewed", doc.Reviews); err != nil {
+			return
+		}
+	*/
+	// if err = f.Packages(docId, "describesPackage", doc.Relationship.Package); err != nil {
+	// 	return
+	// }
+
+	/*
+			   if err = f.Files(docId, "referencesFile", doc.Files); err != nil {
+			       return
+			   }
+		 	   if err = f.ExtrLicInfos(docId, "hasExtractedLicensingInfo", doc.ExtractedLicenceInfo); err != nil {
+			       return
+			   }
+	*/
+
+	return docId, nil
 }
 
 // Close to free the serializer

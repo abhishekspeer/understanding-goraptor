@@ -1,4 +1,4 @@
-package rdf2v1
+package main
 
 // func TransferDocument(spdxdoc *rdf2v1.Document) *spdx.Document2_1 {
 
