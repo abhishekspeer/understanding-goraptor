@@ -130,3 +130,11 @@ func ExtractCodeAndExcludes(value string) (string, string) {
 	fileName := strings.TrimSpace(parsedSp[0])
 	return code, fileName
 }
+
+func ExtractNs(value string) (string, string, error) {
+	s := strings.SplitN(value, "#", 2)
+	if len(s) == 1 {
+		return "", "", fmt.Errorf("invalid subvalue format for %s (no # found)", value)
+	}
+	return s[0], s[1], nil
+}
