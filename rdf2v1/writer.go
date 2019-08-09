@@ -150,6 +150,12 @@ func (f *Formatter) Document(doc *Document) (docId goraptor.Term, err error) {
 	if err = f.Reviews(docId, "reviewed", doc.Review); err != nil {
 		return
 	}
+	if err = f.Annotations(docId, "annotation", doc.Annotation); err != nil {
+		return
+	}
+	if err = f.ExtractedLicInfos(docId, "hasExtractedLicensingInfo", doc.ExtractedLicensingInfo); err != nil {
+		return
+	}
 	return docId, nil
 }
 
