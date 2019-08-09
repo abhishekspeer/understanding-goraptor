@@ -143,9 +143,9 @@ func (f *Formatter) Document(doc *Document) (docId goraptor.Term, err error) {
 	} else {
 		return docId, err
 	}
-	// if err = f.Relationships(docId, "relationship", doc.Relationship); err != nil {
-	// 	return
-	// }
+	if err = f.Relationships(docId, "relationship", doc.Relationship); err != nil {
+		return
+	}
 
 	if err = f.Reviews(docId, "reviewed", doc.Review); err != nil {
 		return
@@ -244,6 +244,20 @@ func (f *Formatter) Project(pro *Project) (id goraptor.Term, err error) {
 
 	return id, err
 }
+func (f *Formatter) PackageVerificationCode(pvc *PackageVerificationCode) (id goraptor.Term, err error) {
+	id = f.NodeId("pvc")
+
+	if err = f.setNodeType(id, typePackageVerificationCode); err != nil {
+		return
+	}
+
+	err = f.addPairs(id,
+		pair{"packageVerificationCodeValue", pvc.PackageVerificationCode.Val},
+		pair{"packageVerificationCodeExcludedFile", pvc.PackageVerificationCodeExcludedFile.Val},
+	)
+
+	return id, err
+}
 
 // Write Annotation
 func (f *Formatter) Annotation(an *Annotation) (id goraptor.Term, err error) {
@@ -311,7 +325,26 @@ func (f *Formatter) Annotations(parent goraptor.Term, element string, ans []*Ann
 	}
 	return nil
 }
+func (f *Formatter) Projects(parent goraptor.Term, element string, pros []*Project) error {
 
+	if len(pros) == 0 {
+		return nil
+	}
+
+	for _, pro := range pros {
+		proId, err := f.Project(pro)
+		if err != nil {
+			return err
+		}
+		if proId == nil {
+			continue
+		}
+		if err = f.addTerm(parent, element, proId); err != nil {
+			return err
+		}
+	}
+	return nil
+}
 func (f *Formatter) Checksum(cksum *Checksum) (id goraptor.Term, err error) {
 	id = f.NodeId("cksum")
 
@@ -414,10 +447,10 @@ func (f *Formatter) Files(parent goraptor.Term, element string, files []*File) e
 
 // Write a file.
 func (f *Formatter) File(file *File) (id goraptor.Term, err error) {
-	// id, ok := f.fileIds[file.FileName.Val]
-	// if ok {
-	// 	return
-	// }
+	id, ok := f.fileIds[file.FileName.Val]
+	if ok {
+		return
+	}
 
 	id = f.NodeId("file")
 	f.fileIds[file.FileName.Val] = id
@@ -474,10 +507,6 @@ func (f *Formatter) File(file *File) (id goraptor.Term, err error) {
 			return id, err
 		}
 	}
-	//annotation, project, file, filerelationship
-	//project
-	//checksum checksum or literal
-	//licesne concluded mein add disjunc
 
 	for _, fc := range file.FileContributor {
 		if err = f.addLiteral(id, "fileContributor", fc.Val); err != nil {
@@ -504,20 +533,49 @@ func (f *Formatter) File(file *File) (id goraptor.Term, err error) {
 			return id, err
 		}
 	}
+	//checkaftersnippets
+	if file.SnippetLicense != nil {
+		filelicId, err := f.License(file.SnippetLicense)
+		if err != nil {
+			filelicId, err = f.DisjunctiveLicenseSet(file.DisjunctiveLicenseSet)
+			if err != nil {
+				filelicId, err = f.ExtractedLicInfo(file.ExtractedLicensingInfo)
+				if err != nil {
+					return id, err
+				}
+			}
+		}
+		if err = f.addTerm(id, "licenseConcluded", filelicId); err != nil {
+			return id, err
 
-	//license concluded add extracted lic info disj lic set snippet lic
-	// licId, err := f.License(file.LicenceConcluded)
-	// if err != nil {
-	// 	return id, err
-	// }
-	// if err = f.addTerm(id, "licenseConcluded", licId); err != nil {
-	// 	return id, err
-	// }
+		}
+	}
+	if file.FileDependency != nil {
+		fdId, err := f.File(file.FileDependency)
+		if err != nil {
+			return id, err
+		}
+		if err = f.addTerm(id, "fileDependency", fdId); err != nil {
+			return id, err
+		}
+	}
 
-	// if err = f.Files(id, "fileDependency", file.FileDependency); err != nil {
-	// 	return
-	// }
+	if file.FileRelationship != nil {
+		frId, err := f.Relationship(file.FileRelationship)
+		if err != nil {
+			return id, err
+		}
+		if err = f.addTerm(id, "relationship", frId); err != nil {
+			return id, err
+		}
+	}
 
+	if err = f.Annotations(id, "annotation", file.Annotation); err != nil {
+		return
+	}
+	if err = f.Projects(id, "artifactOf", file.Project); err != nil {
+		return
+	}
 	return id, err
 
 }
@@ -560,13 +618,22 @@ func (f *Formatter) Relationship(rel *Relationship) (id goraptor.Term, err error
 		}
 	}
 	if rel.relatedSpdxElement.Val != "" {
-		if err = f.addTerm(id, "relationshipType", prefix(rel.RelationshipType.Val)); err != nil {
+		if err = f.addTerm(id, "relatedSpdxElement", prefix(rel.relatedSpdxElement.Val)); err != nil {
 			return
 		}
 	}
-	if err = f.Files(id, "referencesFile", rel.File); err != nil {
-		return
+	if rel.SpdxElement != nil {
+		seId, err := f.SpdxElement(rel.SpdxElement)
+		if err != nil {
+			return id, err
+		}
+		if err = f.addTerm(id, "relatedSpdxElement", seId); err != nil {
+			return id, err
+		}
 	}
+	// if err = f.Files(id, "referencesFile", rel.File); err != nil {
+	// 	return
+	// }
 	/*
 		if rel.relatedSpdxElement.Val != "" {
 			rseid, err := f.Package(rel.Package)
@@ -661,6 +728,168 @@ func (f *Formatter) DisjunctiveLicenseSet(dls *DisjunctiveLicenseSet) (id gorapt
 		}
 	}
 
+	return id, err
+}
+
+func (f *Formatter) Packages(parent goraptor.Term, element string, pkgs []*Package) error {
+	if len(pkgs) == 0 {
+		return nil
+	}
+	for _, pkg := range pkgs {
+		pkgid, err := f.Package(pkg)
+		if err != nil {
+			return err
+		}
+		if err = f.addTerm(parent, element, pkgid); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (f *Formatter) Package(pkg *Package) (id goraptor.Term, err error) {
+	id = f.NodeId("pkg")
+
+	if err = f.setNodeType(id, typePackage); err != nil {
+		return
+	}
+
+	err = f.addPairs(id,
+		pair{"name", pkg.PackageName.Val},
+		pair{"versionInfo", pkg.PackageVersionInfo.Val},
+		pair{"packageFileName", pkg.PackageFileName.Val},
+		pair{"downloadLocation", pkg.PackageDownloadLocation.Val},
+		pair{"rdfs:comment", pkg.PackageComment.Val},
+		pair{"licenseComments", pkg.PackageLicenseComments.Val},
+		pair{"copyrightText", pkg.PackageCopyrightText.Val},
+		pair{"doap:homepage", pkg.PackageHomepage.Val},
+		pair{"supplier", pkg.PackageSupplier.Val},
+		pair{"originator", pkg.PackageOriginator.V()},
+		pair{"sourceInfo", pkg.PackageSourceInfo.Val},
+		pair{"filesAnalyzed", pkg.FilesAnalyzed.Val},
+		pair{"summary", pkg.PackageSummary.Val},
+		pair{"description", pkg.PackageDescription.Val},
+	)
+	if err != nil {
+		return
+	}
+	if pkg.PackageLicense != nil {
+		pkglicId, err := f.License(pkg.PackageLicense)
+		if err != nil {
+			pkglicId, err = f.DisjunctiveLicenseSet(pkg.DisjunctiveLicenseSet)
+			if err != nil {
+				pkglicId, err = f.ConjunctiveLicenseSet(pkg.ConjunctiveLicenseSet)
+				if err != nil {
+					return id, err
+				}
+			}
+		}
+		if err = f.addTerm(id, "licenseConcluded", pkglicId); err != nil {
+			return id, err
+
+		}
+	}
+	if pkg.PackageVerificationCode != nil {
+		pkgid, err := f.PackageVerificationCode(pkg.PackageVerificationCode)
+		if err != nil {
+			return id, err
+		}
+		if err = f.addTerm(id, "packageVerificationCode", pkgid); err != nil {
+			return id, err
+		}
+	}
+
+	if pkg.PackageChecksum != nil {
+		cksumId, err := f.Checksum(pkg.PackageChecksum)
+		if err != nil {
+			return id, err
+		}
+		if err = f.addTerm(id, "checksum", cksumId); err != nil {
+			return id, err
+		}
+	}
+
+	if pkg.PackageLicenseDeclared.Val != "" {
+		if err = f.addTerm(id, "licenseDeclared", prefix(pkg.PackageLicenseDeclared.Val)); err != nil {
+			return
+		}
+	}
+	if err = f.Annotations(id, "annotation", pkg.Annotation); err != nil {
+		return
+	}
+	if err = f.Files(id, "hasFile", pkg.File); err != nil {
+		return
+	}
+
+	if pkg.PackageExternalRef != nil {
+		pkgErId, err := f.ExternalRef(pkg.PackageExternalRef)
+		if err != nil {
+			return id, err
+		}
+		if err = f.addTerm(id, "externalRef", pkgErId); err != nil {
+			return id, err
+		}
+	}
+
+	if pkg.PackageRelationship != nil {
+		pkgRelId, err := f.Relationship(pkg.PackageRelationship)
+		if err != nil {
+			return id, err
+		}
+		if err = f.addTerm(id, "relationship", pkgRelId); err != nil {
+			return id, err
+		}
+	}
+	for _, lif := range pkg.PackageLicenseInfoFromFiles {
+		if err = f.addTerm(id, "licenseInfoFromFiles", prefix(lif.Val)); err != nil {
+			return
+		}
+	}
+	// if pkg.PackageLicenseDeclared != "" {
+	// 	licId, err := f.License(pkg.PackageLicenseDeclared)
+	// 	if err != nil {
+	// 		return id, err
+	// 	}
+	// 	if err = f.addTerm(id, "licenseDeclared", licId); err != nil {
+	// 		return id, err
+	// 	}
+	// }
+
+	return id, err
+}
+
+// Write Review
+func (f *Formatter) ExternalRef(er *ExternalRef) (id goraptor.Term, err error) {
+	id = f.NodeId("er")
+
+	if err = f.setNodeType(id, typeExternalRef); err != nil {
+		return
+	}
+
+	err = f.addPairs(id,
+		pair{"referenceLocator", er.ReferenceLocator.Val},
+		pair{"rdfs:comment", er.ReferenceComment.Val},
+	)
+	if er.ReferenceCategory.Val != "" {
+		if err = f.addTerm(id, "annotationType", prefix(er.ReferenceCategory.Val)); err != nil {
+			return
+		}
+	}
+	return id, err
+}
+
+func (f *Formatter) ReferenceType(rt *ReferenceType) (id goraptor.Term, err error) {
+	id = f.NodeId("rt")
+
+	if err = f.setNodeType(id, typeReferenceType); err != nil {
+		return
+	}
+
+	if rt.ReferenceType.Val != "" {
+		if err = f.addTerm(id, "referenceType", prefix(rt.ReferenceType.Val)); err != nil {
+			return
+		}
+	}
 	return id, err
 }
 
