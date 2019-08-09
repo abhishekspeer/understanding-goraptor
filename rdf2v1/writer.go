@@ -1,6 +1,7 @@
 package rdf2v1
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"strconv"
@@ -72,6 +73,12 @@ func (f *Formatter) addTerm(to goraptor.Term, key string, value goraptor.Term) e
 	return f.add(to, prefix(key), value)
 }
 
+func (f *Formatter) addLiteral(to goraptor.Term, key, value string) error {
+	if value == "" {
+		return nil
+	}
+	return f.add(to, prefix(key), &goraptor.Literal{Value: value})
+}
 func (f *Formatter) addPairs(to goraptor.Term, pairs ...pair) error {
 	for _, p := range pairs {
 		if err := f.addLiteral(to, p.key, p.val); err != nil {
@@ -81,16 +88,13 @@ func (f *Formatter) addPairs(to goraptor.Term, pairs ...pair) error {
 	return nil
 }
 
-func (f *Formatter) addLiteral(to goraptor.Term, key, value string) error {
-	if value == "" {
-		return nil
-	}
-	return f.add(to, prefix(key), &goraptor.Literal{Value: value})
-}
-
 func (f *Formatter) Document(doc *Document) (docId goraptor.Term, err error) {
 
 	// _docId := goraptor.Blank("doc")
+	if doc == nil {
+		return nil, errors.New("Nil document.")
+	}
+
 	// docId = &_docId
 	docId = blank("doc")
 
@@ -107,7 +111,6 @@ func (f *Formatter) Document(doc *Document) (docId goraptor.Term, err error) {
 			return
 		}
 	}
-	//check
 	if doc.DocumentName.Val != "" {
 		if err = f.addTerm(docId, "name", uri(licenseUri+doc.DataLicense.Val)); err != nil {
 			return
@@ -125,11 +128,22 @@ func (f *Formatter) Document(doc *Document) (docId goraptor.Term, err error) {
 		return docId, err
 	}
 
-	if err = f.Relationships(docId, "relationship", doc.Relationship); err != nil {
-		return
+	if id, err := f.License(doc.License); err == nil {
+		if err = f.addTerm(docId, "dataLicense", id); err != nil {
+			return docId, err
+		}
+	} else {
+		return docId, err
 	}
 
-	// if err = f.ExternalDocumentRef(docId, "externalDocumentRef", doc.ExternalDocumentRef); err != nil {
+	if id, err := f.ExternalDocumentRef(doc.ExternalDocumentRef); err == nil {
+		if err = f.addTerm(docId, "externalDocumentRef", id); err != nil {
+			return docId, err
+		}
+	} else {
+		return docId, err
+	}
+	// if err = f.Relationships(docId, "relationship", doc.Relationship); err != nil {
 	// 	return
 	// }
 
@@ -139,33 +153,35 @@ func (f *Formatter) Document(doc *Document) (docId goraptor.Term, err error) {
 	return docId, nil
 }
 
-/*
 func (f *Formatter) ExternalDocumentRef(edr *ExternalDocumentRef) (id goraptor.Term, err error) {
 	id = f.NodeId("edr")
 
-	if err = f.setNodeType(id, typeExtypeExternalDocumentRef); err != nil {
+	if err = f.setNodeType(id, typeExternalDocumentRef); err != nil {
 		return
 	}
 
 	err = f.addPairs(id,
-		pair{"created", edr.Create.Val},
-		pair{"rdfs:comment", edr.Comment.Val},
-		pair{"licenseListVersion", edr.LicenseListVersion.Val},
+		pair{"externalDocumentId", edr.ExternalDocumentId.Val},
+		pair{"spdxDocument", edr.SPDXDocument.Val},
 	)
 
 	if err != nil {
 		return
 	}
-	// type 3: add pairs multiple times
-	for _, creator := range edr.Creator {
-		if err = f.addLiteral(id, "creator", creator.Val); err != nil {
-			return
+
+	if edr.Checksum != nil {
+		cksumId, err := f.Checksum(edr.Checksum)
+		if err != nil {
+			return id, err
+		}
+		if err = f.addTerm(id, "checksum", cksumId); err != nil {
+			return id, err
 		}
 	}
 
 	return id, nil
 }
-*/
+
 func (f *Formatter) CreationInfo(ci *CreationInfo) (id goraptor.Term, err error) {
 	id = f.NodeId("cri")
 
