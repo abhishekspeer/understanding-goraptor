@@ -1,6 +1,8 @@
 package rdf2v1
 
 import (
+	"spdx/tools-golang/v0/spdx"
+
 	"github.com/deltamobile/goraptor"
 )
 
@@ -8,7 +10,7 @@ type CreationInfo struct {
 	SPDXIdentifier     ValueStr
 	LicenseListVersion ValueStr
 	Creator            []ValueStr
-	Create             ValueDate
+	Create             ValueStr
 	Comment            ValueStr
 }
 
@@ -26,7 +28,7 @@ func (p *Parser) MapCreationInfo(ci *CreationInfo) *builder {
 	builder.updaters = map[string]updater{
 		"licenseListVersion": update(&ci.LicenseListVersion),
 		"creator":            updateList(&ci.Creator),
-		"created":            updateDate(&ci.Create),
+		"created":            update(&ci.Create),
 		"rdfs:comment":       update(&ci.Comment),
 	}
 	return builder
@@ -42,4 +44,25 @@ func ExtractCreator(ci *CreationInfo, creator string) []string {
 		}
 	}
 	return val
+}
+func InsertCreator(ci *spdx.CreationInfo2_1) []ValueStr {
+
+	var val []string
+	if len(ci.CreatorPersons) != 0 {
+		for _, person := range ci.CreatorPersons {
+			val = append(val, person)
+		}
+	}
+	if len(ci.CreatorOrganizations) != 0 {
+		for _, org := range ci.CreatorOrganizations {
+			val = append(val, org)
+		}
+	}
+	if len(ci.CreatorOrganizations) != 0 {
+		for _, org := range ci.CreatorOrganizations {
+			val = append(val, org)
+		}
+	}
+	valstr := ValueStrList(val)
+	return valstr
 }

@@ -44,6 +44,7 @@ func (p *Parser) requestExternalDocumentRef(node goraptor.Term) (*ExternalDocume
 
 func (p *Parser) MapDocument(doc *Document) *builder {
 	builder := &builder{t: typeDocument, ptr: doc}
+	doc.DocumentNamespace = DocumentNamespace
 	builder.updaters = map[string]updater{
 		"specVersion": update(&doc.SPDXVersion),
 		// Example: gets CC0-1.0 from "http://spdx.org/licenses/CC0-1.0"
@@ -97,7 +98,6 @@ func (p *Parser) MapDocument(doc *Document) *builder {
 			return err
 		},
 	}
-
 	return builder
 }
 

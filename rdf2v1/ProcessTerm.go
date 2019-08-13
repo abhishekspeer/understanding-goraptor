@@ -138,3 +138,17 @@ func ExtractNs(value string) (string, string, error) {
 	}
 	return s[0], s[1], nil
 }
+
+func ExtractId(value string) string {
+	s := strings.SplitN(value, "#", 2)
+	if len(s) == 1 {
+		return ""
+	}
+	return s[1]
+}
+
+func InsertId(value string) ValueStr {
+	s := value + "#SPDXRef-DOCUMENT"
+	vs := Str(s)
+	return vs
+}
