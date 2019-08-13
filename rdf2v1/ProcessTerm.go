@@ -28,7 +28,7 @@ type pair struct {
 // Converts typeX to its full URI accorinding to rdfPrefixes,
 // if no : is found in the string it'll assume it as "spdx:" and expand to baseUri
 func prefix(k string) *goraptor.Uri {
-	var pref string = ""
+	var pref string = baseUri
 	rest := k
 	if i := strings.Index(k, ":"); i >= 0 {
 		pref = k[:i+1]
