@@ -7,8 +7,7 @@ import (
 )
 
 var (
-	URInsType         = uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
-	DocumentNamespace = ""
+	URInsType = uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
 
 	typeDocument                = prefix("SpdxDocument")
 	typeCreationInfo            = prefix("CreationInfo")
@@ -34,6 +33,7 @@ var (
 	typeByteOffsetPointer       = prefix("j.0:ByteOffsetPointer")
 	typeLineCharPointer         = prefix("j.0:LineCharPointer")
 )
+var DocumentNamespace ValueStr
 
 // Parser Struct and associated methods
 type Parser struct {
@@ -42,7 +42,7 @@ type Parser struct {
 	Index     map[string]*builder
 	Buffer    map[string][]*goraptor.Statement
 	Doc       *Document
-	Snip      []*Snippet
+	Snip      *Snippet
 }
 
 // NewParser uses goraptor.NewParser to initialse a new parser interface
@@ -56,7 +56,7 @@ func NewParser(input string) *Parser {
 	}
 }
 
-func (p *Parser) Parse() (*Document, []*Snippet, error) {
+func (p *Parser) Parse() (*Document, *Snippet, error) {
 	// PARSE FILE method - Takes the file location as an input
 	ch := p.Rdfparser.ParseFile(p.Input, "")
 	var err error
@@ -80,8 +80,8 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 	node := termStr(stm.Subject)
 	ns, id, _ := ExtractNs(node)
 	if id == "SPDXRef-DOCUMENT" {
-		if DocumentNamespace == "" {
-			DocumentNamespace = ns
+		if DocumentNamespace.Val == "" {
+			DocumentNamespace = Str(ns)
 		}
 	}
 
@@ -176,7 +176,8 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 		builder = p.MapProject(new(Project))
 
 	case t.Equals(typeSnippet):
-		builder = p.MapSnippet(new(Snippet))
+		p.Snip = new(Snippet)
+		builder = p.MapSnippet(p.Snip)
 
 	case t.Equals(typeSpdxElement):
 		builder = p.MapSpdxElement(new(SpdxElement))

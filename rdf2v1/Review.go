@@ -6,7 +6,7 @@ import (
 
 type Review struct {
 	ReviewComment ValueStr
-	ReviewDate    ValueDate
+	ReviewDate    ValueStr
 	Reviewer      ValueStr
 }
 
@@ -21,7 +21,7 @@ func (p *Parser) MapReview(rev *Review) *builder {
 	builder := &builder{t: typeReview, ptr: rev}
 	builder.updaters = map[string]updater{
 		"rdfs:comment": update(&rev.ReviewComment),
-		"reviewDate":   updateDate(&rev.ReviewDate),
+		"reviewDate":   update(&rev.ReviewDate),
 		"reviewer":     update(&rev.Reviewer),
 	}
 	return builder

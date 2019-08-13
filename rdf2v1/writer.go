@@ -10,11 +10,18 @@ import (
 	"github.com/deltamobile/goraptor"
 )
 
-func Write(output *os.File, doc *Document) error {
+func Write(output *os.File, doc *Document, sn *Snippet) error {
 	f := NewFormatter(output, "rdfxml-abbrev")
-	_, err := f.Document(doc)
+	_, docerr := f.Document(doc)
+	if docerr != nil {
+		return nil
+	}
+	_, snippet := f.Snippet(sn)
+	if snippet != nil {
+		return nil
+	}
 	f.Close()
-	return err
+	return nil
 }
 
 // Formatter struct to write the output
@@ -159,6 +166,51 @@ func (f *Formatter) Document(doc *Document) (docId goraptor.Term, err error) {
 	return docId, nil
 }
 
+func (f *Formatter) Snippet(snip *Snippet) (snipId goraptor.Term, err error) {
+
+	if snip == nil {
+		return nil, errors.New("Nil Snippet.")
+	}
+
+	// docId = &_docId
+	snipId = blank("snip")
+
+	if err = f.setNodeType(snipId, typeDocument); err != nil {
+		return
+	}
+	if err = f.addLiteral(snipId, "name", snip.SnippetName.Val); err != nil {
+		return
+	}
+	if err = f.addLiteral(snipId, "copyrightText", snip.SnippetCopyrightText.Val); err != nil {
+		return
+	}
+	if err = f.addLiteral(snipId, "licenseComments", snip.SnippetLicenseComments.Val); err != nil {
+		return
+	}
+	if err = f.addLiteral(snipId, "rdfs:comment", snip.SnippetComment.Val); err != nil {
+		return
+	}
+	for _, lis := range snip.LicenseInfoInSnippet {
+		if err = f.addLiteral(snipId, "creator", lis.Val); err != nil {
+			return
+		}
+	}
+	if snip.SnippetLicenseConcluded.Val != "" {
+		if err = f.addTerm(snipId, "licenseConcluded", prefix(snip.SnippetLicenseConcluded.Val)); err != nil {
+			return
+		}
+	}
+	if snip.SnippetFromFile != nil {
+		sfId, err := f.File(snip.SnippetFromFile)
+		if err != nil {
+			return snipId, err
+		}
+		if err = f.addTerm(snipId, "snippetFromFile", sfId); err != nil {
+			return snipId, err
+		}
+	}
+	return snipId, nil
+}
 func (f *Formatter) ExternalDocumentRef(edr *ExternalDocumentRef) (id goraptor.Term, err error) {
 	id = f.NodeId("edr")
 
