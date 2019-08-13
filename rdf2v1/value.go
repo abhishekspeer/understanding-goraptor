@@ -97,3 +97,10 @@ func ValueList(list []ValueStr) []string {
 	}
 	return str
 }
+func ValueStrList(list []string) []ValueStr {
+	var str []ValueStr
+	for _, v := range list {
+		str = append(str, Str(v))
+	}
+	return str
+}
