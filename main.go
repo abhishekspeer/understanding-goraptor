@@ -23,6 +23,7 @@ func main() {
 
 	input := args[1]
 	spdxdoc, sp, err = Parse(input)
+	fmt.Printf("FFFFFFFFFFFFFFFFFF%#v\n\n\n", spdxdoc.SPDXID)
 
 	if err != nil {
 		fmt.Println("Parsing Error")
@@ -82,7 +83,7 @@ func transferCreationInfo(spdxdoc *rdf2v1.Document) *spdx.CreationInfo2_1 {
 
 		SPDXVersion:                spdxdoc.SPDXVersion.Val,
 		DataLicense:                spdxdoc.DataLicense.Val,
-		SPDXIdentifier:             rdf2v1.ExtractId(spdxdoc.DocumentNamespace.Val),
+		SPDXIdentifier:             spdxdoc.SPDXID.Val,
 		DocumentName:               spdxdoc.DocumentName.Val,
 		DocumentNamespace:          spdxdoc.DocumentNamespace.Val,
 		ExternalDocumentReferences: listExtDocRef,
@@ -119,7 +120,7 @@ func transferAnnotation(spdxdoc *rdf2v1.Document) []*spdx.Annotation2_1 {
 			AnnotationType:           an.AnnotationType.Val,
 			AnnotationDate:           an.AnnotationDate.Val,
 			AnnotationComment:        an.AnnotationComment.Val,
-			AnnotationSPDXIdentifier: "",
+			AnnotationSPDXIdentifier: spdxdoc.SPDXID.Val,
 		}
 		pointer := &stdAnn
 		arrAnn = append(arrAnn, pointer)
@@ -176,71 +177,66 @@ func transferAnnotation(spdxdoc *rdf2v1.Document) []*spdx.Annotation2_1 {
 	return arrAnn
 }
 
-// func collectAnnotation(rdf2v1 *spdx.Document2_1) []*rdf2v1.Annotation {
-// 	var arrAnn []*spdx.Annotation2_1
-// 	for _, an := range spdxdoc.Annotation {
-// 		stdAnn := spdx.Annotation2_1{
-// 			Annotator:                rdf2v1.ExtractKeyValue(an.Annotator.Val, "subvalue"),
-// 			AnnotatorType:            rdf2v1.ExtractKeyValue(an.Annotator.Val, "subkey"),
-// 			AnnotationType:           an.AnnotationType.Val,
-// 			AnnotationDate:           an.AnnotationDate.Val,
-// 			AnnotationComment:        an.AnnotationComment.Val,
-// 			AnnotationSPDXIdentifier: "",
-// 		}
-// 		pointer := &stdAnn
-// 		arrAnn = append(arrAnn, pointer)
-// 	}
+func collectDocAnnotation(doc2v1 *spdx.Document2_1) []*rdf2v1.Annotation {
+	var arrAnn []*rdf2v1.Annotation
+	for _, an := range doc2v1.Annotations {
+		if an.AnnotationSPDXIdentifier == doc2v1.CreationInfo.SPDXIdentifier {
+			stdAnn := rdf2v1.Annotation{
+				Annotator:                rdf2v1.Str(an.AnnotatorType + an.Annotator),
+				AnnotationType:           rdf2v1.Str(an.AnnotationType),
+				AnnotationDate:           rdf2v1.Str(an.AnnotationDate),
+				AnnotationComment:        rdf2v1.Str(an.AnnotationComment),
+				AnnotationSPDXIdentifier: rdf2v1.Str(an.AnnotationSPDXIdentifier),
+			}
+			pointer := &stdAnn
+			arrAnn = append(arrAnn, pointer)
+		}
+	}
+	return arrAnn
+}
 
-// 	for _, a := range spdxdoc.Relationship {
-// 		if a != nil {
-// 			if a.Package != nil {
-// 				for _, b := range a.Package {
-// 					if b != nil {
-// 						for _, an := range b.Annotation {
+func collectFileAnnotation(doc2v1 *spdx.Document2_1) []*rdf2v1.Annotation {
+	var arrAnn []*rdf2v1.Annotation
+	for _, pkg := range doc2v1.Packages {
+		for _, file := range pkg.Files {
+			for _, an := range doc2v1.Annotations {
+				if an.AnnotationSPDXIdentifier == file.FileSPDXIdentifier {
+					stdAnn := rdf2v1.Annotation{
+						Annotator:                rdf2v1.Str(an.AnnotatorType + an.Annotator),
+						AnnotationType:           rdf2v1.Str(an.AnnotationType),
+						AnnotationDate:           rdf2v1.Str(an.AnnotationDate),
+						AnnotationComment:        rdf2v1.Str(an.AnnotationComment),
+						AnnotationSPDXIdentifier: rdf2v1.Str(an.AnnotationSPDXIdentifier),
+					}
+					pointer := &stdAnn
+					arrAnn = append(arrAnn, pointer)
+				}
+			}
+		}
+	}
+	return arrAnn
+}
 
-// 							stdAnn := spdx.Annotation2_1{
-// 								Annotator:                rdf2v1.ExtractKeyValue(an.Annotator.Val, "subvalue"),
-// 								AnnotatorType:            rdf2v1.ExtractKeyValue(an.Annotator.Val, "subkey"),
-// 								AnnotationType:           an.AnnotationType.Val,
-// 								AnnotationDate:           an.AnnotationDate.Val,
-// 								AnnotationComment:        an.AnnotationComment.Val,
-// 								AnnotationSPDXIdentifier: "",
-// 							}
-// 							pointer := &stdAnn
-// 							arrAnn = append(arrAnn, pointer)
-// 						}
-// 					}
-// 				}
-// 			}
-// 		}
+func collectPackageAnnotation(doc2v1 *spdx.Document2_1) []*rdf2v1.Annotation {
+	var arrAnn []*rdf2v1.Annotation
+	for _, pkg := range doc2v1.Packages {
+		for _, an := range doc2v1.Annotations {
+			if an.AnnotationSPDXIdentifier == pkg.PackageSPDXIdentifier {
+				stdAnn := rdf2v1.Annotation{
+					Annotator:                rdf2v1.Str(an.AnnotatorType + an.Annotator),
+					AnnotationType:           rdf2v1.Str(an.AnnotationType),
+					AnnotationDate:           rdf2v1.Str(an.AnnotationDate),
+					AnnotationComment:        rdf2v1.Str(an.AnnotationComment),
+					AnnotationSPDXIdentifier: rdf2v1.Str(an.AnnotationSPDXIdentifier),
+				}
+				pointer := &stdAnn
+				arrAnn = append(arrAnn, pointer)
+			}
+		}
+	}
+	return arrAnn
+}
 
-// 	}
-// 	for _, a := range spdxdoc.Relationship {
-// 		if a != nil {
-// 			if a.File != nil {
-// 				for _, b := range a.File {
-// 					if b != nil {
-// 						for _, an := range b.Annotation {
-
-// 							stdAnn := spdx.Annotation2_1{
-// 								Annotator:                rdf2v1.ExtractKeyValue(an.Annotator.Val, "subvalue"),
-// 								AnnotatorType:            rdf2v1.ExtractKeyValue(an.Annotator.Val, "subkey"),
-// 								AnnotationType:           an.AnnotationType.Val,
-// 								AnnotationDate:           an.AnnotationDate.Val,
-// 								AnnotationComment:        an.AnnotationComment.Val,
-// 								AnnotationSPDXIdentifier: "",
-// 							}
-// 							pointer := &stdAnn
-// 							arrAnn = append(arrAnn, pointer)
-// 						}
-// 					}
-// 				}
-// 			}
-// 		}
-
-// 	}
-// 	return arrAnn
-// }
 func transferReview(spdxdoc *rdf2v1.Document) []*spdx.Review2_1 {
 	var arrRev []*spdx.Review2_1
 	for _, a := range spdxdoc.Review {
@@ -344,6 +340,41 @@ func transferFile(spdxdoc *rdf2v1.Document, sp *rdf2v1.Snippet) []*spdx.File2_1 
 	return arrFile
 }
 
+// func collectFile(doc2v1 *spdx.Document2_1) []*rdf2v1.File {
+// 	var arrFile []*rdf2v1.File
+// 	for _, a := range spdxdoc.Relationship {
+// 		if a != nil {
+// 			if a.File != nil {
+// 				for _, b := range a.File {
+// 					if b != nil {
+// 						stdFile := spdx.File2_1{
+
+// 							FileName:           b.FileName.Val,
+// 							FileSPDXIdentifier: "",
+// 							FileType:           rdf2v1.ValueList(b.FileType),
+// 							FileChecksumSHA1:   rdf2v1.AlgoIdentifier(b.FileChecksum, "SHA1"),
+// 							FileChecksumSHA256: rdf2v1.AlgoIdentifier(b.FileChecksum, "SHA256"),
+// 							FileChecksumMD5:    rdf2v1.AlgoIdentifier(b.FileChecksum, "MD5"),
+// 							// LicenseConcluded:   "", //DISCUSS
+// 							LicenseInfoInFile:  rdf2v1.ValueList(b.LicenseInfoInFile),
+// 							LicenseComments:    b.FileLicenseComments.V(),
+// 							FileCopyrightText:  b.FileCopyrightText.V(),
+// 							ArtifactOfProjects: transferArtifactOfProject(spdxdoc),
+// 							FileComment:        b.FileComment.Val,
+// 							FileNotice:         b.FileNoticeText.Val,
+// 							FileContributor:    rdf2v1.ValueList(b.FileContributor),
+// 							// FileDependencies:   "",//DISCUSS
+// 							Snippets: transferSnippets(sp),
+// 						}
+// 						pointer := &stdFile
+// 						arrFile = append(arrFile, pointer)
+// 					}
+// 				}
+// 			}
+// 		}
+// 	}
+// 	return arrFile
+// }
 
 func transferPackages(spdxdoc *rdf2v1.Document, sp *rdf2v1.Snippet) []*spdx.Package2_1 {
 	var arrPkg []*spdx.Package2_1
