@@ -24,7 +24,7 @@ type File struct {
 	FileRelationship       *Relationship
 }
 type Project struct {
-	Homepage ValueStr
+	HomePage ValueStr
 	Name     ValueStr
 }
 
@@ -110,7 +110,7 @@ func (p *Parser) MapFile(file *File) *builder {
 func (p *Parser) MapProject(pro *Project) *builder {
 	builder := &builder{t: typeProject, ptr: pro}
 	builder.updaters = map[string]updater{
-		"doap:homepage": update(&pro.Homepage),
+		"doap:homepage": update(&pro.HomePage),
 		"doap:name":     update(&pro.Name),
 	}
 	return builder

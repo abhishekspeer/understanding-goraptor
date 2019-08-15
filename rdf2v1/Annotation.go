@@ -5,10 +5,11 @@ import (
 )
 
 type Annotation struct {
-	Annotator         ValueStr
-	AnnotationType    ValueStr
-	AnnotationDate    ValueDate
-	AnnotationComment ValueStr
+	Annotator                ValueStr
+	AnnotationType           ValueStr
+	AnnotationDate           ValueStr
+	AnnotationComment        ValueStr
+	AnnotationSPDXIdentifier ValueStr
 }
 
 func (p *Parser) requestAnnotation(node goraptor.Term) (*Annotation, error) {
@@ -21,7 +22,7 @@ func (p *Parser) requestAnnotation(node goraptor.Term) (*Annotation, error) {
 func (p *Parser) MapAnnotation(an *Annotation) *builder {
 	builder := &builder{t: typeAnnotation, ptr: an}
 	builder.updaters = map[string]updater{
-		"annotationDate": updateDate(&an.AnnotationDate),
+		"annotationDate": update(&an.AnnotationDate),
 		"rdfs:comment":   update(&an.AnnotationComment),
 		"annotator":      update(&an.Annotator),
 		"annotationType": updateTrimPrefix(baseUri, &an.AnnotationType),
