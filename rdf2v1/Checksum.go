@@ -44,11 +44,17 @@ func ExtractChecksumAlgo(str string) string {
 	return str
 }
 
-// Takes in the checksum, compares it's algo with a string, if matches returns the algo
-func AlgoIdentifier(cksum *Checksum, t string) string {
+func InsertChecksumAlgo(str string) string {
+	str = strings.ToLower(str)
+	str = "http://spdx.org/rdf/terms#checksumAlgorithm_" + str
+	return str
+}
+
+// Takes in the checksum, compares it's algo with a string, if matches returns the Value
+func AlgoValue(cksum *Checksum, t string) string {
 	algo := ExtractChecksumAlgo(cksum.Algorithm.Val)
 	if strings.Contains(algo, t) {
-		return t
+		return cksum.ChecksumValue.Val
 	}
 	return ""
 }
