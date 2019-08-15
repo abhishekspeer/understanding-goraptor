@@ -290,7 +290,7 @@ func (f *Formatter) Project(pro *Project) (id goraptor.Term, err error) {
 	}
 
 	err = f.addPairs(id,
-		pair{"homepage", pro.Homepage.Val},
+		pair{"homepage", pro.HomePage.Val},
 		pair{"name", pro.Name.Val},
 	)
 
@@ -669,8 +669,8 @@ func (f *Formatter) Relationship(rel *Relationship) (id goraptor.Term, err error
 			return
 		}
 	}
-	if rel.relatedSpdxElement.Val != "" {
-		if err = f.addTerm(id, "relatedSpdxElement", prefix(rel.relatedSpdxElement.Val)); err != nil {
+	if rel.RelatedSpdxElement.Val != "" {
+		if err = f.addTerm(id, "relatedSpdxElement", prefix(rel.RelatedSpdxElement.Val)); err != nil {
 			return
 		}
 	}

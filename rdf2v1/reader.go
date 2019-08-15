@@ -34,6 +34,7 @@ var (
 	typeLineCharPointer         = prefix("j.0:LineCharPointer")
 )
 var DocumentNamespace ValueStr
+var SPDXID ValueStr
 
 // Parser Struct and associated methods
 type Parser struct {
@@ -77,9 +78,14 @@ func (p *Parser) Free() {
 }
 
 func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
+	// fmt.Println("============================")
+	fmt.Println(stm.Subject)
+	fmt.Println("============================")
+
 	node := termStr(stm.Subject)
 	ns, id, _ := ExtractNs(node)
 	if id == "SPDXRef-DOCUMENT" {
+		SPDXID = Str(id)
 		if DocumentNamespace.Val == "" {
 			DocumentNamespace = Str(ns)
 		}

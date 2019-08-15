@@ -35,10 +35,6 @@ type PackageVerificationCode struct {
 	PackageVerificationCode             ValueStr
 	PackageVerificationCodeExcludedFile ValueStr
 }
-type PackageRelationship struct {
-	Relationshiptype   ValueStr
-	relatedSpdxElement ValueStr
-}
 
 func (p *Parser) requestPackage(node goraptor.Term) (*Package, error) {
 	obj, err := p.requestElementType(node, typePackage)
@@ -46,13 +42,6 @@ func (p *Parser) requestPackage(node goraptor.Term) (*Package, error) {
 		return nil, err
 	}
 	return obj.(*Package), err
-}
-func (p *Parser) requestPackageRelationship(node goraptor.Term) (*PackageRelationship, error) {
-	obj, err := p.requestElementType(node, typeRelationship)
-	if err != nil {
-		return nil, err
-	}
-	return obj.(*PackageRelationship), err
 }
 
 func (p *Parser) requestPackageVerificationCode(node goraptor.Term) (*PackageVerificationCode, error) {
@@ -124,15 +113,6 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 			return err
 		},
 		"rdfs:comment": update(&pkg.PackageComment)}
-	return builder
-}
-
-func (p *Parser) MapPackageRelationship(pkgrel *PackageRelationship) *builder {
-	builder := &builder{t: typePackageVerificationCode, ptr: pkgrel}
-	builder.updaters = map[string]updater{
-		"relationshipType":   update(&pkgrel.Relationshiptype),
-		"relatedSpdxElement": update(&pkgrel.Relationshiptype),
-	}
 	return builder
 }
 
