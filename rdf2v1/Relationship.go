@@ -8,7 +8,7 @@ type Relationship struct {
 	RelationshipType    ValueStr
 	Package             []*Package
 	File                []*File
-	relatedSpdxElement  ValueStr
+	RelatedSpdxElement  ValueStr
 	SpdxElement         *SpdxElement
 	RelationshipComment ValueStr
 }
@@ -39,7 +39,7 @@ func (p *Parser) MapRelationship(rel *Relationship) *builder {
 		"relatedSpdxElement": func(obj goraptor.Term) error {
 			_, ok := builder.updaters["http://spdx.org/rdf/terms#relatedSpdxElement"]
 			if ok {
-				builder.updaters = map[string]updater{"relatedSpdxElement": update(&rel.relatedSpdxElement)}
+				builder.updaters = map[string]updater{"relatedSpdxElement": update(&rel.RelatedSpdxElement)}
 				return nil
 			}
 			pkg, err := p.requestPackage(obj)
