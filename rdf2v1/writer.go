@@ -10,7 +10,16 @@ import (
 	"github.com/deltamobile/goraptor"
 )
 
-func Write(output *os.File, doc *Document, sn *Snippet) error {
+func WriteDocument(output *os.File, doc *Document) error {
+	f := NewFormatter(output, "rdfxml-abbrev")
+	_, docerr := f.Document(doc)
+	if docerr != nil {
+		return nil
+	}
+	f.Close()
+	return nil
+}
+func WriteSnippet(output *os.File, sn *Snippet) error {
 	f := NewFormatter(output, "rdfxml-abbrev")
 	// _, docerr := f.Document(doc)
 	// if docerr != nil {
@@ -65,7 +74,7 @@ func (f *Formatter) NodeId(prefix string) *goraptor.Blank {
 
 // Sets node Type
 func (f *Formatter) setNodeType(node, t goraptor.Term) error {
-	return f.add(node, Prefix("ns:Type"), t)
+	return f.add(node, Prefix("ns:type"), t)
 }
 
 // Add 'keys' to 'values' for subject 'to'
@@ -489,15 +498,17 @@ func (f *Formatter) Files(parent goraptor.Term, element string, files []*File) e
 		return nil
 	}
 	for _, file := range files {
-		fId, err := f.File(file)
-		if err != nil {
-			return err
-		}
-		if fId == nil {
-			continue
-		}
-		if err = f.addTerm(parent, element, fId); err != nil {
-			return err
+		if file != nil {
+			fId, err := f.File(file)
+			if err != nil {
+				return err
+			}
+			if fId == nil {
+				continue
+			}
+			if err = f.addTerm(parent, element, fId); err != nil {
+				return err
+			}
 		}
 	}
 	return nil

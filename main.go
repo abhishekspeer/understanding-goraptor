@@ -30,17 +30,21 @@ func main() {
 		return
 	}
 	// doc2v1 := TransferDocument(spdxdoc, sp)
-	fmt.Printf("%v%T\n\n\n", spdxdoc.Relationship[1].Package[0].PackageLicenseDeclared, sp.SnippetFromFile.FileDependency)
+	// fmt.Printf("%v%T\n\n\n", spdxdoc.Relationship[1].Package[0].PackageLicenseDeclared, sp.SnippetFromFile.FileDependency)
 
 	// invert := CollectDocument(doc2v1)
 	// WRITER
 	output := os.Stdout
-	err = rdf2v1.Write(output, spdxdoc, sp)
-
-	// fmt.Printf("%v\n\n\n", spdxdoc.Relationship[0])
-	// fmt.Printf("%#v\n\n\n", invert.Relationship[0].File[0])
-	// fmt.Printf("%#v\n\n\n", invert.Relationship[1].File[0])
-
+	errsn := rdf2v1.WriteSnippet(output, sp)
+	if errsn != nil {
+		fmt.Println("Cannot Write Snippet")
+		return
+	}
+	errdoc := rdf2v1.WriteDocument(output, spdxdoc)
+	if errdoc != nil {
+		fmt.Println("Cannot Write Document")
+		return
+	}
 }
 
 func Parse(input string) (*rdf2v1.Document, *rdf2v1.Snippet, error) {
