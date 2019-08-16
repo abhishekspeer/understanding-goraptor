@@ -33,8 +33,15 @@ var (
 	typeByteOffsetPointer       = prefix("j.0:ByteOffsetPointer")
 	typeLineCharPointer         = prefix("j.0:LineCharPointer")
 )
-var DocumentNamespace ValueStr
-var SPDXID ValueStr
+var (
+	ID                    map[string]ValueStr
+	DocumentNamespace     ValueStr
+	SPDXID                ValueStr
+	SPDXIDFile            ValueStr
+	SPDXIDPackage         ValueStr
+	RelatedSPDXElementID  ValueStr
+	RelatedSPDXElementKey bool
+)
 
 // Parser Struct and associated methods
 type Parser struct {
@@ -79,9 +86,15 @@ func (p *Parser) Free() {
 
 func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 	// fmt.Println("============================")
-	fmt.Println(stm.Subject)
-	fmt.Println("============================")
+	// if ExtractId(termStr(stm.Predicate)) == "relatedSpdxElement" {
+	// 	fmt.Println(ExtractId(termStr(stm.Object)))
+	// 	RelatedSPDXElementKey = true
+	// 	RelatedSPDXElementID = Str(ExtractId(termStr(stm.Object)))
+	// 	fmt.Println("============================")
+	// }
 
+	// ID[ExtractId(termStr(stm.Predicate))] = Str(ExtractId(termStr(stm.Subject)))
+	// fmt.Println(len(ID))
 	node := termStr(stm.Subject)
 	ns, id, _ := ExtractNs(node)
 	if id == "SPDXRef-DOCUMENT" {
@@ -106,7 +119,6 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 	if _, ok := p.Buffer[node]; !ok {
 		p.Buffer[node] = make([]*goraptor.Statement, 0)
 	}
-
 	p.Buffer[node] = append(p.Buffer[node], stm)
 	return nil
 }

@@ -57,6 +57,10 @@ func (p *Parser) MapRelationship(rel *Relationship) *builder {
 			return nil
 		},
 	}
+	// if RelatedSPDXElementKey == true {
+	// 	rel.RelatedSpdxElement = RelatedSPDXElementID
+	// 	RelatedSPDXElementKey = false
+	// }
 	return builder
 }
 
