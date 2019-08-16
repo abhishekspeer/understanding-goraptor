@@ -30,7 +30,7 @@ func main() {
 		return
 	}
 	// doc2v1 := TransferDocument(spdxdoc, sp)
-	fmt.Printf("%T%v\n\n\n", spdxdoc.Relationship[3].File[0], sp.SnippetFromFile.FileDependency)
+	fmt.Printf("%v%T\n\n\n", spdxdoc.Relationship[1].Package[0].PackageLicenseDeclared, sp.SnippetFromFile.FileDependency)
 
 	// invert := CollectDocument(doc2v1)
 	// WRITER
