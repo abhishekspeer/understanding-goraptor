@@ -148,6 +148,13 @@ func ExtractId(value string) string {
 	return s[1]
 }
 
+func ExtractRelType(value string) string {
+	s := strings.SplitN(value, "_", 2)
+	if len(s) == 1 {
+		return ""
+	}
+	return s[1]
+}
 func InsertId(value string) ValueStr {
 	s := value + "#SPDXRef-DOCUMENT"
 	vs := Str(s)

@@ -6,6 +6,7 @@ import (
 
 type File struct {
 	FileName               ValueStr
+	FileSPDXIdentifier     ValueStr
 	FileChecksum           *Checksum
 	LicenseInfoInFile      []ValueStr
 	FileCopyrightText      ValueStr
@@ -52,6 +53,7 @@ func (p *Parser) requestProject(node goraptor.Term) (*Project, error) {
 }
 func (p *Parser) MapFile(file *File) *builder {
 	builder := &builder{t: typeFile, ptr: file}
+	file.FileSPDXIdentifier = SPDXIDFile
 	builder.updaters = map[string]updater{
 		"fileName": update(&file.FileName),
 		"checksum": func(obj goraptor.Term) error {

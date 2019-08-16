@@ -24,22 +24,22 @@ func main() {
 
 	input := args[1]
 	spdxdoc, sp, err = Parse(input)
-	fmt.Printf("FFFFFFFFFFFFFFFFFF%#v\n\n\n", spdxdoc.SPDXID)
 
 	if err != nil {
 		fmt.Println("Parsing Error")
 		return
 	}
-	doc2v1 := TransferDocument(spdxdoc, sp)
-	fmt.Printf("%T\n\n\n", doc2v1)
-	invert := CollectDocument(doc2v1)
-	// WRITER
-	output := os.Stdout
-	err = rdf2v1.Write(output, spdxdoc, sp)
+	// doc2v1 := TransferDocument(spdxdoc, sp)
+	fmt.Printf("%v%T\n\n\n", spdxdoc.Relationship[3].File[0], sp)
 
-	fmt.Printf("%v\n\n\n", spdxdoc.Relationship[0])
-	fmt.Printf("%#v\n\n\n", invert.Relationship[0].File[0])
-	fmt.Printf("%#v\n\n\n", invert.Relationship[1].File[0])
+	// invert := CollectDocument(doc2v1)
+	// // WRITER
+	// output := os.Stdout
+	// err = rdf2v1.Write(output, spdxdoc, sp)
+
+	// fmt.Printf("%v\n\n\n", spdxdoc.Relationship[0])
+	// fmt.Printf("%#v\n\n\n", invert.Relationship[0].File[0])
+	// fmt.Printf("%#v\n\n\n", invert.Relationship[1].File[0])
 
 }
 
@@ -390,8 +390,10 @@ func transferRelationships(spdxdoc *rdf2v1.Document) []*spdx.Relationship2_1 {
 	for _, a := range spdxdoc.Relationship {
 		if a != nil {
 			stdRel := spdx.Relationship2_1{
-				Relationship:        a.RelationshipType.Val,
-				RelationshipComment: a.RelationshipComment.Val,
+				RefA: spdxdoc.SPDXID.Val,
+				// RefB:
+				// Relationship:        rdf2v1.ExtractRelType(a.RelationshipType.Val),
+				// RelationshipComment: a.RelationshipComment.Val,
 			}
 			pointer := &stdRel
 			arrRel = append(arrRel, pointer)

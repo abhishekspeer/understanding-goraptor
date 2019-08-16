@@ -13,6 +13,7 @@ type Snippet struct {
 	SnippetLicenseConcluded ValueStr
 	SnippetComment          ValueStr
 	LicenseInfoInSnippet    []ValueStr
+	SnippetSPDXIdentifier   ValueStr
 }
 
 type ExternalRef struct {

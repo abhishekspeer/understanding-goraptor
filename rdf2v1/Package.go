@@ -8,6 +8,7 @@ type Package struct {
 	PackageName                 ValueStr
 	PackageVersionInfo          ValueStr
 	PackageFileName             ValueStr
+	PackageSPDXIdentifier       ValueStr
 	PackageDownloadLocation     ValueStr
 	PackageVerificationCode     *PackageVerificationCode
 	PackageComment              ValueStr
