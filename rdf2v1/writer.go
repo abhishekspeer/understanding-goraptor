@@ -190,15 +190,21 @@ func (f *Formatter) Snippet(snip *Snippet) (snipId goraptor.Term, err error) {
 	if err = f.addLiteral(snipId, "rdfs:comment", snip.SnippetComment.Val); err != nil {
 		return
 	}
-	for _, lis := range snip.LicenseInfoInSnippet {
-		if err = f.addLiteral(snipId, "creator", lis.Val); err != nil {
-			return
-		}
-	}
+
 	if snip.SnippetLicenseConcluded.Val != "" {
 		if err = f.addTerm(snipId, "licenseConcluded", prefix(snip.SnippetLicenseConcluded.Val)); err != nil {
 			return
 		}
+	}
+	for _, li := range snip.LicenseInfoInSnippet {
+		if err = f.addLiteral(snipId, "licenseInfoInSnippet", li.Val); err != nil {
+			return
+		}
+	}
+	if err = f.SnippetStartEndPointers(snipId, "range", snip.SnippetStartEndPointer); err != nil {
+
+		return
+
 	}
 	if snip.SnippetFromFile != nil {
 		sfId, err := f.File(snip.SnippetFromFile)
@@ -576,15 +582,6 @@ func (f *Formatter) File(file *File) (id goraptor.Term, err error) {
 		}
 	}
 
-	if file.FileChecksum != nil {
-		cksumId, err := f.Checksum(file.FileChecksum)
-		if err != nil {
-			return id, err
-		}
-		if err = f.addTerm(id, "checksum", cksumId); err != nil {
-			return id, err
-		}
-	}
 	//checkaftersnippets
 	if file.SnippetLicense != nil {
 		filelicId, err := f.License(file.SnippetLicense)
@@ -611,14 +608,6 @@ func (f *Formatter) File(file *File) (id goraptor.Term, err error) {
 			return id, err
 		}
 	}
-
-	// if id, err := f.CreationInfo(doc.CreationInfo); err == nil {
-	// 	if err = f.addTerm(docId, "creationInfo", id); err != nil {
-	// 		return docId, err
-	// 	}
-	// } else {
-	// 	return docId, err
-	// }
 
 	if file.FileRelationship != nil {
 		frId, err := f.Relationship(file.FileRelationship)
@@ -691,25 +680,12 @@ func (f *Formatter) Relationship(rel *Relationship) (id goraptor.Term, err error
 			return id, err
 		}
 	}
-	// if err = f.Files(id, "referencesFile", rel.File); err != nil {
-	// 	return
-	// }
-	/*
-		if rel.relatedSpdxElement.Val != "" {
-			rseid, err := f.Package(rel.Package)
-			if err != nil {
-				rseid, err := f.VerificationCode(pkg.VerificationCode)
-				if err != nil {
-					pkgid, err := f.VerificationCode(pkg.VerificationCode)
-					if err != nil {
-						return id, err
-					}
-				}
 
-			}
-			if err = f.addTerm(id, "relatedSpdxElement", prefix(rel.relatedSpdxElement.Val)); err != nil {
-				return id ,err
-			}}*/
+	if err = f.Files(id, "relatedSpdxElement", rel.File); err != nil {
+		if err = f.Packages(id, "relatedSpdxElement", rel.Package); err != nil {
+			return
+		}
+	}
 
 	return id, err
 }
@@ -833,22 +809,6 @@ func (f *Formatter) Package(pkg *Package) (id goraptor.Term, err error) {
 	if err != nil {
 		return
 	}
-	if pkg.PackageLicense != nil {
-		pkglicId, err := f.License(pkg.PackageLicense)
-		if err != nil {
-			pkglicId, err = f.DisjunctiveLicenseSet(pkg.DisjunctiveLicenseSet)
-			if err != nil {
-				pkglicId, err = f.ConjunctiveLicenseSet(pkg.ConjunctiveLicenseSet)
-				if err != nil {
-					return id, err
-				}
-			}
-		}
-		if err = f.addTerm(id, "licenseConcluded", pkglicId); err != nil {
-			return id, err
-
-		}
-	}
 	if pkg.PackageVerificationCode != nil {
 		pkgid, err := f.PackageVerificationCode(pkg.PackageVerificationCode)
 		if err != nil {
@@ -869,11 +829,6 @@ func (f *Formatter) Package(pkg *Package) (id goraptor.Term, err error) {
 		}
 	}
 
-	if pkg.PackageLicenseDeclared.Val != "" {
-		if err = f.addTerm(id, "licenseDeclared", prefix(pkg.PackageLicenseDeclared.Val)); err != nil {
-			return
-		}
-	}
 	if err = f.Annotations(id, "annotation", pkg.Annotation); err != nil {
 		return
 	}
@@ -905,20 +860,45 @@ func (f *Formatter) Package(pkg *Package) (id goraptor.Term, err error) {
 			return
 		}
 	}
-	// if pkg.PackageLicenseDeclared != "" {
-	// 	licId, err := f.License(pkg.PackageLicenseDeclared)
-	// 	if err != nil {
-	// 		return id, err
-	// 	}
-	// 	if err = f.addTerm(id, "licenseDeclared", licId); err != nil {
-	// 		return id, err
-	// 	}
-	// }
 
+	if pkg.PackageLicense != nil {
+		pkglicId, err := f.License(pkg.PackageLicense)
+		if err != nil {
+			pkglicId, err = f.DisjunctiveLicenseSet(pkg.DisjunctiveLicenseSet)
+			if err != nil {
+				pkglicId, err = f.ConjunctiveLicenseSet(pkg.ConjunctiveLicenseSet)
+				if err != nil {
+					return id, err
+				}
+			}
+		}
+		if err = f.addTerm(id, "licenseConcluded", pkglicId); err != nil {
+			return id, err
+
+		}
+	}
+
+	if pkg.PackageLicenseDeclared.Val != "" {
+		if err = f.addTerm(id, "licenseDeclared", prefix(pkg.PackageLicenseDeclared.Val)); err != nil {
+			pkglicId, err := f.License(pkg.PackageLicense)
+			if err != nil {
+				pkglicId, err = f.DisjunctiveLicenseSet(pkg.DisjunctiveLicenseSet)
+				if err != nil {
+					pkglicId, err = f.ConjunctiveLicenseSet(pkg.ConjunctiveLicenseSet)
+					if err != nil {
+						return id, err
+					}
+				}
+			}
+			if err = f.addTerm(id, "licenseDeclared", pkglicId); err != nil {
+				return id, err
+			}
+		}
+
+	}
 	return id, err
 }
 
-// Write Review
 func (f *Formatter) ExternalRef(er *ExternalRef) (id goraptor.Term, err error) {
 	id = f.NodeId("er")
 
@@ -930,8 +910,13 @@ func (f *Formatter) ExternalRef(er *ExternalRef) (id goraptor.Term, err error) {
 		pair{"referenceLocator", er.ReferenceLocator.Val},
 		pair{"rdfs:comment", er.ReferenceComment.Val},
 	)
+	if id, err := f.ReferenceType(er.ReferenceType); err == nil {
+		if err = f.addTerm(id, "referenceType", id); err != nil {
+			return id, err
+		}
+	}
 	if er.ReferenceCategory.Val != "" {
-		if err = f.addTerm(id, "annotationType", prefix(er.ReferenceCategory.Val)); err != nil {
+		if err = f.addTerm(id, "referenceCategory", prefix(er.ReferenceCategory.Val)); err != nil {
 			return
 		}
 	}
@@ -951,6 +936,134 @@ func (f *Formatter) ReferenceType(rt *ReferenceType) (id goraptor.Term, err erro
 		}
 	}
 	return id, err
+}
+
+func (f *Formatter) SnippetStartEndPointer(se *SnippetStartEndPointer) (id goraptor.Term, err error) {
+	id = f.NodeId("ssep")
+
+	if err = f.setNodeType(id, typeSnippetStartEndPointer); err != nil {
+		return
+	}
+
+	if err = f.ByteOffsetPointers(id, "j.0:endPointer", se.ByteOffsetPointer); err != nil {
+		if err = f.LineCharPointers(id, "j.0:endPointer", se.LineCharPointer); err != nil {
+			return
+		}
+	}
+	if err = f.LineCharPointers(id, "j.0:startPointer", se.LineCharPointer); err != nil {
+		if err = f.ByteOffsetPointers(id, "j.0:startPointer", se.ByteOffsetPointer); err != nil {
+			return
+		}
+	}
+
+	return id, nil
+}
+
+func (f *Formatter) LineCharPointer(lcp *LineCharPointer) (id goraptor.Term, err error) {
+	id = f.NodeId("lc")
+
+	if err = f.setNodeType(id, typeLineCharPointer); err != nil {
+		return
+	}
+
+	err = f.addPairs(id,
+		pair{"j.0:reference", lcp.Reference.Val},
+		pair{"j.0:lineNumber", lcp.LineNumber.Val},
+	)
+
+	if err != nil {
+		return
+	}
+
+	return id, nil
+}
+func (f *Formatter) ByteOffsetPointer(bop *ByteOffsetPointer) (id goraptor.Term, err error) {
+	id = f.NodeId("bo")
+
+	if err = f.setNodeType(id, typeByteOffsetPointer); err != nil {
+		return
+	}
+
+	err = f.addPairs(id,
+		pair{"j.0:reference", bop.Reference.Val},
+		pair{"j.0:offset", bop.Offset.Val},
+	)
+
+	if err != nil {
+		return
+	}
+
+	return id, nil
+}
+
+func (f *Formatter) SnippetStartEndPointers(parent goraptor.Term, element string, ses []*SnippetStartEndPointer) error {
+
+	if len(ses) == 0 {
+		return nil
+	}
+
+	for _, se := range ses {
+		if se != nil {
+		}
+		sepId, err := f.SnippetStartEndPointer(se)
+
+		if err != nil {
+			return err
+		}
+		if sepId == nil {
+			continue
+		}
+		if err = f.addTerm(parent, element, sepId); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (f *Formatter) ByteOffsetPointers(parent goraptor.Term, element string, bos []*ByteOffsetPointer) error {
+
+	if len(bos) == 0 {
+		return nil
+	}
+
+	for _, bo := range bos {
+		if bo != nil {
+			bopId, err := f.ByteOffsetPointer(bo)
+			if err != nil {
+				return err
+			}
+			if bopId == nil {
+				continue
+			}
+			if err = f.addTerm(parent, element, bopId); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+func (f *Formatter) LineCharPointers(parent goraptor.Term, element string, lcs []*LineCharPointer) error {
+
+	if len(lcs) == 0 {
+		return nil
+	}
+
+	for _, lc := range lcs {
+		if lc != nil {
+			lcId, err := f.LineCharPointer(lc)
+			if err != nil {
+				return err
+			}
+			if lcId == nil {
+				continue
+			}
+			if err = f.addTerm(parent, element, lcId); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
 }
 
 // Close to free the serializer

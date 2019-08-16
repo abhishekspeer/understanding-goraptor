@@ -36,6 +36,12 @@ type PackageVerificationCode struct {
 	PackageVerificationCode             ValueStr
 	PackageVerificationCodeExcludedFile ValueStr
 }
+type ExternalRef struct {
+	ReferenceLocator  ValueStr
+	ReferenceType     *ReferenceType
+	ReferenceCategory ValueStr
+	ReferenceComment  ValueStr
+}
 
 func (p *Parser) requestPackage(node goraptor.Term) (*Package, error) {
 	obj, err := p.requestElementType(node, typePackage)
@@ -53,6 +59,13 @@ func (p *Parser) requestPackageVerificationCode(node goraptor.Term) (*PackageVer
 	return obj.(*PackageVerificationCode), err
 }
 
+func (p *Parser) requestExternalRef(node goraptor.Term) (*ExternalRef, error) {
+	obj, err := p.requestElementType(node, typeExternalRef)
+	if err != nil {
+		return nil, err
+	}
+	return obj.(*ExternalRef), err
+}
 func (p *Parser) MapPackage(pkg *Package) *builder {
 	builder := &builder{t: typePackage, ptr: pkg}
 	builder.updaters = map[string]updater{
@@ -72,15 +85,35 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 		},
 		"licenseComments": update(&pkg.PackageLicenseComments),
 		"licenseConcluded": func(obj goraptor.Term) error {
-			pkgdls, _ := p.requestDisjunctiveLicenseSet(obj)
+			pkgdls, err := p.requestDisjunctiveLicenseSet(obj)
 			pkg.DisjunctiveLicenseSet = pkgdls
-			pkglic, _ := p.requestLicense(obj)
-			pkg.PackageLicense = pkglic
-			pkgcls, _ := p.requestConjunctiveLicenseSet(obj)
-			pkg.ConjunctiveLicenseSet = pkgcls
+			if err != nil {
+				pkglic, err := p.requestLicense(obj)
+				pkg.PackageLicense = pkglic
+				if err != nil {
+					pkgcls, err := p.requestConjunctiveLicenseSet(obj)
+					pkg.ConjunctiveLicenseSet = pkgcls
+					return err
+				}
+			}
 			return nil
 		},
-		"licenseDeclared":      update(&pkg.PackageLicenseDeclared),
+		"licenseDeclared": func(obj goraptor.Term) error {
+			_, ok := builder.updaters["http://spdx.org/rdf/terms#licenseDeclared"]
+			if ok {
+				builder.updaters = map[string]updater{"licenseDeclared": update(&pkg.PackageLicenseDeclared)}
+			}
+			pkgdls, _ := p.requestDisjunctiveLicenseSet(obj)
+			pkg.DisjunctiveLicenseSet = pkgdls
+
+			pkglic, _ := p.requestLicense(obj)
+			pkg.PackageLicense = pkglic
+
+			pkgcls, _ := p.requestConjunctiveLicenseSet(obj)
+			pkg.ConjunctiveLicenseSet = pkgcls
+
+			return nil
+		},
 		"licenseInfoFromFiles": updateList(&pkg.PackageLicenseInfoFromFiles),
 		"copyrightText":        update(&pkg.PackageCopyrightText),
 		"hasFile": func(obj goraptor.Term) error {
@@ -122,6 +155,21 @@ func (p *Parser) MapPackageVerificationCode(pkgvc *PackageVerificationCode) *bui
 	builder.updaters = map[string]updater{
 		"packageVerificationCodeValue":        update(&pkgvc.PackageVerificationCode),
 		"packageVerificationCodeExcludedFile": update(&pkgvc.PackageVerificationCodeExcludedFile),
+	}
+	return builder
+}
+
+func (p *Parser) MapExternalRef(er *ExternalRef) *builder {
+	builder := &builder{t: typeExternalRef, ptr: er}
+	builder.updaters = map[string]updater{
+		"referenceLocator":  update(&er.ReferenceLocator),
+		"referenceCategory": update(&er.ReferenceCategory),
+		"rdfs:comment":      update(&er.ReferenceComment),
+		"referenceType": func(obj goraptor.Term) error {
+			rt, err := p.requestReferenceType(obj)
+			er.ReferenceType = rt
+			return err
+		},
 	}
 	return builder
 }

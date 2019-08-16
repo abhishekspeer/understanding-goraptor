@@ -16,13 +16,6 @@ type Snippet struct {
 	SnippetSPDXIdentifier   ValueStr
 }
 
-type ExternalRef struct {
-	ReferenceLocator  ValueStr
-	ReferenceType     *ReferenceType
-	ReferenceCategory ValueStr
-	ReferenceComment  ValueStr
-}
-
 type ReferenceType struct {
 	ReferenceType ValueStr
 }
@@ -49,13 +42,7 @@ func (p *Parser) requestSnippet(node goraptor.Term) (*Snippet, error) {
 	}
 	return obj.(*Snippet), err
 }
-func (p *Parser) requestExternalRef(node goraptor.Term) (*ExternalRef, error) {
-	obj, err := p.requestElementType(node, typeExternalRef)
-	if err != nil {
-		return nil, err
-	}
-	return obj.(*ExternalRef), err
-}
+
 func (p *Parser) requestReferenceType(node goraptor.Term) (*ReferenceType, error) {
 	obj, err := p.requestElementType(node, typeReferenceType)
 	if err != nil {
@@ -102,21 +89,6 @@ func (p *Parser) MapSnippet(s *Snippet) *builder {
 		"range": func(obj goraptor.Term) error {
 			sep, err := p.requestSnippetStartEndPointer(obj)
 			s.SnippetStartEndPointer = append(s.SnippetStartEndPointer, sep)
-			return err
-		},
-	}
-	return builder
-}
-
-func (p *Parser) MapExternalRef(er *ExternalRef) *builder {
-	builder := &builder{t: typeExternalRef, ptr: er}
-	builder.updaters = map[string]updater{
-		"referenceLocator":  update(&er.ReferenceLocator),
-		"referenceCategory": update(&er.ReferenceCategory),
-		"rdfs:comment":      update(&er.ReferenceComment),
-		"referenceType": func(obj goraptor.Term) error {
-			rt, err := p.requestReferenceType(obj)
-			er.ReferenceType = rt
 			return err
 		},
 	}
