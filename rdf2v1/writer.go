@@ -65,7 +65,7 @@ func (f *Formatter) NodeId(prefix string) *goraptor.Blank {
 
 // Sets node type
 func (f *Formatter) setNodeType(node, t goraptor.Term) error {
-	return f.add(node, prefix("ns:type"), t)
+	return f.add(node, Prefix("ns:type"), t)
 }
 
 // Add 'keys' to 'values' for subject 'to'
@@ -77,14 +77,14 @@ func (f *Formatter) add(to, key, value goraptor.Term) error {
 	})
 }
 func (f *Formatter) addTerm(to goraptor.Term, key string, value goraptor.Term) error {
-	return f.add(to, prefix(key), value)
+	return f.add(to, Prefix(key), value)
 }
 
 func (f *Formatter) addLiteral(to goraptor.Term, key, value string) error {
 	if value == "" {
 		return nil
 	}
-	return f.add(to, prefix(key), &goraptor.Literal{Value: value})
+	return f.add(to, Prefix(key), &goraptor.Literal{Value: value})
 }
 func (f *Formatter) addPairs(to goraptor.Term, pairs ...pair) error {
 	for _, p := range pairs {
@@ -192,7 +192,7 @@ func (f *Formatter) Snippet(snip *Snippet) (snipId goraptor.Term, err error) {
 	}
 
 	if snip.SnippetLicenseConcluded.Val != "" {
-		if err = f.addTerm(snipId, "licenseConcluded", prefix(snip.SnippetLicenseConcluded.Val)); err != nil {
+		if err = f.addTerm(snipId, "licenseConcluded", Prefix(snip.SnippetLicenseConcluded.Val)); err != nil {
 			return
 		}
 	}
@@ -333,9 +333,9 @@ func (f *Formatter) Annotation(an *Annotation) (id goraptor.Term, err error) {
 	if err != nil {
 		return
 	}
-	// type 2: add pairs with prefix
+	// type 2: add pairs with Prefix
 	if an.AnnotationType.Val != "" {
-		if err = f.addTerm(id, "annotationType", prefix(an.AnnotationType.Val)); err != nil {
+		if err = f.addTerm(id, "annotationType", Prefix(an.AnnotationType.Val)); err != nil {
 			return
 		}
 	}
@@ -417,12 +417,12 @@ func (f *Formatter) Checksum(cksum *Checksum) (id goraptor.Term, err error) {
 
 	algo := strings.ToLower(cksum.Algorithm.Val)
 	if algo == "sha1" {
-		err = f.addTerm(id, "algorithm", prefix("checksumAlgorithm_sha1"))
+		err = f.addTerm(id, "algorithm", Prefix("checksumAlgorithm_sha1"))
 
 	} else if algo == "md5" {
-		err = f.addTerm(id, "algorithm", prefix("checksumAlgorithm_md5"))
+		err = f.addTerm(id, "algorithm", Prefix("checksumAlgorithm_md5"))
 	} else if algo == "sha256" {
-		err = f.addTerm(id, "algorithm", prefix("checksumAlgorithm_sha256"))
+		err = f.addTerm(id, "algorithm", Prefix("checksumAlgorithm_sha256"))
 	} else {
 		err = f.addLiteral(id, "algorithm", algo)
 	}
@@ -572,12 +572,12 @@ func (f *Formatter) File(file *File) (id goraptor.Term, err error) {
 		}
 	}
 	for _, lif := range file.LicenseInfoInFile {
-		if err = f.addTerm(id, "licenseInfoInFile", prefix(lif.Val)); err != nil {
+		if err = f.addTerm(id, "licenseInfoInFile", Prefix(lif.Val)); err != nil {
 			return
 		}
 	}
 	for _, ft := range file.FileType {
-		if err = f.addTerm(id, "fileType", prefix(ft.Val)); err != nil {
+		if err = f.addTerm(id, "fileType", Prefix(ft.Val)); err != nil {
 			return
 		}
 	}
@@ -662,12 +662,12 @@ func (f *Formatter) Relationship(rel *Relationship) (id goraptor.Term, err error
 	}
 
 	if rel.RelationshipType.Val != "" {
-		if err = f.addTerm(id, "relationshipType", prefix(rel.RelationshipType.Val)); err != nil {
+		if err = f.addTerm(id, "relationshipType", Prefix(rel.RelationshipType.Val)); err != nil {
 			return
 		}
 	}
 	if rel.RelatedSpdxElement.Val != "" {
-		if err = f.addTerm(id, "relatedSpdxElement", prefix(rel.RelatedSpdxElement.Val)); err != nil {
+		if err = f.addTerm(id, "relatedSpdxElement", Prefix(rel.RelatedSpdxElement.Val)); err != nil {
 			return
 		}
 	}
@@ -696,7 +696,7 @@ func (f *Formatter) SpdxElement(se *SpdxElement) (id goraptor.Term, err error) {
 		return
 	}
 	if se.SpdxElement.Val != "" {
-		if err = f.addTerm(id, "SpdxElement", prefix(se.SpdxElement.Val)); err != nil {
+		if err = f.addTerm(id, "SpdxElement", Prefix(se.SpdxElement.Val)); err != nil {
 			return
 		}
 	}
@@ -856,7 +856,7 @@ func (f *Formatter) Package(pkg *Package) (id goraptor.Term, err error) {
 		}
 	}
 	for _, lif := range pkg.PackageLicenseInfoFromFiles {
-		if err = f.addTerm(id, "licenseInfoFromFiles", prefix(lif.Val)); err != nil {
+		if err = f.addTerm(id, "licenseInfoFromFiles", Prefix(lif.Val)); err != nil {
 			return
 		}
 	}
@@ -879,7 +879,7 @@ func (f *Formatter) Package(pkg *Package) (id goraptor.Term, err error) {
 	}
 
 	if pkg.PackageLicenseDeclared.Val != "" {
-		if err = f.addTerm(id, "licenseDeclared", prefix(pkg.PackageLicenseDeclared.Val)); err != nil {
+		if err = f.addTerm(id, "licenseDeclared", Prefix(pkg.PackageLicenseDeclared.Val)); err != nil {
 			pkglicId, err := f.License(pkg.PackageLicense)
 			if err != nil {
 				pkglicId, err = f.DisjunctiveLicenseSet(pkg.DisjunctiveLicenseSet)
@@ -916,7 +916,7 @@ func (f *Formatter) ExternalRef(er *ExternalRef) (id goraptor.Term, err error) {
 		}
 	}
 	if er.ReferenceCategory.Val != "" {
-		if err = f.addTerm(id, "referenceCategory", prefix(er.ReferenceCategory.Val)); err != nil {
+		if err = f.addTerm(id, "referenceCategory", Prefix(er.ReferenceCategory.Val)); err != nil {
 			return
 		}
 	}
@@ -931,7 +931,7 @@ func (f *Formatter) ReferenceType(rt *ReferenceType) (id goraptor.Term, err erro
 	}
 
 	if rt.ReferenceType.Val != "" {
-		if err = f.addTerm(id, "referenceType", prefix(rt.ReferenceType.Val)); err != nil {
+		if err = f.addTerm(id, "referenceType", Prefix(rt.ReferenceType.Val)); err != nil {
 			return
 		}
 	}
