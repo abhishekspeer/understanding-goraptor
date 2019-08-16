@@ -53,7 +53,6 @@ func (p *Parser) requestProject(node goraptor.Term) (*Project, error) {
 }
 func (p *Parser) MapFile(file *File) *builder {
 	builder := &builder{t: typeFile, ptr: file}
-	file.FileSPDXIdentifier = SPDXIDFile
 	builder.updaters = map[string]updater{
 		"fileName": update(&file.FileName),
 		"checksum": func(obj goraptor.Term) error {
@@ -96,8 +95,8 @@ func (p *Parser) MapFile(file *File) *builder {
 			return err
 		},
 		"fileDependency": func(obj goraptor.Term) error {
-			file, err := p.requestFile(obj)
-			file.FileDependency = file
+			f, err := p.requestFile(obj)
+			file.FileDependency = f
 			return err
 		},
 		"relationship": func(obj goraptor.Term) error {
@@ -106,6 +105,7 @@ func (p *Parser) MapFile(file *File) *builder {
 			return err
 		},
 	}
+	file.FileSPDXIdentifier = SPDXIDFile
 	return builder
 }
 

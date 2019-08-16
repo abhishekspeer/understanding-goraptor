@@ -30,12 +30,12 @@ func main() {
 		return
 	}
 	// doc2v1 := TransferDocument(spdxdoc, sp)
-	fmt.Printf("%v%T\n\n\n", spdxdoc.Relationship[3].File[0], sp)
+	fmt.Printf("%T%v\n\n\n", spdxdoc.Relationship[3].File[0], sp.SnippetFromFile.FileDependency)
 
 	// invert := CollectDocument(doc2v1)
-	// // WRITER
-	// output := os.Stdout
-	// err = rdf2v1.Write(output, spdxdoc, sp)
+	// WRITER
+	output := os.Stdout
+	err = rdf2v1.Write(output, spdxdoc, sp)
 
 	// fmt.Printf("%v\n\n\n", spdxdoc.Relationship[0])
 	// fmt.Printf("%#v\n\n\n", invert.Relationship[0].File[0])

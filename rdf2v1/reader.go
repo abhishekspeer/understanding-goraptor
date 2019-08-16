@@ -86,12 +86,6 @@ func (p *Parser) Free() {
 
 func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 	// fmt.Println("============================")
-	// if ExtractId(termStr(stm.Predicate)) == "relatedSpdxElement" {
-	// 	fmt.Println(ExtractId(termStr(stm.Object)))
-	// 	RelatedSPDXElementKey = true
-	// 	RelatedSPDXElementID = Str(ExtractId(termStr(stm.Object)))
-	// 	fmt.Println("============================")
-	// }
 
 	// ID[ExtractId(termStr(stm.Predicate))] = Str(ExtractId(termStr(stm.Subject)))
 	// fmt.Println(len(ID))
@@ -115,6 +109,11 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 		return builder.apply(stm.Predicate, stm.Object)
 	}
 
+	// if ExtractId(termStr(stm.Predicate)) == "fileName" {
+	// 	fmt.Println(ExtractId(termStr(stm.Subject)))
+	// 	SPDXIDFile = Str(ExtractId(termStr(stm.Subject)))
+	// 	fmt.Println("============================")
+	// }
 	// buffer statement
 	if _, ok := p.Buffer[node]; !ok {
 		p.Buffer[node] = make([]*goraptor.Statement, 0)

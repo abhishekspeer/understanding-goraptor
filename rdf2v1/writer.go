@@ -12,10 +12,10 @@ import (
 
 func Write(output *os.File, doc *Document, sn *Snippet) error {
 	f := NewFormatter(output, "rdfxml-abbrev")
-	_, docerr := f.Document(doc)
-	if docerr != nil {
-		return nil
-	}
+	// _, docerr := f.Document(doc)
+	// if docerr != nil {
+	// 	return nil
+	// }
 	_, snippet := f.Snippet(sn)
 	if snippet != nil {
 		return nil
@@ -175,7 +175,7 @@ func (f *Formatter) Snippet(snip *Snippet) (snipId goraptor.Term, err error) {
 	// docId = &_docId
 	snipId = blank("snip")
 
-	if err = f.setNodeType(snipId, typeDocument); err != nil {
+	if err = f.setNodeType(snipId, typeSnippet); err != nil {
 		return
 	}
 	if err = f.addLiteral(snipId, "name", snip.SnippetName.Val); err != nil {
@@ -611,6 +611,14 @@ func (f *Formatter) File(file *File) (id goraptor.Term, err error) {
 			return id, err
 		}
 	}
+
+	// if id, err := f.CreationInfo(doc.CreationInfo); err == nil {
+	// 	if err = f.addTerm(docId, "creationInfo", id); err != nil {
+	// 		return docId, err
+	// 	}
+	// } else {
+	// 	return docId, err
+	// }
 
 	if file.FileRelationship != nil {
 		frId, err := f.Relationship(file.FileRelationship)
