@@ -63,9 +63,9 @@ func (f *Formatter) NodeId(prefix string) *goraptor.Blank {
 	return &id
 }
 
-// Sets node type
+// Sets node Type
 func (f *Formatter) setNodeType(node, t goraptor.Term) error {
-	return f.add(node, Prefix("ns:type"), t)
+	return f.add(node, Prefix("ns:Type"), t)
 }
 
 // Add 'keys' to 'values' for subject 'to'
@@ -86,8 +86,8 @@ func (f *Formatter) addLiteral(to goraptor.Term, key, value string) error {
 	}
 	return f.add(to, Prefix(key), &goraptor.Literal{Value: value})
 }
-func (f *Formatter) addPairs(to goraptor.Term, pairs ...pair) error {
-	for _, p := range pairs {
+func (f *Formatter) addPairs(to goraptor.Term, Pairs ...Pair) error {
+	for _, p := range Pairs {
 		if err := f.addLiteral(to, p.key, p.val); err != nil {
 			return err
 		}
@@ -103,9 +103,9 @@ func (f *Formatter) Document(doc *Document) (docId goraptor.Term, err error) {
 	}
 
 	// docId = &_docId
-	docId = blank("doc")
+	docId = Blank("doc")
 
-	if err = f.setNodeType(docId, typeDocument); err != nil {
+	if err = f.setNodeType(docId, TypeDocument); err != nil {
 		return
 	}
 
@@ -114,12 +114,12 @@ func (f *Formatter) Document(doc *Document) (docId goraptor.Term, err error) {
 	}
 
 	if doc.DataLicense.Val != "" {
-		if err = f.addTerm(docId, "dataLicense", uri(licenseUri+doc.DataLicense.Val)); err != nil {
+		if err = f.addTerm(docId, "dataLicense", Uri(licenseUri+doc.DataLicense.Val)); err != nil {
 			return
 		}
 	}
 	if doc.DocumentName.Val != "" {
-		if err = f.addTerm(docId, "name", uri(licenseUri+doc.DataLicense.Val)); err != nil {
+		if err = f.addTerm(docId, "name", Uri(licenseUri+doc.DataLicense.Val)); err != nil {
 			return
 		}
 	}
@@ -173,9 +173,9 @@ func (f *Formatter) Snippet(snip *Snippet) (snipId goraptor.Term, err error) {
 	}
 
 	// docId = &_docId
-	snipId = blank("snip")
+	snipId = Blank("snip")
 
-	if err = f.setNodeType(snipId, typeSnippet); err != nil {
+	if err = f.setNodeType(snipId, TypeSnippet); err != nil {
 		return
 	}
 	if err = f.addLiteral(snipId, "name", snip.SnippetName.Val); err != nil {
@@ -220,13 +220,13 @@ func (f *Formatter) Snippet(snip *Snippet) (snipId goraptor.Term, err error) {
 func (f *Formatter) ExternalDocumentRef(edr *ExternalDocumentRef) (id goraptor.Term, err error) {
 	id = f.NodeId("edr")
 
-	if err = f.setNodeType(id, typeExternalDocumentRef); err != nil {
+	if err = f.setNodeType(id, TypeExternalDocumentRef); err != nil {
 		return
 	}
 
 	err = f.addPairs(id,
-		pair{"externalDocumentId", edr.ExternalDocumentId.Val},
-		pair{"spdxDocument", edr.SPDXDocument.Val},
+		Pair{"externalDocumentId", edr.ExternalDocumentId.Val},
+		Pair{"spdxDocument", edr.SPDXDocument.Val},
 	)
 
 	if err != nil {
@@ -249,14 +249,14 @@ func (f *Formatter) ExternalDocumentRef(edr *ExternalDocumentRef) (id goraptor.T
 func (f *Formatter) CreationInfo(ci *CreationInfo) (id goraptor.Term, err error) {
 	id = f.NodeId("cri")
 
-	if err = f.setNodeType(id, typeCreationInfo); err != nil {
+	if err = f.setNodeType(id, TypeCreationInfo); err != nil {
 		return
 	}
 
 	err = f.addPairs(id,
-		pair{"created", ci.Create.Val},
-		pair{"rdfs:comment", ci.Comment.Val},
-		pair{"licenseListVersion", ci.LicenseListVersion.Val},
+		Pair{"created", ci.Create.Val},
+		Pair{"rdfs:comment", ci.Comment.Val},
+		Pair{"licenseListVersion", ci.LicenseListVersion.Val},
 	)
 
 	if err != nil {
@@ -276,14 +276,14 @@ func (f *Formatter) CreationInfo(ci *CreationInfo) (id goraptor.Term, err error)
 func (f *Formatter) Review(r *Review) (id goraptor.Term, err error) {
 	id = f.NodeId("rev")
 
-	if err = f.setNodeType(id, typeReview); err != nil {
+	if err = f.setNodeType(id, TypeReview); err != nil {
 		return
 	}
 
 	err = f.addPairs(id,
-		pair{"reviewer", r.Reviewer.Val},
-		pair{"reviewDate", r.ReviewDate.Val},
-		pair{"rdfs:comment", r.ReviewComment.Val},
+		Pair{"reviewer", r.Reviewer.Val},
+		Pair{"reviewDate", r.ReviewDate.Val},
+		Pair{"rdfs:comment", r.ReviewComment.Val},
 	)
 
 	return id, err
@@ -291,13 +291,13 @@ func (f *Formatter) Review(r *Review) (id goraptor.Term, err error) {
 func (f *Formatter) Project(pro *Project) (id goraptor.Term, err error) {
 	id = f.NodeId("pro")
 
-	if err = f.setNodeType(id, typeProject); err != nil {
+	if err = f.setNodeType(id, TypeProject); err != nil {
 		return
 	}
 
 	err = f.addPairs(id,
-		pair{"homepage", pro.HomePage.Val},
-		pair{"name", pro.Name.Val},
+		Pair{"homepage", pro.HomePage.Val},
+		Pair{"name", pro.Name.Val},
 	)
 
 	return id, err
@@ -305,13 +305,13 @@ func (f *Formatter) Project(pro *Project) (id goraptor.Term, err error) {
 func (f *Formatter) PackageVerificationCode(pvc *PackageVerificationCode) (id goraptor.Term, err error) {
 	id = f.NodeId("pvc")
 
-	if err = f.setNodeType(id, typePackageVerificationCode); err != nil {
+	if err = f.setNodeType(id, TypePackageVerificationCode); err != nil {
 		return
 	}
 
 	err = f.addPairs(id,
-		pair{"packageVerificationCodeValue", pvc.PackageVerificationCode.Val},
-		pair{"packageVerificationCodeExcludedFile", pvc.PackageVerificationCodeExcludedFile.Val},
+		Pair{"packageVerificationCodeValue", pvc.PackageVerificationCode.Val},
+		Pair{"packageVerificationCodeExcludedFile", pvc.PackageVerificationCodeExcludedFile.Val},
 	)
 
 	return id, err
@@ -321,19 +321,19 @@ func (f *Formatter) PackageVerificationCode(pvc *PackageVerificationCode) (id go
 func (f *Formatter) Annotation(an *Annotation) (id goraptor.Term, err error) {
 	id = f.NodeId("an")
 
-	if err = f.setNodeType(id, typeAnnotation); err != nil {
+	if err = f.setNodeType(id, TypeAnnotation); err != nil {
 		return
 	}
-	// type 1: add pairs
+	// Type 1: add Pairs
 	err = f.addPairs(id,
-		pair{"annotationDate", an.AnnotationDate.Val},
-		pair{"rdfs:comment", an.AnnotationComment.Val},
-		pair{"annotator", an.Annotator.Val},
+		Pair{"annotationDate", an.AnnotationDate.Val},
+		Pair{"rdfs:comment", an.AnnotationComment.Val},
+		Pair{"annotator", an.Annotator.Val},
 	)
 	if err != nil {
 		return
 	}
-	// type 2: add pairs with Prefix
+	// Type 2: add Pairs with Prefix
 	if an.AnnotationType.Val != "" {
 		if err = f.addTerm(id, "annotationType", Prefix(an.AnnotationType.Val)); err != nil {
 			return
@@ -406,7 +406,7 @@ func (f *Formatter) Projects(parent goraptor.Term, element string, pros []*Proje
 func (f *Formatter) Checksum(cksum *Checksum) (id goraptor.Term, err error) {
 	id = f.NodeId("cksum")
 
-	if err = f.setNodeType(id, typeChecksum); err != nil {
+	if err = f.setNodeType(id, TypeChecksum); err != nil {
 		return
 	}
 
@@ -433,14 +433,14 @@ func (f *Formatter) Checksum(cksum *Checksum) (id goraptor.Term, err error) {
 func (f *Formatter) ExtractedLicInfo(lic *ExtractedLicensingInfo) (id goraptor.Term, err error) {
 	id = f.NodeId("lic")
 
-	if err = f.setNodeType(id, typeExtractedLicensingInfo); err != nil {
+	if err = f.setNodeType(id, TypeExtractedLicensingInfo); err != nil {
 		return
 	}
 
 	err = f.addPairs(id,
-		pair{"licenseId", lic.LicenseIdentifier.Val},
-		pair{"extractedText", lic.ExtractedText.Val},
-		pair{"rdfs:comment", lic.LicenseComment.Val},
+		Pair{"licenseId", lic.LicenseIdentifier.Val},
+		Pair{"extractedText", lic.ExtractedText.Val},
+		Pair{"rdfs:comment", lic.LicenseComment.Val},
 	)
 
 	if err != nil {
@@ -513,16 +513,16 @@ func (f *Formatter) File(file *File) (id goraptor.Term, err error) {
 	id = f.NodeId("file")
 	f.fileIds[file.FileName.Val] = id
 
-	if err = f.setNodeType(id, typeFile); err != nil {
+	if err = f.setNodeType(id, TypeFile); err != nil {
 		return
 	}
 
 	err = f.addPairs(id,
-		pair{"fileName", file.FileName.Val},
-		pair{"licenseComments", file.FileLicenseComments.Val},
-		pair{"copyrightText", file.FileCopyrightText.Val},
-		pair{"rdfs:comment", file.FileComment.Val},
-		pair{"noticeText", file.FileNoticeText.Val},
+		Pair{"fileName", file.FileName.Val},
+		Pair{"licenseComments", file.FileLicenseComments.Val},
+		Pair{"copyrightText", file.FileCopyrightText.Val},
+		Pair{"rdfs:comment", file.FileComment.Val},
+		Pair{"noticeText", file.FileNoticeText.Val},
 	)
 
 	if err != nil {
@@ -650,12 +650,12 @@ func (f *Formatter) Relationships(parent goraptor.Term, element string, rels []*
 func (f *Formatter) Relationship(rel *Relationship) (id goraptor.Term, err error) {
 	id = f.NodeId("rel")
 
-	if err = f.setNodeType(id, typeRelationship); err != nil {
+	if err = f.setNodeType(id, TypeRelationship); err != nil {
 		return
 	}
 
 	err = f.addPairs(id,
-		pair{"rdfs:comment", rel.RelationshipComment.Val},
+		Pair{"rdfs:comment", rel.RelationshipComment.Val},
 	)
 	if err != nil {
 		return
@@ -692,7 +692,7 @@ func (f *Formatter) Relationship(rel *Relationship) (id goraptor.Term, err error
 func (f *Formatter) SpdxElement(se *SpdxElement) (id goraptor.Term, err error) {
 	id = f.NodeId("se")
 
-	if err = f.setNodeType(id, typeSpdxElement); err != nil {
+	if err = f.setNodeType(id, TypeSpdxElement); err != nil {
 		return
 	}
 	if se.SpdxElement.Val != "" {
@@ -705,20 +705,20 @@ func (f *Formatter) SpdxElement(se *SpdxElement) (id goraptor.Term, err error) {
 func (f *Formatter) License(lic *License) (id goraptor.Term, err error) {
 	id = f.NodeId("lic")
 
-	if err = f.setNodeType(id, typeLicense); err != nil {
+	if err = f.setNodeType(id, TypeLicense); err != nil {
 		return
 	}
 
 	err = f.addPairs(id,
-		pair{"rdfs:comment", lic.LicenseComment.Val},
-		pair{"name", lic.LicenseName.Val},
-		pair{"licenseText", lic.LicenseText.Val},
-		pair{"standardLicenseHeader", lic.StandardLicenseHeader.V()},
-		pair{"standardLicenseTemplate", lic.StandardLicenseTemplate.V()},
-		pair{"standardLicenseHeaderTemplate", lic.StandardLicenseHeaderTemplate.Val},
-		pair{"isFsfLibre", lic.LicenseIsFsLibre.Val},
-		pair{"licenseId", lic.LicenseId.Val},
-		pair{"licenseOsiApproved", lic.LicenseisOsiApproved.Val},
+		Pair{"rdfs:comment", lic.LicenseComment.Val},
+		Pair{"name", lic.LicenseName.Val},
+		Pair{"licenseText", lic.LicenseText.Val},
+		Pair{"standardLicenseHeader", lic.StandardLicenseHeader.V()},
+		Pair{"standardLicenseTemplate", lic.StandardLicenseTemplate.V()},
+		Pair{"standardLicenseHeaderTemplate", lic.StandardLicenseHeaderTemplate.Val},
+		Pair{"isFsfLibre", lic.LicenseIsFsLibre.Val},
+		Pair{"licenseId", lic.LicenseId.Val},
+		Pair{"licenseOsiApproved", lic.LicenseisOsiApproved.Val},
 	)
 	for _, sa := range lic.LicenseSeeAlso {
 		if err = f.addLiteral(id, "rdfs:seeAlso", sa.Val); err != nil {
@@ -731,7 +731,7 @@ func (f *Formatter) License(lic *License) (id goraptor.Term, err error) {
 func (f *Formatter) ConjunctiveLicenseSet(cls *ConjunctiveLicenseSet) (id goraptor.Term, err error) {
 	id = f.NodeId("cls")
 
-	if err = f.setNodeType(id, typeConjunctiveLicenseSet); err != nil {
+	if err = f.setNodeType(id, TypeConjunctiveLicenseSet); err != nil {
 		return
 	}
 
@@ -753,7 +753,7 @@ func (f *Formatter) ConjunctiveLicenseSet(cls *ConjunctiveLicenseSet) (id gorapt
 func (f *Formatter) DisjunctiveLicenseSet(dls *DisjunctiveLicenseSet) (id goraptor.Term, err error) {
 	id = f.NodeId("dls")
 
-	if err = f.setNodeType(id, typeDisjunctiveLicenseSet); err != nil {
+	if err = f.setNodeType(id, TypeDisjunctiveLicenseSet); err != nil {
 		return
 	}
 
@@ -786,25 +786,25 @@ func (f *Formatter) Packages(parent goraptor.Term, element string, pkgs []*Packa
 func (f *Formatter) Package(pkg *Package) (id goraptor.Term, err error) {
 	id = f.NodeId("pkg")
 
-	if err = f.setNodeType(id, typePackage); err != nil {
+	if err = f.setNodeType(id, TypePackage); err != nil {
 		return
 	}
 
 	err = f.addPairs(id,
-		pair{"name", pkg.PackageName.Val},
-		pair{"versionInfo", pkg.PackageVersionInfo.Val},
-		pair{"packageFileName", pkg.PackageFileName.Val},
-		pair{"downloadLocation", pkg.PackageDownloadLocation.Val},
-		pair{"rdfs:comment", pkg.PackageComment.Val},
-		pair{"licenseComments", pkg.PackageLicenseComments.Val},
-		pair{"copyrightText", pkg.PackageCopyrightText.Val},
-		pair{"doap:homepage", pkg.PackageHomepage.Val},
-		pair{"supplier", pkg.PackageSupplier.Val},
-		pair{"originator", pkg.PackageOriginator.V()},
-		pair{"sourceInfo", pkg.PackageSourceInfo.Val},
-		pair{"filesAnalyzed", pkg.FilesAnalyzed.Val},
-		pair{"summary", pkg.PackageSummary.Val},
-		pair{"description", pkg.PackageDescription.Val},
+		Pair{"name", pkg.PackageName.Val},
+		Pair{"versionInfo", pkg.PackageVersionInfo.Val},
+		Pair{"packageFileName", pkg.PackageFileName.Val},
+		Pair{"downloadLocation", pkg.PackageDownloadLocation.Val},
+		Pair{"rdfs:comment", pkg.PackageComment.Val},
+		Pair{"licenseComments", pkg.PackageLicenseComments.Val},
+		Pair{"copyrightText", pkg.PackageCopyrightText.Val},
+		Pair{"doap:homepage", pkg.PackageHomepage.Val},
+		Pair{"supplier", pkg.PackageSupplier.Val},
+		Pair{"originator", pkg.PackageOriginator.V()},
+		Pair{"sourceInfo", pkg.PackageSourceInfo.Val},
+		Pair{"filesAnalyzed", pkg.FilesAnalyzed.Val},
+		Pair{"summary", pkg.PackageSummary.Val},
+		Pair{"description", pkg.PackageDescription.Val},
 	)
 	if err != nil {
 		return
@@ -902,13 +902,13 @@ func (f *Formatter) Package(pkg *Package) (id goraptor.Term, err error) {
 func (f *Formatter) ExternalRef(er *ExternalRef) (id goraptor.Term, err error) {
 	id = f.NodeId("er")
 
-	if err = f.setNodeType(id, typeExternalRef); err != nil {
+	if err = f.setNodeType(id, TypeExternalRef); err != nil {
 		return
 	}
 
 	err = f.addPairs(id,
-		pair{"referenceLocator", er.ReferenceLocator.Val},
-		pair{"rdfs:comment", er.ReferenceComment.Val},
+		Pair{"referenceLocator", er.ReferenceLocator.Val},
+		Pair{"rdfs:comment", er.ReferenceComment.Val},
 	)
 	if id, err := f.ReferenceType(er.ReferenceType); err == nil {
 		if err = f.addTerm(id, "referenceType", id); err != nil {
@@ -926,7 +926,7 @@ func (f *Formatter) ExternalRef(er *ExternalRef) (id goraptor.Term, err error) {
 func (f *Formatter) ReferenceType(rt *ReferenceType) (id goraptor.Term, err error) {
 	id = f.NodeId("rt")
 
-	if err = f.setNodeType(id, typeReferenceType); err != nil {
+	if err = f.setNodeType(id, TypeReferenceType); err != nil {
 		return
 	}
 
@@ -941,7 +941,7 @@ func (f *Formatter) ReferenceType(rt *ReferenceType) (id goraptor.Term, err erro
 func (f *Formatter) SnippetStartEndPointer(se *SnippetStartEndPointer) (id goraptor.Term, err error) {
 	id = f.NodeId("ssep")
 
-	if err = f.setNodeType(id, typeSnippetStartEndPointer); err != nil {
+	if err = f.setNodeType(id, TypeSnippetStartEndPointer); err != nil {
 		return
 	}
 
@@ -962,13 +962,13 @@ func (f *Formatter) SnippetStartEndPointer(se *SnippetStartEndPointer) (id gorap
 func (f *Formatter) LineCharPointer(lcp *LineCharPointer) (id goraptor.Term, err error) {
 	id = f.NodeId("lc")
 
-	if err = f.setNodeType(id, typeLineCharPointer); err != nil {
+	if err = f.setNodeType(id, TypeLineCharPointer); err != nil {
 		return
 	}
 
 	err = f.addPairs(id,
-		pair{"j.0:reference", lcp.Reference.Val},
-		pair{"j.0:lineNumber", lcp.LineNumber.Val},
+		Pair{"j.0:reference", lcp.Reference.Val},
+		Pair{"j.0:lineNumber", lcp.LineNumber.Val},
 	)
 
 	if err != nil {
@@ -980,13 +980,13 @@ func (f *Formatter) LineCharPointer(lcp *LineCharPointer) (id goraptor.Term, err
 func (f *Formatter) ByteOffsetPointer(bop *ByteOffsetPointer) (id goraptor.Term, err error) {
 	id = f.NodeId("bo")
 
-	if err = f.setNodeType(id, typeByteOffsetPointer); err != nil {
+	if err = f.setNodeType(id, TypeByteOffsetPointer); err != nil {
 		return
 	}
 
 	err = f.addPairs(id,
-		pair{"j.0:reference", bop.Reference.Val},
-		pair{"j.0:offset", bop.Offset.Val},
+		Pair{"j.0:reference", bop.Reference.Val},
+		Pair{"j.0:offset", bop.Offset.Val},
 	)
 
 	if err != nil {

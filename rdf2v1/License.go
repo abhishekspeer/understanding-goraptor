@@ -23,28 +23,28 @@ type ConjunctiveLicenseSet struct {
 }
 
 func (p *Parser) requestLicense(node goraptor.Term) (*License, error) {
-	obj, err := p.requestElementType(node, typeLicense)
+	obj, err := p.requestElementType(node, TypeLicense)
 	if err != nil {
 		return nil, err
 	}
 	return obj.(*License), err
 }
 func (p *Parser) requestDisjunctiveLicenseSet(node goraptor.Term) (*DisjunctiveLicenseSet, error) {
-	obj, err := p.requestElementType(node, typeDisjunctiveLicenseSet)
+	obj, err := p.requestElementType(node, TypeDisjunctiveLicenseSet)
 	if err != nil {
 		return nil, err
 	}
 	return obj.(*DisjunctiveLicenseSet), err
 }
 func (p *Parser) requestConjunctiveLicenseSet(node goraptor.Term) (*ConjunctiveLicenseSet, error) {
-	obj, err := p.requestElementType(node, typeConjunctiveLicenseSet)
+	obj, err := p.requestElementType(node, TypeConjunctiveLicenseSet)
 	if err != nil {
 		return nil, err
 	}
 	return obj.(*ConjunctiveLicenseSet), err
 }
 func (p *Parser) MapLicense(lic *License) *builder {
-	builder := &builder{t: typeLicense, ptr: lic}
+	builder := &builder{t: TypeLicense, ptr: lic}
 	builder.updaters = map[string]updater{
 		"rdfs:comment":                  update(&lic.LicenseComment),
 		"name":                          update(&lic.LicenseName),
@@ -61,14 +61,14 @@ func (p *Parser) MapLicense(lic *License) *builder {
 }
 
 func (p *Parser) MapDisjunctiveLicenseSet(dls *DisjunctiveLicenseSet) *builder {
-	builder := &builder{t: typeDisjunctiveLicenseSet, ptr: dls}
+	builder := &builder{t: TypeDisjunctiveLicenseSet, ptr: dls}
 	builder.updaters = map[string]updater{
 		"member": updateList(&dls.Member),
 	}
 	return builder
 }
 func (p *Parser) MapConjunctiveLicenseSet(cls *ConjunctiveLicenseSet) *builder {
-	builder := &builder{t: typeConjunctiveLicenseSet, ptr: cls}
+	builder := &builder{t: TypeConjunctiveLicenseSet, ptr: cls}
 	builder.updaters = map[string]updater{
 		"member": func(obj goraptor.Term) error {
 

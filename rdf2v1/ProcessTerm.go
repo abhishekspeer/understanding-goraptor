@@ -22,7 +22,7 @@ var rdfPrefixes = map[string]string{
 }
 
 // simple key value pair struct
-type pair struct {
+type Pair struct {
 	key, val string
 }
 
@@ -43,7 +43,7 @@ func Prefix(k string) *goraptor.Uri {
 }
 
 // Change the RDF prefixes to their short forms.
-func shortPrefix(t goraptor.Term) string {
+func ShortPrefix(t goraptor.Term) string {
 	str := termStr(t)
 	for short, long := range rdfPrefixes {
 		if strings.HasPrefix(str, long) {
@@ -70,17 +70,17 @@ func termStr(term goraptor.Term) string {
 
 // Uri, Literal and Blank are goraptors named types
 // Return *goraptor.Uri
-func uri(uri string) *goraptor.Uri {
+func Uri(uri string) *goraptor.Uri {
 	return (*goraptor.Uri)(&uri)
 }
 
 // Return *goraptor.Literal
-func literal(lit string) *goraptor.Literal {
+func Literal(lit string) *goraptor.Literal {
 	return &goraptor.Literal{Value: lit}
 }
 
 // Return *goraptor.Blank from string
-func blank(b string) *goraptor.Blank {
+func Blank(b string) *goraptor.Blank {
 	return (*goraptor.Blank)(&b)
 }
 

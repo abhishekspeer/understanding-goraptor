@@ -27,7 +27,7 @@ type ExternalDocumentRef struct {
 }
 
 func (p *Parser) requestDocument(node goraptor.Term) (*Document, error) {
-	obj, err := p.requestElementType(node, typeDocument)
+	obj, err := p.requestElementType(node, TypeDocument)
 	if err != nil {
 		return nil, err
 	}
@@ -35,7 +35,7 @@ func (p *Parser) requestDocument(node goraptor.Term) (*Document, error) {
 }
 
 func (p *Parser) requestExternalDocumentRef(node goraptor.Term) (*ExternalDocumentRef, error) {
-	obj, err := p.requestElementType(node, typeExternalDocumentRef)
+	obj, err := p.requestElementType(node, TypeExternalDocumentRef)
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func (p *Parser) requestExternalDocumentRef(node goraptor.Term) (*ExternalDocume
 }
 
 func (p *Parser) MapDocument(doc *Document) *builder {
-	builder := &builder{t: typeDocument, ptr: doc}
+	builder := &builder{t: TypeDocument, ptr: doc}
 	doc.DocumentNamespace = DocumentNamespace
 	doc.SPDXID = SPDXID
 	builder.updaters = map[string]updater{
@@ -103,7 +103,7 @@ func (p *Parser) MapDocument(doc *Document) *builder {
 }
 
 func (p *Parser) MapExternalDocumentRef(edr *ExternalDocumentRef) *builder {
-	builder := &builder{t: typeExternalDocumentRef, ptr: edr}
+	builder := &builder{t: TypeExternalDocumentRef, ptr: edr}
 	builder.updaters = map[string]updater{
 		"externalDocumentId": update(&edr.ExternalDocumentId),
 		"checksum": func(obj goraptor.Term) error {

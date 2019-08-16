@@ -30,14 +30,14 @@ type Project struct {
 }
 
 func (p *Parser) requestFile(node goraptor.Term) (*File, error) {
-	obj, err := p.requestElementType(node, typeFile)
+	obj, err := p.requestElementType(node, TypeFile)
 	if err != nil {
 		return nil, err
 	}
 	return obj.(*File), err
 }
 func (p *Parser) requestFileChecksum(node goraptor.Term) (*Checksum, error) {
-	obj, err := p.requestElementType(node, typeChecksum)
+	obj, err := p.requestElementType(node, TypeChecksum)
 	if err != nil {
 		return nil, err
 	}
@@ -45,14 +45,14 @@ func (p *Parser) requestFileChecksum(node goraptor.Term) (*Checksum, error) {
 }
 
 func (p *Parser) requestProject(node goraptor.Term) (*Project, error) {
-	obj, err := p.requestElementType(node, typeProject)
+	obj, err := p.requestElementType(node, TypeProject)
 	if err != nil {
 		return nil, err
 	}
 	return obj.(*Project), err
 }
 func (p *Parser) MapFile(file *File) *builder {
-	builder := &builder{t: typeFile, ptr: file}
+	builder := &builder{t: TypeFile, ptr: file}
 	builder.updaters = map[string]updater{
 		"fileName": update(&file.FileName),
 		"checksum": func(obj goraptor.Term) error {
@@ -110,7 +110,7 @@ func (p *Parser) MapFile(file *File) *builder {
 }
 
 func (p *Parser) MapProject(pro *Project) *builder {
-	builder := &builder{t: typeProject, ptr: pro}
+	builder := &builder{t: TypeProject, ptr: pro}
 	builder.updaters = map[string]updater{
 		"doap:homepage": update(&pro.HomePage),
 		"doap:name":     update(&pro.Name),

@@ -44,7 +44,7 @@ type ExternalRef struct {
 }
 
 func (p *Parser) requestPackage(node goraptor.Term) (*Package, error) {
-	obj, err := p.requestElementType(node, typePackage)
+	obj, err := p.requestElementType(node, TypePackage)
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +52,7 @@ func (p *Parser) requestPackage(node goraptor.Term) (*Package, error) {
 }
 
 func (p *Parser) requestPackageVerificationCode(node goraptor.Term) (*PackageVerificationCode, error) {
-	obj, err := p.requestElementType(node, typePackageVerificationCode)
+	obj, err := p.requestElementType(node, TypePackageVerificationCode)
 	if err != nil {
 		return nil, err
 	}
@@ -60,14 +60,14 @@ func (p *Parser) requestPackageVerificationCode(node goraptor.Term) (*PackageVer
 }
 
 func (p *Parser) requestExternalRef(node goraptor.Term) (*ExternalRef, error) {
-	obj, err := p.requestElementType(node, typeExternalRef)
+	obj, err := p.requestElementType(node, TypeExternalRef)
 	if err != nil {
 		return nil, err
 	}
 	return obj.(*ExternalRef), err
 }
 func (p *Parser) MapPackage(pkg *Package) *builder {
-	builder := &builder{t: typePackage, ptr: pkg}
+	builder := &builder{t: TypePackage, ptr: pkg}
 	builder.updaters = map[string]updater{
 		"name":             update(&pkg.PackageName),
 		"versionInfo":      update(&pkg.PackageVersionInfo),
@@ -151,7 +151,7 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 }
 
 func (p *Parser) MapPackageVerificationCode(pkgvc *PackageVerificationCode) *builder {
-	builder := &builder{t: typePackageVerificationCode, ptr: pkgvc}
+	builder := &builder{t: TypePackageVerificationCode, ptr: pkgvc}
 	builder.updaters = map[string]updater{
 		"packageVerificationCodeValue":        update(&pkgvc.PackageVerificationCode),
 		"packageVerificationCodeExcludedFile": update(&pkgvc.PackageVerificationCodeExcludedFile),
@@ -160,7 +160,7 @@ func (p *Parser) MapPackageVerificationCode(pkgvc *PackageVerificationCode) *bui
 }
 
 func (p *Parser) MapExternalRef(er *ExternalRef) *builder {
-	builder := &builder{t: typeExternalRef, ptr: er}
+	builder := &builder{t: TypeExternalRef, ptr: er}
 	builder.updaters = map[string]updater{
 		"referenceLocator":  update(&er.ReferenceLocator),
 		"referenceCategory": update(&er.ReferenceCategory),

@@ -36,7 +36,7 @@ type LineCharPointer struct {
 }
 
 func (p *Parser) requestSnippet(node goraptor.Term) (*Snippet, error) {
-	obj, err := p.requestElementType(node, typeSnippet)
+	obj, err := p.requestElementType(node, TypeSnippet)
 	if err != nil {
 		return nil, err
 	}
@@ -44,14 +44,14 @@ func (p *Parser) requestSnippet(node goraptor.Term) (*Snippet, error) {
 }
 
 func (p *Parser) requestReferenceType(node goraptor.Term) (*ReferenceType, error) {
-	obj, err := p.requestElementType(node, typeReferenceType)
+	obj, err := p.requestElementType(node, TypeReferenceType)
 	if err != nil {
 		return nil, err
 	}
 	return obj.(*ReferenceType), err
 }
 func (p *Parser) requestSnippetStartEndPointer(node goraptor.Term) (*SnippetStartEndPointer, error) {
-	obj, err := p.requestElementType(node, typeSnippetStartEndPointer)
+	obj, err := p.requestElementType(node, TypeSnippetStartEndPointer)
 	if err != nil {
 		return nil, err
 	}
@@ -59,21 +59,21 @@ func (p *Parser) requestSnippetStartEndPointer(node goraptor.Term) (*SnippetStar
 }
 
 func (p *Parser) requestByteOffsetPointer(node goraptor.Term) (*ByteOffsetPointer, error) {
-	obj, err := p.requestElementType(node, typeByteOffsetPointer)
+	obj, err := p.requestElementType(node, TypeByteOffsetPointer)
 	if err != nil {
 		return nil, err
 	}
 	return obj.(*ByteOffsetPointer), err
 }
 func (p *Parser) requestLineCharPointer(node goraptor.Term) (*LineCharPointer, error) {
-	obj, err := p.requestElementType(node, typeLineCharPointer)
+	obj, err := p.requestElementType(node, TypeLineCharPointer)
 	if err != nil {
 		return nil, err
 	}
 	return obj.(*LineCharPointer), err
 }
 func (p *Parser) MapSnippet(s *Snippet) *builder {
-	builder := &builder{t: typeSnippet, ptr: s}
+	builder := &builder{t: TypeSnippet, ptr: s}
 	builder.updaters = map[string]updater{
 		"name":            update(&s.SnippetName),
 		"copyrightText":   update(&s.SnippetCopyrightText),
@@ -96,13 +96,13 @@ func (p *Parser) MapSnippet(s *Snippet) *builder {
 }
 
 func (p *Parser) MapReferenceType(rt *ReferenceType) *builder {
-	builder := &builder{t: typeReferenceType, ptr: rt}
+	builder := &builder{t: TypeReferenceType, ptr: rt}
 	builder.updaters = map[string]updater{}
 	return builder
 }
 
 func (p *Parser) MapSnippetStartEndPointer(sep *SnippetStartEndPointer) *builder {
-	builder := &builder{t: typeSnippetStartEndPointer, ptr: sep}
+	builder := &builder{t: TypeSnippetStartEndPointer, ptr: sep}
 	builder.updaters = map[string]updater{
 		"j.0:startPointer": func(obj goraptor.Term) error {
 			lc, err := p.requestLineCharPointer(obj)
@@ -129,7 +129,7 @@ func (p *Parser) MapSnippetStartEndPointer(sep *SnippetStartEndPointer) *builder
 }
 
 func (p *Parser) MapLineCharPointer(lc *LineCharPointer) *builder {
-	builder := &builder{t: typeLineCharPointer, ptr: lc}
+	builder := &builder{t: TypeLineCharPointer, ptr: lc}
 	builder.updaters = map[string]updater{
 		"j.0:reference":  update(&lc.Reference),
 		"j.0:lineNumber": update(&lc.LineNumber),
@@ -137,7 +137,7 @@ func (p *Parser) MapLineCharPointer(lc *LineCharPointer) *builder {
 	return builder
 }
 func (p *Parser) MapByteOffsetPointer(bo *ByteOffsetPointer) *builder {
-	builder := &builder{t: typeByteOffsetPointer, ptr: bo}
+	builder := &builder{t: TypeByteOffsetPointer, ptr: bo}
 	builder.updaters = map[string]updater{
 		"j.0:reference": update(&bo.Reference),
 		"j.0:offset":    update(&bo.Offset),

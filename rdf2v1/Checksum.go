@@ -13,7 +13,7 @@ type Checksum struct {
 }
 
 func (p *Parser) requestChecksum(node goraptor.Term) (*Checksum, error) {
-	obj, err := p.requestElementType(node, typeChecksum)
+	obj, err := p.requestElementType(node, TypeChecksum)
 	if err != nil {
 		return nil, err
 	}
@@ -21,7 +21,7 @@ func (p *Parser) requestChecksum(node goraptor.Term) (*Checksum, error) {
 }
 
 func (p *Parser) MapChecksum(cksum *Checksum) *builder {
-	builder := &builder{t: typeChecksum, ptr: cksum}
+	builder := &builder{t: TypeChecksum, ptr: cksum}
 	key := false
 	builder.updaters = map[string]updater{
 		"algorithm": func(obj goraptor.Term) error {

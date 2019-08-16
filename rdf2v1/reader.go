@@ -7,31 +7,31 @@ import (
 )
 
 var (
-	URInsType = uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+	URInsType = Uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
 
-	typeDocument                = Prefix("SpdxDocument")
-	typeCreationInfo            = Prefix("CreationInfo")
-	typeExtractedLicensingInfo  = Prefix("ExtractedLicensingInfo")
-	typeRelationship            = Prefix("Relationship")
-	typePackage                 = Prefix("Package")
-	typePackageVerificationCode = Prefix("PackageVerificationCode")
-	typeChecksum                = Prefix("Checksum")
-	typeDisjunctiveLicenseSet   = Prefix("DisjunctiveLicenseSet")
-	typeConjunctiveLicenseSet   = Prefix("ConjunctiveLicenseSet")
-	typeFile                    = Prefix("File")
-	typeSpdxElement             = Prefix("SpdxElement")
-	typeSnippet                 = Prefix("Snippet")
-	typeLicenseConcluded        = Prefix("licenseConcluded")
-	typeReview                  = Prefix("Review")
-	typeAnnotation              = Prefix("Annotation")
-	typeLicense                 = Prefix("License")
-	typeExternalDocumentRef     = Prefix("ExternalDocumentRef")
-	typeExternalRef             = Prefix("ExternalRef")
-	typeProject                 = Prefix("doap:Project")
-	typeReferenceType           = Prefix("ReferenceType")
-	typeSnippetStartEndPointer  = Prefix("j.0:StartEndPointer")
-	typeByteOffsetPointer       = Prefix("j.0:ByteOffsetPointer")
-	typeLineCharPointer         = Prefix("j.0:LineCharPointer")
+	TypeDocument                = Prefix("SpdxDocument")
+	TypeCreationInfo            = Prefix("CreationInfo")
+	TypeExtractedLicensingInfo  = Prefix("ExtractedLicensingInfo")
+	TypeRelationship            = Prefix("Relationship")
+	TypePackage                 = Prefix("Package")
+	TypePackageVerificationCode = Prefix("PackageVerificationCode")
+	TypeChecksum                = Prefix("Checksum")
+	TypeDisjunctiveLicenseSet   = Prefix("DisjunctiveLicenseSet")
+	TypeConjunctiveLicenseSet   = Prefix("ConjunctiveLicenseSet")
+	TypeFile                    = Prefix("File")
+	TypeSpdxElement             = Prefix("SpdxElement")
+	TypeSnippet                 = Prefix("Snippet")
+	TypeLicenseConcluded        = Prefix("licenseConcluded")
+	TypeReview                  = Prefix("Review")
+	TypeAnnotation              = Prefix("Annotation")
+	TypeLicense                 = Prefix("License")
+	TypeExternalDocumentRef     = Prefix("ExternalDocumentRef")
+	TypeExternalRef             = Prefix("ExternalRef")
+	TypeProject                 = Prefix("doap:Project")
+	TypeReferenceType           = Prefix("ReferenceType")
+	TypeSnippetStartEndPointer  = Prefix("j.0:StartEndPointer")
+	TypeByteOffsetPointer       = Prefix("j.0:ByteOffsetPointer")
+	TypeLineCharPointer         = Prefix("j.0:LineCharPointer")
 )
 var (
 	ID                    map[string]ValueStr
@@ -129,7 +129,7 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 	if ok {
 		if !checkRaptorTypes(builder.t, t) && builder.checkPredicate("ns:type") {
 
-			if err := builder.apply(uri("ns:type"), t); err != nil {
+			if err := builder.apply(Uri("ns:type"), t); err != nil {
 				return nil, err
 			}
 			return builder.ptr, nil
@@ -143,72 +143,72 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 	// new builder by type
 	switch {
 	// t is goraptor Object
-	case t.Equals(typeDocument):
+	case t.Equals(TypeDocument):
 		p.Doc = new(Document)
 		builder = p.MapDocument(p.Doc)
 
-	case t.Equals(typeCreationInfo):
+	case t.Equals(TypeCreationInfo):
 		builder = p.MapCreationInfo(new(CreationInfo))
 
-	case t.Equals(typeExtractedLicensingInfo):
+	case t.Equals(TypeExtractedLicensingInfo):
 		builder = p.MapExtractedLicensingInfo(new(ExtractedLicensingInfo))
 
-	case t.Equals(typeRelationship):
+	case t.Equals(TypeRelationship):
 		builder = p.MapRelationship(new(Relationship))
 
-	case t.Equals(typePackage):
+	case t.Equals(TypePackage):
 		builder = p.MapPackage(new(Package))
 
-	case t.Equals(typePackageVerificationCode):
+	case t.Equals(TypePackageVerificationCode):
 		builder = p.MapPackageVerificationCode(new(PackageVerificationCode))
 
-	case t.Equals(typeChecksum):
+	case t.Equals(TypeChecksum):
 		builder = p.MapChecksum(new(Checksum))
 
-	case t.Equals(typeDisjunctiveLicenseSet):
+	case t.Equals(TypeDisjunctiveLicenseSet):
 		builder = p.MapDisjunctiveLicenseSet(new(DisjunctiveLicenseSet))
 
-	case t.Equals(typeFile):
+	case t.Equals(TypeFile):
 		builder = p.MapFile(new(File))
 
-	case t.Equals(typeReview):
+	case t.Equals(TypeReview):
 		builder = p.MapReview(new(Review))
 
-	case t.Equals(typeLicense):
+	case t.Equals(TypeLicense):
 		builder = p.MapLicense(new(License))
 
-	case t.Equals(typeAnnotation):
+	case t.Equals(TypeAnnotation):
 		builder = p.MapAnnotation(new(Annotation))
 
-	case t.Equals(typeExternalRef):
+	case t.Equals(TypeExternalRef):
 		builder = p.MapExternalRef(new(ExternalRef))
 
-	case t.Equals(typeReferenceType):
+	case t.Equals(TypeReferenceType):
 		builder = p.MapReferenceType(new(ReferenceType))
 
-	case t.Equals(typeExternalDocumentRef):
+	case t.Equals(TypeExternalDocumentRef):
 		builder = p.MapExternalDocumentRef(new(ExternalDocumentRef))
 
-	case t.Equals(typeProject):
+	case t.Equals(TypeProject):
 		builder = p.MapProject(new(Project))
 
-	case t.Equals(typeSnippet):
+	case t.Equals(TypeSnippet):
 		p.Snip = new(Snippet)
 		builder = p.MapSnippet(p.Snip)
 
-	case t.Equals(typeSpdxElement):
+	case t.Equals(TypeSpdxElement):
 		builder = p.MapSpdxElement(new(SpdxElement))
 
-	case t.Equals(typeConjunctiveLicenseSet):
+	case t.Equals(TypeConjunctiveLicenseSet):
 		builder = p.MapConjunctiveLicenseSet(new(ConjunctiveLicenseSet))
 
-	case t.Equals(typeSnippetStartEndPointer):
+	case t.Equals(TypeSnippetStartEndPointer):
 		builder = p.MapSnippetStartEndPointer(new(SnippetStartEndPointer))
 
-	case t.Equals(typeLineCharPointer):
+	case t.Equals(TypeLineCharPointer):
 		builder = p.MapLineCharPointer(new(LineCharPointer))
 
-	case t.Equals(typeByteOffsetPointer):
+	case t.Equals(TypeByteOffsetPointer):
 		builder = p.MapByteOffsetPointer(new(ByteOffsetPointer))
 	default:
 		return nil, fmt.Errorf("New Builder: Types does not match.")
@@ -263,7 +263,7 @@ type builder struct {
 }
 
 func (b *builder) apply(pred, obj goraptor.Term) error {
-	property := shortPrefix(pred)
+	property := ShortPrefix(pred)
 	f, ok := b.updaters[property]
 
 	if !ok {
