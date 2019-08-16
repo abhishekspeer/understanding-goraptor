@@ -37,7 +37,7 @@ func NewFormatter(output *os.File, format string) *Formatter {
 	// a new goraptor.NewSerializer
 	s := goraptor.NewSerializer(format)
 
-	s.StartStream(output, baseUri)
+	s.StartStream(output, BaseUri)
 
 	// goraptor.NamespaceHandler:
 	// handler function to be called when the parser encounters a namespace.
@@ -114,12 +114,12 @@ func (f *Formatter) Document(doc *Document) (docId goraptor.Term, err error) {
 	}
 
 	if doc.DataLicense.Val != "" {
-		if err = f.addTerm(docId, "dataLicense", Uri(licenseUri+doc.DataLicense.Val)); err != nil {
+		if err = f.addTerm(docId, "dataLicense", Uri(LicenseUri+doc.DataLicense.Val)); err != nil {
 			return
 		}
 	}
 	if doc.DocumentName.Val != "" {
-		if err = f.addTerm(docId, "name", Uri(licenseUri+doc.DataLicense.Val)); err != nil {
+		if err = f.addTerm(docId, "name", Uri(LicenseUri+doc.DataLicense.Val)); err != nil {
 			return
 		}
 	}

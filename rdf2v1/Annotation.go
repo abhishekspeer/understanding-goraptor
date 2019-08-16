@@ -25,7 +25,7 @@ func (p *Parser) MapAnnotation(an *Annotation) *builder {
 		"annotationDate": update(&an.AnnotationDate),
 		"rdfs:comment":   update(&an.AnnotationComment),
 		"annotator":      update(&an.Annotator),
-		"annotationType": updateTrimPrefix(baseUri, &an.AnnotationType),
+		"annotationType": updateTrimPrefix(BaseUri, &an.AnnotationType),
 	}
 	return builder
 

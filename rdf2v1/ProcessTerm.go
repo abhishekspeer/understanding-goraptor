@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	baseUri    = "http://spdx.org/rdf/terms#"
-	licenseUri = "http://spdx.org/licenses/"
+	BaseUri    = "http://spdx.org/rdf/terms#"
+	LicenseUri = "http://spdx.org/licenses/"
 )
 
 var rdfPrefixes = map[string]string{
@@ -18,7 +18,7 @@ var rdfPrefixes = map[string]string{
 	"doap:": "http://usefulinc.com/ns/doap#",
 	"rdfs:": "http://www.w3.org/2000/01/rdf-schema#",
 	"j.0:":  "http://www.w3.org/2009/pointers#",
-	"":      baseUri,
+	"":      BaseUri,
 }
 
 // simple key value pair struct
@@ -29,7 +29,7 @@ type Pair struct {
 // Converts typeX to its full URI accorinding to rdfPrefixes,
 // if no : is found in the string it'll assume it as "spdx:" and expand to baseUri
 func Prefix(k string) *goraptor.Uri {
-	var pref string = baseUri
+	var pref string = BaseUri
 	rest := k
 	if i := strings.Index(k, ":"); i >= 0 {
 		pref = k[:i+1]
