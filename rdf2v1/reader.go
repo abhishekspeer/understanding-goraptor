@@ -2,6 +2,7 @@ package rdf2v1
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/deltamobile/goraptor"
 )
@@ -34,11 +35,14 @@ var (
 	TypeLineCharPointer         = Prefix("j.0:LineCharPointer")
 )
 var (
-	ID                    map[string]ValueStr
 	DocumentNamespace     ValueStr
 	SPDXID                ValueStr
 	SPDXIDFile            ValueStr
+	SPDXIDSnippet         ValueStr
 	SPDXIDPackage         ValueStr
+	SPDXIDLicense         ValueStr
+	SPDXIDCLicense        ValueStr
+	ProjectURI            ValueStr
 	RelatedSPDXElementID  ValueStr
 	RelatedSPDXElementKey bool
 )
@@ -85,16 +89,19 @@ func (p *Parser) Free() {
 }
 
 func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
-	// fmt.Println("============================")
-
-	// ID[ExtractId(termStr(stm.Predicate))] = Str(ExtractId(termStr(stm.Subject)))
-	// fmt.Println(len(ID))
 	node := termStr(stm.Subject)
 	ns, id, _ := ExtractNs(node)
 	if id == "SPDXRef-DOCUMENT" {
 		SPDXID = Str(id)
 		if DocumentNamespace.Val == "" {
 			DocumentNamespace = Str(ns)
+		}
+	}
+
+	if ExtractId(termStr(stm.Predicate)) == "member" {
+		SPDXIDCLicense = Str(ExtractId(termStr(stm.Object)))
+		if SPDXIDLicense == Str("") {
+			SPDXIDCLicense = Str(strings.Replace(termStr(stm.Object), "http://spdx.org/licenses/", "", 1))
 		}
 	}
 
@@ -109,11 +116,6 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 		return builder.apply(stm.Predicate, stm.Object)
 	}
 
-	// if ExtractId(termStr(stm.Predicate)) == "fileName" {
-	// 	fmt.Println(ExtractId(termStr(stm.Subject)))
-	// 	SPDXIDFile = Str(ExtractId(termStr(stm.Subject)))
-	// 	fmt.Println("============================")
-	// }
 	// buffer statement
 	if _, ok := p.Buffer[node]; !ok {
 		p.Buffer[node] = make([]*goraptor.Statement, 0)
@@ -125,10 +127,24 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 	nodeStr := termStr(node)
 	builder, ok := p.Index[nodeStr]
+	if ExtractId(termStr(t)) == "File" {
+		SPDXIDFile = Str(ExtractId(termStr(node)))
+	}
+	if ExtractId(termStr(t)) == "Package" {
+		SPDXIDPackage = Str(ExtractId(termStr(node)))
+	}
+	if ExtractId(termStr(t)) == "Snippet" {
+		SPDXIDSnippet = Str(ExtractId(termStr(node)))
+	}
+	if ExtractId(termStr(t)) == "License" {
+		SPDXIDLicense = Str(ExtractId(termStr(node)))
+	}
+	if ExtractId(termStr(t)) == "Project" {
+		ProjectURI = Str(termStr(node))
+	}
 
 	if ok {
 		if !checkRaptorTypes(builder.t, t) && builder.checkPredicate("ns:type") {
-
 			if err := builder.apply(Uri("ns:type"), t); err != nil {
 				return nil, err
 			}
@@ -216,7 +232,6 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 
 	p.Index[nodeStr] = builder
 
-	// run buffer
 	buf := p.Buffer[nodeStr]
 	for _, stm := range buf {
 		if err := builder.apply(stm.Predicate, stm.Object); err != nil {

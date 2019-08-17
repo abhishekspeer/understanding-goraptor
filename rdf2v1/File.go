@@ -5,28 +5,30 @@ import (
 )
 
 type File struct {
-	FileName               ValueStr
-	FileSPDXIdentifier     ValueStr
-	FileChecksum           *Checksum
-	LicenseInfoInFile      []ValueStr
-	FileCopyrightText      ValueStr
-	ExtractedLicensingInfo *ExtractedLicensingInfo
-	DisjunctiveLicenseSet  *DisjunctiveLicenseSet
-	ConjunctiveLicenseSet  *ConjunctiveLicenseSet
-	FileContributor        []ValueStr
-	FileComment            ValueStr
-	FileLicenseComments    ValueStr
-	FileType               []ValueStr
-	FileNoticeText         ValueStr
-	Annotation             []*Annotation
-	Project                []*Project
-	SnippetLicense         *License
-	FileDependency         *File
-	FileRelationship       *Relationship
+	FileName                  ValueStr
+	FileSPDXIdentifier        ValueStr
+	FileChecksum              *Checksum
+	LicenseInfoInFile         []ValueStr
+	FileCopyrightText         ValueStr
+	ExtractedLicensingInfo    *ExtractedLicensingInfo
+	DisjunctiveLicenseSet     *DisjunctiveLicenseSet
+	ConjunctiveLicenseSet     *ConjunctiveLicenseSet
+	FileContributor           []ValueStr
+	FileComment               ValueStr
+	FileLicenseComments       ValueStr
+	FileType                  []ValueStr
+	FileNoticeText            ValueStr
+	Annotation                []*Annotation
+	Project                   []*Project
+	SnippetLicense            *License
+	FileDependency            []*File
+	FileRelationship          *Relationship
+	FileLicenseSPDXIdentifier ValueStr
 }
 type Project struct {
 	HomePage ValueStr
 	Name     ValueStr
+	URI      ValueStr
 }
 
 func (p *Parser) requestFile(node goraptor.Term) (*File, error) {
@@ -53,6 +55,8 @@ func (p *Parser) requestProject(node goraptor.Term) (*Project, error) {
 }
 func (p *Parser) MapFile(file *File) *builder {
 	builder := &builder{t: TypeFile, ptr: file}
+	file.FileSPDXIdentifier = SPDXIDFile
+	file.FileLicenseSPDXIdentifier = SPDXIDLicense
 	builder.updaters = map[string]updater{
 		"fileName": update(&file.FileName),
 		"checksum": func(obj goraptor.Term) error {
@@ -96,7 +100,7 @@ func (p *Parser) MapFile(file *File) *builder {
 		},
 		"fileDependency": func(obj goraptor.Term) error {
 			f, err := p.requestFile(obj)
-			file.FileDependency = f
+			file.FileDependency = append(file.FileDependency, f)
 			return err
 		},
 		"relationship": func(obj goraptor.Term) error {
@@ -105,12 +109,12 @@ func (p *Parser) MapFile(file *File) *builder {
 			return err
 		},
 	}
-	file.FileSPDXIdentifier = SPDXIDFile
 	return builder
 }
 
 func (p *Parser) MapProject(pro *Project) *builder {
 	builder := &builder{t: TypeProject, ptr: pro}
+	pro.URI = ProjectURI
 	builder.updaters = map[string]updater{
 		"doap:homepage": update(&pro.HomePage),
 		"doap:name":     update(&pro.Name),

@@ -10,23 +10,14 @@ import (
 	"github.com/deltamobile/goraptor"
 )
 
-func WriteDocument(output *os.File, doc *Document) error {
+func WriteDocument(output *os.File, doc *Document, sn *Snippet) error {
 	f := NewFormatter(output, "rdfxml-abbrev")
-	_, docerr := f.Document(doc)
-	if docerr != nil {
-		return nil
-	}
-	f.Close()
-	return nil
-}
-func WriteSnippet(output *os.File, sn *Snippet) error {
-	f := NewFormatter(output, "rdfxml-abbrev")
-	// _, docerr := f.Document(doc)
-	// if docerr != nil {
-	// 	return nil
-	// }
 	_, snippet := f.Snippet(sn)
 	if snippet != nil {
+		return nil
+	}
+	_, docerr := f.Document(doc)
+	if docerr != nil {
 		return nil
 	}
 	f.Close()
@@ -456,10 +447,8 @@ func (f *Formatter) ExtractedLicInfo(lic *ExtractedLicensingInfo) (id goraptor.T
 		return
 	}
 
-	for _, name := range lic.LicenseName {
-		if err = f.addLiteral(id, "name", name.Val); err != nil {
-			return
-		}
+	if err = f.addLiteral(id, "name", lic.LicenseName.Val); err != nil {
+		return
 	}
 
 	for _, seealso := range lic.LicenseSeeAlso {
@@ -610,13 +599,16 @@ func (f *Formatter) File(file *File) (id goraptor.Term, err error) {
 
 		}
 	}
-	if file.FileDependency != nil {
-		fdId, err := f.File(file.FileDependency)
-		if err != nil {
-			return id, err
-		}
-		if err = f.addTerm(id, "fileDependency", fdId); err != nil {
-			return id, err
+	// CHANGE THIS FOR A LIST OF DEPENDCIES
+	for _, dep := range file.FileDependency {
+		if file.FileDependency != nil {
+			fdId, err := f.File(dep)
+			if err != nil {
+				return id, err
+			}
+			if err = f.addTerm(id, "fileDependency", fdId); err != nil {
+				return id, err
+			}
 		}
 	}
 
@@ -846,14 +838,15 @@ func (f *Formatter) Package(pkg *Package) (id goraptor.Term, err error) {
 	if err = f.Files(id, "hasFile", pkg.File); err != nil {
 		return
 	}
-
-	if pkg.PackageExternalRef != nil {
-		pkgErId, err := f.ExternalRef(pkg.PackageExternalRef)
-		if err != nil {
-			return id, err
-		}
-		if err = f.addTerm(id, "externalRef", pkgErId); err != nil {
-			return id, err
+	for _, per := range pkg.PackageExternalRef {
+		if pkg.PackageExternalRef != nil {
+			pkgErId, err := f.ExternalRef(per)
+			if err != nil {
+				return id, err
+			}
+			if err = f.addTerm(id, "externalRef", pkgErId); err != nil {
+				return id, err
+			}
 		}
 	}
 

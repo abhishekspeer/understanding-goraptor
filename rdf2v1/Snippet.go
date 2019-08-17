@@ -16,10 +16,6 @@ type Snippet struct {
 	SnippetSPDXIdentifier   ValueStr
 }
 
-type ReferenceType struct {
-	ReferenceType ValueStr
-}
-
 type SnippetStartEndPointer struct {
 	ByteOffsetPointer []*ByteOffsetPointer
 	LineCharPointer   []*LineCharPointer
@@ -74,6 +70,7 @@ func (p *Parser) requestLineCharPointer(node goraptor.Term) (*LineCharPointer, e
 }
 func (p *Parser) MapSnippet(s *Snippet) *builder {
 	builder := &builder{t: TypeSnippet, ptr: s}
+	s.SnippetSPDXIdentifier = SPDXIDSnippet
 	builder.updaters = map[string]updater{
 		"name":            update(&s.SnippetName),
 		"copyrightText":   update(&s.SnippetCopyrightText),

@@ -5,32 +5,33 @@ import (
 )
 
 type Package struct {
-	PackageName                 ValueStr
-	PackageVersionInfo          ValueStr
-	PackageFileName             ValueStr
-	PackageSPDXIdentifier       ValueStr
-	PackageDownloadLocation     ValueStr
-	PackageVerificationCode     *PackageVerificationCode
-	PackageComment              ValueStr
-	PackageChecksum             *Checksum
-	PackageLicense              *License
-	PackageLicenseComments      ValueStr
-	DisjunctiveLicenseSet       *DisjunctiveLicenseSet
-	ConjunctiveLicenseSet       *ConjunctiveLicenseSet
-	PackageLicenseInfoFromFiles []ValueStr
-	PackageLicenseDeclared      ValueStr
-	PackageCopyrightText        ValueStr
-	File                        []*File
-	PackageRelationship         *Relationship
-	PackageHomepage             ValueStr
-	PackageSupplier             ValueStr
-	PackageExternalRef          *ExternalRef
-	PackageOriginator           ValueStr
-	PackageSourceInfo           ValueStr
-	FilesAnalyzed               ValueStr
-	PackageSummary              ValueStr
-	PackageDescription          ValueStr
-	Annotation                  []*Annotation
+	PackageName                  ValueStr
+	PackageVersionInfo           ValueStr
+	PackageFileName              ValueStr
+	PackageSPDXIdentifier        ValueStr
+	PackageDownloadLocation      ValueStr
+	PackageVerificationCode      *PackageVerificationCode
+	PackageComment               ValueStr
+	PackageChecksum              *Checksum
+	PackageLicense               *License
+	PackageLicenseComments       ValueStr
+	DisjunctiveLicenseSet        *DisjunctiveLicenseSet
+	ConjunctiveLicenseSet        *ConjunctiveLicenseSet
+	PackageLicenseInfoFromFiles  []ValueStr
+	PackageLicenseDeclared       ValueStr
+	PackageCopyrightText         ValueStr
+	File                         []*File
+	PackageRelationship          *Relationship
+	PackageHomepage              ValueStr
+	PackageSupplier              ValueStr
+	PackageExternalRef           []*ExternalRef
+	PackageOriginator            ValueStr
+	PackageSourceInfo            ValueStr
+	FilesAnalyzed                ValueStr
+	PackageSummary               ValueStr
+	PackageDescription           ValueStr
+	Annotation                   []*Annotation
+	PackageLicenseSPDXIdentifier ValueStr
 }
 type PackageVerificationCode struct {
 	PackageVerificationCode             ValueStr
@@ -41,6 +42,9 @@ type ExternalRef struct {
 	ReferenceType     *ReferenceType
 	ReferenceCategory ValueStr
 	ReferenceComment  ValueStr
+}
+type ReferenceType struct {
+	ReferenceType ValueStr
 }
 
 func (p *Parser) requestPackage(node goraptor.Term) (*Package, error) {
@@ -68,6 +72,8 @@ func (p *Parser) requestExternalRef(node goraptor.Term) (*ExternalRef, error) {
 }
 func (p *Parser) MapPackage(pkg *Package) *builder {
 	builder := &builder{t: TypePackage, ptr: pkg}
+	pkg.PackageSPDXIdentifier = SPDXIDPackage
+	pkg.PackageLicenseSPDXIdentifier = SPDXIDLicense
 	builder.updaters = map[string]updater{
 		"name":             update(&pkg.PackageName),
 		"versionInfo":      update(&pkg.PackageVersionInfo),
@@ -133,7 +139,7 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 		"supplier":      update(&pkg.PackageSupplier),
 		"externalRef": func(obj goraptor.Term) error {
 			er, err := p.requestExternalRef(obj)
-			pkg.PackageExternalRef = er
+			pkg.PackageExternalRef = append(pkg.PackageExternalRef, er)
 			return err
 		},
 		"originator":    update(&pkg.PackageOriginator),

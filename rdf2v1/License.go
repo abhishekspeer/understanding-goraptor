@@ -1,6 +1,8 @@
 package rdf2v1
 
-import "github.com/deltamobile/goraptor"
+import (
+	"github.com/deltamobile/goraptor"
+)
 
 type License struct {
 	LicenseComment                ValueStr
@@ -62,6 +64,7 @@ func (p *Parser) MapLicense(lic *License) *builder {
 
 func (p *Parser) MapDisjunctiveLicenseSet(dls *DisjunctiveLicenseSet) *builder {
 	builder := &builder{t: TypeDisjunctiveLicenseSet, ptr: dls}
+
 	builder.updaters = map[string]updater{
 		"member": updateList(&dls.Member),
 	}
@@ -71,7 +74,6 @@ func (p *Parser) MapConjunctiveLicenseSet(cls *ConjunctiveLicenseSet) *builder {
 	builder := &builder{t: TypeConjunctiveLicenseSet, ptr: cls}
 	builder.updaters = map[string]updater{
 		"member": func(obj goraptor.Term) error {
-
 			lic, err := p.requestLicense(obj)
 			cls.License = lic
 			if err != nil {

@@ -6,7 +6,7 @@ import (
 
 type ExtractedLicensingInfo struct {
 	LicenseIdentifier ValueStr
-	LicenseName       []ValueStr
+	LicenseName       ValueStr
 	ExtractedText     ValueStr
 	LicenseComment    ValueStr
 	LicenseSeeAlso    []ValueStr
@@ -24,7 +24,7 @@ func (p *Parser) MapExtractedLicensingInfo(lic *ExtractedLicensingInfo) *builder
 	builder := &builder{t: TypeExtractedLicensingInfo, ptr: lic}
 	builder.updaters = map[string]updater{
 		"licenseId":     update(&lic.LicenseIdentifier),
-		"name":          updateList(&lic.LicenseName),
+		"name":          update(&lic.LicenseName),
 		"extractedText": update(&lic.ExtractedText),
 		"rdfs:comment":  update(&lic.LicenseComment),
 		"rdfs:seeAlso":  updateList(&lic.LicenseSeeAlso),

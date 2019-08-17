@@ -1,7 +1,7 @@
 package rdf2v1
 
 import (
-	"spdx/tools-golang/v0/spdx"
+	"tools-golang/v0/spdx"
 
 	"github.com/deltamobile/goraptor"
 )
@@ -25,6 +25,7 @@ func (p *Parser) requestCreationInfo(node goraptor.Term) (*CreationInfo, error) 
 
 func (p *Parser) MapCreationInfo(ci *CreationInfo) *builder {
 	builder := &builder{t: TypeCreationInfo, ptr: ci}
+	ci.SPDXIdentifier = SPDXID
 	builder.updaters = map[string]updater{
 		"licenseListVersion": update(&ci.LicenseListVersion),
 		"creator":            updateList(&ci.Creator),
@@ -50,17 +51,17 @@ func InsertCreator(ci *spdx.CreationInfo2_1) []ValueStr {
 	var val []string
 	if len(ci.CreatorPersons) != 0 {
 		for _, person := range ci.CreatorPersons {
-			val = append(val, person)
+			val = append(val, "Person: "+person)
 		}
 	}
 	if len(ci.CreatorOrganizations) != 0 {
 		for _, org := range ci.CreatorOrganizations {
-			val = append(val, org)
+			val = append(val, "Organization: "+org)
 		}
 	}
-	if len(ci.CreatorOrganizations) != 0 {
-		for _, org := range ci.CreatorOrganizations {
-			val = append(val, org)
+	if len(ci.CreatorTools) != 0 {
+		for _, tool := range ci.CreatorTools {
+			val = append(val, "Tool: "+tool)
 		}
 	}
 	valstr := ValueStrList(val)
