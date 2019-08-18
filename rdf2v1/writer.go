@@ -2,7 +2,6 @@ package rdf2v1
 
 import (
 	"errors"
-	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -762,7 +761,6 @@ func (f *Formatter) DisjunctiveLicenseSet(dls *DisjunctiveLicenseSet) (id gorapt
 
 	for _, mem := range dls.Member {
 		if err = f.addLiteral(id, "member", mem.Val); err != nil {
-			fmt.Println("\n\n\nERR\n\n\n") //check
 			return
 		}
 	}

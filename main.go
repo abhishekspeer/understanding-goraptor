@@ -36,12 +36,12 @@ func main() {
 	_ = newdoc2v1
 	fmt.Printf("ORIGINAL:\n %v\n", newdoc2v1)
 	// WRITER
-	output := os.Stdout
-	errdoc := rdf2v1.WriteDocument(output, newdoc2v1, newsn2v1)
-	if errdoc != nil {
-		fmt.Println("Cannot Write Document")
-		return
-	}
+	// output := os.Stdout
+	// errdoc := rdf2v1.WriteDocument(output, newdoc2v1, newsn2v1)
+	// if errdoc != nil {
+	// 	fmt.Println("Cannot Write Document")
+	// 	return
+	// }
 }
 func Parse2_1(input string) (*rdf2v1.Document, *rdf2v1.Snippet, error) {
 	parser := rdf2v1.NewParser(input)

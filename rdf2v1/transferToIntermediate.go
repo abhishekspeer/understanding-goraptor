@@ -215,7 +215,7 @@ func collectFiles(doc2v1 *spdx.Document2_1) []*File {
 							FileComment:         Str(b.FileComment),
 							FileNoticeText:      Str(b.FileNotice),
 							FileContributor:     ValueStrList(b.FileContributor),
-							// FileDependencies:   "",//DISCUSS
+							// FileDependencies:   ,//DISCUSS
 							Annotation: collectFileAnnotation(doc2v1),
 							// ExtractedLicensingInfo
 							// FileRelationship: coll

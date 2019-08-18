@@ -38,6 +38,7 @@ var (
 	DocumentNamespace     ValueStr
 	SPDXID                ValueStr
 	SPDXIDFile            ValueStr
+	SPDXIDRelationship    ValueStr
 	SPDXIDSnippet         ValueStr
 	SPDXIDPackage         ValueStr
 	SPDXIDLicense         ValueStr
@@ -45,6 +46,11 @@ var (
 	ProjectURI            ValueStr
 	RelatedSPDXElementID  ValueStr
 	RelatedSPDXElementKey bool
+	Parent                map[ValueStr]ValueStr
+	MapLink               map[ValueStr][]ValueStr
+	ReltoPackage          = make(map[ValueStr]map[ValueStr][]ValueStr)
+	counter               int
+	PackagetoFile         = make(map[ValueStr][]ValueStr)
 )
 
 // Parser Struct and associated methods
@@ -105,6 +111,10 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 		}
 	}
 
+	if ExtractId(termStr(stm.Predicate)) == "relationshipType" {
+		SPDXIDRelationship = Str(strings.Replace(termStr(stm.Object), "http://spdx.org/rdf/terms#relationshipType_", "", 1))
+		counter++
+	}
 	if stm.Predicate.Equals(URInsType) {
 		_, err := p.setNodeType(stm.Subject, stm.Object)
 		return err
@@ -129,15 +139,22 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 	builder, ok := p.Index[nodeStr]
 	if ExtractId(termStr(t)) == "File" {
 		SPDXIDFile = Str(ExtractId(termStr(node)))
+		// fmt.Println(SPDXIDFile)
 	}
 	if ExtractId(termStr(t)) == "Package" {
 		SPDXIDPackage = Str(ExtractId(termStr(node)))
+		// fmt.Println(SPDXIDPackage)
+
 	}
 	if ExtractId(termStr(t)) == "Snippet" {
 		SPDXIDSnippet = Str(ExtractId(termStr(node)))
+		// fmt.Println(SPDXIDSnippet)
+
 	}
 	if ExtractId(termStr(t)) == "License" {
 		SPDXIDLicense = Str(ExtractId(termStr(node)))
+		// fmt.Println(SPDXIDLicense)
+
 	}
 	if ExtractId(termStr(t)) == "Project" {
 		ProjectURI = Str(termStr(node))
@@ -229,7 +246,6 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("New Builder: Types does not match.")
 	}
-
 	p.Index[nodeStr] = builder
 
 	buf := p.Buffer[nodeStr]

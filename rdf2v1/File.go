@@ -57,6 +57,15 @@ func (p *Parser) MapFile(file *File) *builder {
 	builder := &builder{t: TypeFile, ptr: file}
 	file.FileSPDXIdentifier = SPDXIDFile
 	file.FileLicenseSPDXIdentifier = SPDXIDLicense
+	// fmt.Println("JJJJJJJJJJ")
+	// pf := PackagetoFile[SPDXIDPackage]
+	// if file.FileSPDXIdentifier.Val != "" {
+	// 	pf = append(pf, file.FileSPDXIdentifier)
+	// }
+	// fmt.Println(pf)
+	// fmt.Println(file.FileSPDXIdentifier)
+	// fmt.Println(SPDXIDPackage)
+	// fmt.Println("PPPPPPPPPPPPPPPPPPPp")
 	builder.updaters = map[string]updater{
 		"fileName": update(&file.FileName),
 		"checksum": func(obj goraptor.Term) error {

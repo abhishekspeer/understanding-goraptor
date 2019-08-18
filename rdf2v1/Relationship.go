@@ -1,6 +1,8 @@
 package rdf2v1
 
 import (
+	"fmt"
+
 	"github.com/deltamobile/goraptor"
 )
 
@@ -54,6 +56,7 @@ func (p *Parser) MapRelationship(rel *Relationship) *builder {
 				}
 
 			}
+			fmt.Println(PackagetoFile)
 			return nil
 		},
 	}

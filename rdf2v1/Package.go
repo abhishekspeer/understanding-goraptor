@@ -1,6 +1,8 @@
 package rdf2v1
 
 import (
+	"fmt"
+
 	"github.com/deltamobile/goraptor"
 )
 
@@ -73,6 +75,16 @@ func (p *Parser) requestExternalRef(node goraptor.Term) (*ExternalRef, error) {
 func (p *Parser) MapPackage(pkg *Package) *builder {
 	builder := &builder{t: TypePackage, ptr: pkg}
 	pkg.PackageSPDXIdentifier = SPDXIDPackage
+
+	// fmt.Println("llllllllllllll")
+	// fmt.Println(counter)
+	// fmt.Println(pkg.PackageSPDXIdentifier)
+	// fmt.Println(SPDXIDRelationship)
+	a := Parent[SPDXIDRelationship]
+	a = pkg.PackageSPDXIdentifier
+	_ = a
+	// o	fmt.Println(a)
+	// fmt.Println("pppppppppppppppppp")
 	pkg.PackageLicenseSPDXIdentifier = SPDXIDLicense
 	builder.updaters = map[string]updater{
 		"name":             update(&pkg.PackageName),
@@ -124,6 +136,8 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 		"copyrightText":        update(&pkg.PackageCopyrightText),
 		"hasFile": func(obj goraptor.Term) error {
 			file, err := p.requestFile(obj)
+			PackagetoFile[SPDXIDPackage] = append(PackagetoFile[SPDXIDPackage], file.FileSPDXIdentifier)
+			fmt.Println(PackagetoFile)
 			if err != nil {
 				return err
 			}
