@@ -1,8 +1,6 @@
 package rdf2v1
 
 import (
-	"fmt"
-
 	"github.com/deltamobile/goraptor"
 )
 
@@ -46,9 +44,18 @@ func (p *Parser) MapRelationship(rel *Relationship) *builder {
 			}
 			pkg, err := p.requestPackage(obj)
 			rel.Package = append(rel.Package, pkg)
+			// fmt.Println(SPDXIDRelationship)
+
+			// Relates Relationship to Package
+			if pkg != nil {
+				ReltoPackage[SPDXIDRelationship] = append(ReltoPackage[SPDXIDRelationship], pkg)
+			}
 			if err != nil {
 				file, err := p.requestFile(obj)
 				rel.File = append(rel.File, file)
+				if file != nil {
+					ReltoFile[SPDXIDRelationship] = append(ReltoFile[SPDXIDRelationship], file)
+				}
 				if err != nil {
 					se, err := p.requestSpdxElement(obj)
 					rel.SpdxElement = se
@@ -56,7 +63,7 @@ func (p *Parser) MapRelationship(rel *Relationship) *builder {
 				}
 
 			}
-			fmt.Println(PackagetoFile)
+			// fmt.Println(pkg)
 			return nil
 		},
 	}

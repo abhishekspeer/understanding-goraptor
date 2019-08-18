@@ -83,6 +83,9 @@ func (p *Parser) MapDocument(doc *Document) *builder {
 				return err
 			}
 			doc.Relationship = append(doc.Relationship, rel)
+			if rel != nil {
+				DoctoRel[SPDXID] = append(DoctoRel[SPDXID], rel)
+			}
 			return nil
 		},
 		"annotation": func(obj goraptor.Term) error {

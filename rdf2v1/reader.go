@@ -48,9 +48,13 @@ var (
 	RelatedSPDXElementKey bool
 	Parent                map[ValueStr]ValueStr
 	MapLink               map[ValueStr][]ValueStr
-	ReltoPackage          = make(map[ValueStr]map[ValueStr][]ValueStr)
-	counter               int
-	PackagetoFile         = make(map[ValueStr][]ValueStr)
+	// ReltoPackage          = make(map[ValueStr]map[ValueStr][]ValueStr)
+	counter       int
+	PackagetoFile = make(map[ValueStr][]*File)
+	ReltoPackage  = make(map[ValueStr][]*Package)
+	ReltoFile     = make(map[ValueStr][]*File)
+	DoctoRel      = make(map[ValueStr][]*Relationship)
+	SniptoFile    = make(map[ValueStr]*File)
 )
 
 // Parser Struct and associated methods
@@ -113,6 +117,7 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 
 	if ExtractId(termStr(stm.Predicate)) == "relationshipType" {
 		SPDXIDRelationship = Str(strings.Replace(termStr(stm.Object), "http://spdx.org/rdf/terms#relationshipType_", "", 1))
+		// fmt.Print(SPDXIDRelationship)
 		counter++
 	}
 	if stm.Predicate.Equals(URInsType) {
@@ -131,6 +136,7 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 		p.Buffer[node] = make([]*goraptor.Statement, 0)
 	}
 	p.Buffer[node] = append(p.Buffer[node], stm)
+
 	return nil
 }
 
@@ -255,7 +261,16 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 		}
 	}
 	delete(p.Buffer, nodeStr)
-
+	fmt.Println("SniptoFile")
+	fmt.Println(SniptoFile)
+	fmt.Println("DoctoRel")
+	fmt.Println(DoctoRel)
+	fmt.Println("ReltoPackage")
+	fmt.Println(ReltoPackage)
+	fmt.Println("ReltoFile")
+	fmt.Println(ReltoFile)
+	fmt.Println("PackagetoFile")
+	fmt.Println(PackagetoFile)
 	return builder.ptr, nil
 }
 
