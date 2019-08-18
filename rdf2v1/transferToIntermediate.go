@@ -50,6 +50,7 @@ func collectExternalDocumentRef(doc2v1 *spdx.Document2_1) *ExternalDocumentRef {
 	return &stdEdr
 }
 
+// Done
 func collectVerificationCode(pkg2_1 *spdx.Package2_1) *PackageVerificationCode {
 
 	stdVc := PackageVerificationCode{
@@ -60,6 +61,7 @@ func collectVerificationCode(pkg2_1 *spdx.Package2_1) *PackageVerificationCode {
 	return &stdVc
 }
 
+// Done
 func collectPackageChecksum(pkg2_1 *spdx.Package2_1) *Checksum {
 
 	stdPc := Checksum{
@@ -70,6 +72,7 @@ func collectPackageChecksum(pkg2_1 *spdx.Package2_1) *Checksum {
 	return &stdPc
 }
 
+// Done
 func collectFileChecksum(File2_1 *spdx.File2_1) *Checksum {
 
 	stdFc := Checksum{
@@ -80,6 +83,7 @@ func collectFileChecksum(File2_1 *spdx.File2_1) *Checksum {
 	return &stdFc
 }
 
+// Done
 func collectDocChecksum(doc2v1 *spdx.Document2_1) *Checksum {
 
 	stdFc := Checksum{
@@ -90,6 +94,7 @@ func collectDocChecksum(doc2v1 *spdx.Document2_1) *Checksum {
 	return &stdFc
 }
 
+// Done
 func collectDocAnnotation(doc2v1 *spdx.Document2_1) []*Annotation {
 	var arrAnn []*Annotation
 	for _, an := range doc2v1.Annotations {
@@ -108,6 +113,7 @@ func collectDocAnnotation(doc2v1 *spdx.Document2_1) []*Annotation {
 	return arrAnn
 }
 
+// Done
 func collectFileAnnotation(doc2v1 *spdx.Document2_1) []*Annotation {
 	var arrAnn []*Annotation
 	for _, pkg := range doc2v1.Packages {
@@ -130,6 +136,7 @@ func collectFileAnnotation(doc2v1 *spdx.Document2_1) []*Annotation {
 	return arrAnn
 }
 
+// Done
 func collectPackageAnnotation(doc2v1 *spdx.Document2_1) []*Annotation {
 	var arrAnn []*Annotation
 	for _, pkg := range doc2v1.Packages {
@@ -150,6 +157,7 @@ func collectPackageAnnotation(doc2v1 *spdx.Document2_1) []*Annotation {
 	return arrAnn
 }
 
+// Done
 func collectReview(doc2v1 *spdx.Document2_1) []*Review {
 	var arrRev []*Review
 	for _, a := range doc2v1.Reviews {
@@ -167,6 +175,7 @@ func collectReview(doc2v1 *spdx.Document2_1) []*Review {
 	return arrRev
 }
 
+// Done
 func collectRelationships(doc2v1 *spdx.Document2_1) []*Relationship {
 	var arrRel []*Relationship
 	for _, a := range doc2v1.Relationships {
@@ -175,7 +184,7 @@ func collectRelationships(doc2v1 *spdx.Document2_1) []*Relationship {
 				RelationshipType:    Str(a.Relationship),
 				RelationshipComment: Str(a.RelationshipComment),
 				Package:             collectPackages(doc2v1),
-				File:                collectFile(doc2v1),
+				File:                collectFiles(doc2v1),
 			}
 			pointer := &stdRel
 			arrRel = append(arrRel, pointer)
@@ -185,7 +194,7 @@ func collectRelationships(doc2v1 *spdx.Document2_1) []*Relationship {
 	return arrRel
 }
 
-func collectFile(doc2v1 *spdx.Document2_1) []*File {
+func collectFiles(doc2v1 *spdx.Document2_1) []*File {
 	var arrFile []*File
 	for _, a := range doc2v1.Packages {
 		if a != nil {
@@ -209,8 +218,6 @@ func collectFile(doc2v1 *spdx.Document2_1) []*File {
 							// FileDependencies:   "",//DISCUSS
 							Annotation: collectFileAnnotation(doc2v1),
 							// ExtractedLicensingInfo
-							// DisjunctiveLicenseSet : ValueStrList(b.),
-							// ConjunctiveLicenseSet
 							// FileRelationship: coll
 							// SnippetLicense,
 						}
@@ -229,32 +236,29 @@ func collectPackages(doc2v1 *spdx.Document2_1) []*Package {
 	for _, a := range doc2v1.Packages {
 		if a != nil {
 			stdPkg := Package{
-				PackageName:             Str(a.PackageName),
-				PackageVersionInfo:      Str(a.PackageVersion),
-				PackageFileName:         Str(a.PackageFileName),
-				PackageSPDXIdentifier:   Str(a.PackageSPDXIdentifier),
-				PackageDownloadLocation: Str(a.PackageDownloadLocation),
-				PackageVerificationCode: collectVerificationCode(a), //passing specific package
-				PackageComment:          Str(a.PackageComment),
-				PackageChecksum:         collectPackageChecksum(a),
-				PackageLicenseComments:  Str(a.PackageLicenseComments),
-				// DisjunctiveLicenseSet       :collectDisjunctiveLicenseSet
-				// ConjunctiveLicenseSet       :*ConjunctiveLicenseSet
-				// PackageLicenseInfoFromFiles: ValueStrList()
-
-				PackageLicenseDeclared: Str(a.PackageLicenseDeclared),
-				PackageCopyrightText:   Str(a.PackageCopyrightText),
-				// File                 :       []*File,
-				// PackageRelationship   :      *Relationship
-				PackageHomepage: Str(a.PackageHomePage),
-				PackageSupplier: Str(InsertSupplier(a)),
-				// PackageExternalRef       :   *ExternalRef
+				PackageName:                 Str(a.PackageName),
+				PackageVersionInfo:          Str(a.PackageVersion),
+				PackageFileName:             Str(a.PackageFileName),
+				PackageSPDXIdentifier:       Str(a.PackageSPDXIdentifier),
+				PackageDownloadLocation:     Str(a.PackageDownloadLocation),
+				PackageVerificationCode:     collectVerificationCode(a), //passing specific package
+				PackageComment:              Str(a.PackageComment),
+				PackageChecksum:             collectPackageChecksum(a),
+				PackageLicenseComments:      Str(a.PackageLicenseComments),
+				PackageLicenseInfoFromFiles: ValueStrList(a.PackageLicenseInfoFromFiles),
+				PackageLicenseDeclared:      Str(a.PackageLicenseDeclared),
+				PackageCopyrightText:        Str(a.PackageCopyrightText),
+				// PackageRelationship:         collectRelationships(doc2v1)[0],
+				PackageHomepage:    Str(a.PackageHomePage),
+				PackageSupplier:    Str(InsertSupplier(a)),
+				PackageExternalRef: collectPkgExternalRef(a),
 				PackageOriginator:  Str(InsertOriginator(a)),
 				PackageSourceInfo:  Str(a.PackageSummary),
 				FilesAnalyzed:      Str(strconv.FormatBool(a.FilesAnalyzed)),
 				PackageSummary:     Str(a.PackageSummary),
 				PackageDescription: Str(a.PackageDescription),
 				Annotation:         collectPackageAnnotation(doc2v1),
+				File:               collectFiles(doc2v1),
 			}
 
 			pointer := &stdPkg
@@ -264,6 +268,7 @@ func collectPackages(doc2v1 *spdx.Document2_1) []*Package {
 	return arrPkg
 }
 
+// Done
 func collectExtractedLicInfo(doc2v1 *spdx.Document2_1) []*ExtractedLicensingInfo {
 	var arrEl []*ExtractedLicensingInfo
 	for _, a := range doc2v1.OtherLicenses {
@@ -282,6 +287,7 @@ func collectExtractedLicInfo(doc2v1 *spdx.Document2_1) []*ExtractedLicensingInfo
 	return arrEl
 }
 
+// Done
 func collectArtifactOfProject(doc2v1 *spdx.Document2_1) []*Project {
 	var arrp []*Project
 	for _, a := range doc2v1.Packages {
@@ -308,18 +314,52 @@ func collectArtifactOfProject(doc2v1 *spdx.Document2_1) []*Project {
 	return arrp
 }
 
-func collectSnippets(sp *spdx.Snippet2_1) []*Snippet {
-	var arrSn []*Snippet
-	if sp != nil {
-		stdSn := Snippet{
-			SnippetLicenseComments:  Str(sp.SnippetLicenseComments),
-			SnippetCopyrightText:    Str(sp.SnippetCopyrightText),
-			SnippetLicenseConcluded: Str(sp.SnippetLicenseConcluded), //DISCUSS: Not in RDF file
-			SnippetComment:          Str(sp.SnippetComment),
-			// LicenseInfoInSnippet:    a.LicenseInfoInSnippet, // DISCUSS: more than one fields in RDF but string in standard struct
+func CollectSnippets(doc2v1 *spdx.Document2_1) *Snippet {
+	for _, pkg := range doc2v1.Packages {
+		if pkg != nil {
+			for _, file := range pkg.Files {
+				if file != nil {
+					for _, sp := range file.Snippets {
+						if sp != nil {
+							stdSn := Snippet{
+								SnippetLicenseComments:  Str(sp.SnippetLicenseComments),
+								SnippetCopyrightText:    Str(sp.SnippetCopyrightText),
+								SnippetLicenseConcluded: Str(sp.SnippetLicenseConcluded),
+								SnippetComment:          Str(sp.SnippetComment),
+								LicenseInfoInSnippet:    ValueStrList(sp.LicenseInfoInSnippet),
+							}
+
+							return &stdSn
+						}
+					}
+				}
+			}
 		}
-		pointer := &stdSn
-		arrSn = append(arrSn, pointer)
 	}
-	return arrSn
+	return nil
+}
+
+func collectPkgExternalRef(pkg *spdx.Package2_1) []*ExternalRef {
+	var arrPer []*ExternalRef
+	for _, a := range pkg.PackageExternalReferences {
+		if a != nil {
+			stdEl := ExternalRef{
+				ReferenceLocator:  Str(a.Locator),
+				ReferenceType:     collectReferenceType(a),
+				ReferenceCategory: Str(a.Category),
+				ReferenceComment:  Str(a.ExternalRefComment),
+			}
+			pointer := &stdEl
+			arrPer = append(arrPer, pointer)
+		}
+	}
+	return arrPer
+}
+
+func collectReferenceType(pkger *spdx.PackageExternalReference2_1) *ReferenceType {
+
+	stdRt := ReferenceType{
+		ReferenceType: Str(pkger.RefType),
+	}
+	return &stdRt
 }

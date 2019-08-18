@@ -135,13 +135,13 @@ func (f *Formatter) Document(doc *Document) (docId goraptor.Term, err error) {
 		return docId, err
 	}
 
-	if id, err := f.License(doc.License); err == nil {
-		if err = f.addTerm(docId, "dataLicense", id); err != nil {
-			return docId, err
-		}
-	} else {
-		return docId, err
-	}
+	// if id, err := f.License(doc.License); err == nil {
+	// 	if err = f.addTerm(docId, "dataLicense", id); err != nil {
+	// 		return docId, err
+	// 	}
+	// } else {
+	// 	return docId, err
+	// }
 
 	if id, err := f.ExternalDocumentRef(doc.ExternalDocumentRef); err == nil {
 		if err = f.addTerm(docId, "externalDocumentRef", id); err != nil {
