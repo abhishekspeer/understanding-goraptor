@@ -26,22 +26,20 @@ func main() {
 		return
 	}
 
-	_ = sp
 	doc2v1 := rdf2v1.TransferDocument(spdxdoc, sp)
-	// fmt.Printf("\n\n%#v\n\n", doc2v1.OtherLicenses)
 	newdoc2v1 := rdf2v1.CollectDocument(doc2v1)
 	newsn2v1 := rdf2v1.CollectSnippets(doc2v1)
-	// fmt.Printf("NEW:\n %v\n", newdoc2v1.Relationship[0].Package[0])
-	_ = newsn2v1
-	_ = newdoc2v1
-	fmt.Printf("ORIGINAL:\n %v\n", newdoc2v1)
+
+	fmt.Printf("NEW:\n %v\n", newdoc2v1)
+
+	// fmt.Printf("ORIGINAL:\n %v\n", newdoc2v1)
 	// WRITER
-	// output := os.Stdout
-	// errdoc := rdf2v1.WriteDocument(output, newdoc2v1, newsn2v1)
-	// if errdoc != nil {
-	// 	fmt.Println("Cannot Write Document")
-	// 	return
-	// }
+	output := os.Stdout
+	errdoc := rdf2v1.WriteDocument(output, newdoc2v1, newsn2v1)
+	if errdoc != nil {
+		fmt.Println("Cannot Write Document")
+		return
+	}
 }
 func Parse2_1(input string) (*rdf2v1.Document, *rdf2v1.Snippet, error) {
 	parser := rdf2v1.NewParser(input)

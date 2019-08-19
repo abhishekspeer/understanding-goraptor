@@ -55,6 +55,9 @@ var (
 	ReltoFile     = make(map[ValueStr][]*File)
 	DoctoRel      = make(map[ValueStr][]*Relationship)
 	SniptoFile    = make(map[ValueStr]*File)
+	DoctoAnno     = make(map[ValueStr][]*Annotation)
+	FiletoAnno    = make(map[ValueStr][]*Annotation)
+	PackagetoAnno = make(map[ValueStr][]*Annotation)
 )
 
 // Parser Struct and associated methods
@@ -271,6 +274,12 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 	fmt.Println(ReltoFile)
 	fmt.Println("PackagetoFile")
 	fmt.Println(PackagetoFile)
+	fmt.Println("DoctoAnno")
+	fmt.Println(DoctoAnno)
+	fmt.Println("FiletoAnno")
+	fmt.Println(FiletoAnno)
+	fmt.Println("PackagetoAnno")
+	fmt.Println(PackagetoAnno)
 	return builder.ptr, nil
 }
 

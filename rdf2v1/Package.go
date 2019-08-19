@@ -155,6 +155,9 @@ func (p *Parser) MapPackage(pkg *Package) *builder {
 		"annotation": func(obj goraptor.Term) error {
 			an, err := p.requestAnnotation(obj)
 			pkg.Annotation = append(pkg.Annotation, an)
+			if an != nil {
+				PackagetoAnno[SPDXIDPackage] = append(PackagetoAnno[SPDXIDPackage], an)
+			}
 			return err
 		},
 		"rdfs:comment": update(&pkg.PackageComment)}

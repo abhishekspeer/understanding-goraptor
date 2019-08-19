@@ -97,6 +97,9 @@ func (p *Parser) MapFile(file *File) *builder {
 		"annotation": func(obj goraptor.Term) error {
 			an, err := p.requestAnnotation(obj)
 			file.Annotation = append(file.Annotation, an)
+			if an != nil {
+				FiletoAnno[SPDXIDFile] = append(FiletoAnno[SPDXIDFile], an)
+			}
 			return err
 		},
 		"artifactOf": func(obj goraptor.Term) error {

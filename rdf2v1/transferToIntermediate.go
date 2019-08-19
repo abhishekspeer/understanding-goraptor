@@ -21,6 +21,7 @@ func CollectDocument(doc2v1 *spdx.Document2_1) *Document {
 		CreationInfo:           collectCreationInfo(doc2v1),
 		Annotation:             collectDocAnnotation(doc2v1),
 		ExternalDocumentRef:    collectExternalDocumentRef(doc2v1),
+		License:                collectLicense(doc2v1),
 	}
 	return &stdDoc
 }
@@ -46,6 +47,13 @@ func collectExternalDocumentRef(doc2v1 *spdx.Document2_1) *ExternalDocumentRef {
 		ExternalDocumentId: Str(doc2v1.CreationInfo.ExternalDocumentReferences[0]),
 		SPDXDocument:       Str(doc2v1.CreationInfo.ExternalDocumentReferences[1]),
 		Checksum:           collectDocChecksum(doc2v1),
+	}
+	return &stdEdr
+}
+
+func collectLicense(doc2v1 *spdx.Document2_1) *License {
+	stdEdr := License{
+		LicenseId: Str(LicenseUri + doc2v1.CreationInfo.DataLicense),
 	}
 	return &stdEdr
 }
@@ -184,7 +192,6 @@ func collectRelationships(doc2v1 *spdx.Document2_1) []*Relationship {
 				RelationshipType:    Str(a.Relationship),
 				RelationshipComment: Str(a.RelationshipComment),
 				Package:             collectPackages(doc2v1),
-				File:                collectFiles(doc2v1),
 			}
 			pointer := &stdRel
 			arrRel = append(arrRel, pointer)
@@ -194,7 +201,7 @@ func collectRelationships(doc2v1 *spdx.Document2_1) []*Relationship {
 	return arrRel
 }
 
-func collectFiles(doc2v1 *spdx.Document2_1) []*File {
+func collectFilesfromPackages(doc2v1 *spdx.Document2_1) []*File {
 	var arrFile []*File
 	for _, a := range doc2v1.Packages {
 		if a != nil {
@@ -203,10 +210,10 @@ func collectFiles(doc2v1 *spdx.Document2_1) []*File {
 					if b != nil {
 						stdFile := File{
 
-							FileName: Str(b.FileName),
-							// FileSPDXIdentifier: "",
-							FileType:     ValueStrList(b.FileType),
-							FileChecksum: collectFileChecksum(b),
+							FileName:           Str(b.FileName),
+							FileSPDXIdentifier: Str(b.FileSPDXIdentifier),
+							FileType:           ValueStrList(b.FileType),
+							FileChecksum:       collectFileChecksum(b),
 							// LicenseConcluded:   "", //DISCUSS
 							LicenseInfoInFile:   ValueStrList(b.LicenseInfoInFile),
 							FileLicenseComments: Str(b.LicenseComments),
@@ -248,17 +255,16 @@ func collectPackages(doc2v1 *spdx.Document2_1) []*Package {
 				PackageLicenseInfoFromFiles: ValueStrList(a.PackageLicenseInfoFromFiles),
 				PackageLicenseDeclared:      Str(a.PackageLicenseDeclared),
 				PackageCopyrightText:        Str(a.PackageCopyrightText),
-				// PackageRelationship:         collectRelationships(doc2v1)[0],
-				PackageHomepage:    Str(a.PackageHomePage),
-				PackageSupplier:    Str(InsertSupplier(a)),
-				PackageExternalRef: collectPkgExternalRef(a),
-				PackageOriginator:  Str(InsertOriginator(a)),
-				PackageSourceInfo:  Str(a.PackageSummary),
-				FilesAnalyzed:      Str(strconv.FormatBool(a.FilesAnalyzed)),
-				PackageSummary:     Str(a.PackageSummary),
-				PackageDescription: Str(a.PackageDescription),
-				Annotation:         collectPackageAnnotation(doc2v1),
-				File:               collectFiles(doc2v1),
+				PackageHomepage:             Str(a.PackageHomePage),
+				PackageSupplier:             Str(InsertSupplier(a)),
+				PackageExternalRef:          collectPkgExternalRef(a),
+				PackageOriginator:           Str(InsertOriginator(a)),
+				PackageSourceInfo:           Str(a.PackageSummary),
+				FilesAnalyzed:               Str(strconv.FormatBool(a.FilesAnalyzed)),
+				PackageSummary:              Str(a.PackageSummary),
+				PackageDescription:          Str(a.PackageDescription),
+				Annotation:                  collectPackageAnnotation(doc2v1),
+				File:                        collectFilesfromPackages(doc2v1),
 			}
 
 			pointer := &stdPkg
@@ -322,6 +328,8 @@ func CollectSnippets(doc2v1 *spdx.Document2_1) *Snippet {
 					for _, sp := range file.Snippets {
 						if sp != nil {
 							stdSn := Snippet{
+								SnippetName:             Str(sp.SnippetName),
+								SnippetSPDXIdentifier:   Str(sp.SnippetSPDXIdentifier),
 								SnippetLicenseComments:  Str(sp.SnippetLicenseComments),
 								SnippetCopyrightText:    Str(sp.SnippetCopyrightText),
 								SnippetLicenseConcluded: Str(sp.SnippetLicenseConcluded),
@@ -363,3 +371,16 @@ func collectReferenceType(pkger *spdx.PackageExternalReference2_1) *ReferenceTyp
 	}
 	return &stdRt
 }
+
+// func FindPackagefromFile(file *File) ValueStr {
+// 	for key, value := range PackagetoFile {
+
+// 		for _, f := range value {
+// 			if f == file {
+// 				return key
+// 			}
+// 		}
+
+// 	}
+// 	return Str("")
+// }

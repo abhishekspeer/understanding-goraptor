@@ -94,6 +94,9 @@ func (p *Parser) MapDocument(doc *Document) *builder {
 				return err
 			}
 			doc.Annotation = append(doc.Annotation, an)
+			if an != nil {
+				DoctoAnno[SPDXID] = append(DoctoAnno[SPDXID], an)
+			}
 			return err
 		},
 		"externalDocumentRef": func(obj goraptor.Term) error {

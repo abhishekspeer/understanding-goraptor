@@ -200,11 +200,11 @@ func (f *Formatter) Snippet(snip *Snippet) (snipId goraptor.Term, err error) {
 			return
 		}
 	}
-	if err = f.SnippetStartEndPointers(snipId, "range", snip.SnippetStartEndPointer); err != nil {
+	// if err = f.SnippetStartEndPointers(snipId, "range", snip.SnippetStartEndPointer); err != nil {
 
-		return
+	// 	return
 
-	}
+	// }
 	if snip.SnippetFromFile != nil {
 		sfId, err := f.File(snip.SnippetFromFile)
 		if err != nil {
@@ -946,17 +946,17 @@ func (f *Formatter) SnippetStartEndPointer(se *SnippetStartEndPointer) (id gorap
 	if err = f.setNodeType(id, TypeSnippetStartEndPointer); err != nil {
 		return
 	}
-
-	if err = f.ByteOffsetPointers(id, "j.0:endPointer", se.ByteOffsetPointer); err != nil {
-		if err = f.LineCharPointers(id, "j.0:endPointer", se.LineCharPointer); err != nil {
-			return
-		}
-	}
-	if err = f.LineCharPointers(id, "j.0:startPointer", se.LineCharPointer); err != nil {
-		if err = f.ByteOffsetPointers(id, "j.0:startPointer", se.ByteOffsetPointer); err != nil {
-			return
-		}
-	}
+	// Change to single pointer instead of a slice
+	// if err = f.ByteOffsetPointers(id, "j.0:endPointer", se.ByteOffsetPointer); err != nil {
+	// 	if err = f.LineCharPointers(id, "j.0:endPointer", se.LineCharPointer); err != nil {
+	// 		return
+	// 	}
+	// }
+	// if err = f.LineCharPointers(id, "j.0:startPointer", se.LineCharPointer); err != nil {
+	// 	if err = f.ByteOffsetPointers(id, "j.0:startPointer", se.ByteOffsetPointer); err != nil {
+	// 		return
+	// 	}
+	// }
 
 	return id, nil
 }
