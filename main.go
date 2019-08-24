@@ -29,11 +29,6 @@ func main() {
 	doc2v1 := rdf2v1.TransferDocument(spdxdoc, sp)
 	newdoc2v1 := rdf2v1.CollectDocument(doc2v1)
 	newsn2v1 := rdf2v1.CollectSnippets(doc2v1)
-
-	fmt.Printf("NEW:\n %v\n", newdoc2v1)
-
-	// fmt.Printf("ORIGINAL:\n %v\n", newdoc2v1)
-	// WRITER
 	output := os.Stdout
 	errdoc := rdf2v1.WriteDocument(output, newdoc2v1, newsn2v1)
 	if errdoc != nil {

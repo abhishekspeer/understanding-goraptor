@@ -155,6 +155,11 @@ func ExtractRelType(value string) string {
 	}
 	return s[1]
 }
+
+func AddRelType(value string) string {
+	s := "http://spdx.org/rdf/terms#relationshipType_" + value
+	return s
+}
 func InsertId(value string) ValueStr {
 	s := value + "#SPDXRef-DOCUMENT"
 	vs := Str(s)

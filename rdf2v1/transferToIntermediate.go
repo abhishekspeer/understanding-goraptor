@@ -5,7 +5,6 @@ import (
 	"tools-golang/v0/spdx"
 )
 
-// Done
 func CollectDocument(doc2v1 *spdx.Document2_1) *Document {
 
 	stdDoc := Document{
@@ -26,7 +25,6 @@ func CollectDocument(doc2v1 *spdx.Document2_1) *Document {
 	return &stdDoc
 }
 
-// Done
 func collectCreationInfo(doc2v1 *spdx.Document2_1) *CreationInfo {
 
 	stdCi := CreationInfo{
@@ -40,15 +38,17 @@ func collectCreationInfo(doc2v1 *spdx.Document2_1) *CreationInfo {
 	return &stdCi
 }
 
-// Done
 func collectExternalDocumentRef(doc2v1 *spdx.Document2_1) *ExternalDocumentRef {
-	stdEdr := ExternalDocumentRef{
+	if doc2v1.CreationInfo.ExternalDocumentReferences != nil {
+		stdEdr := ExternalDocumentRef{
 
-		ExternalDocumentId: Str(doc2v1.CreationInfo.ExternalDocumentReferences[0]),
-		SPDXDocument:       Str(doc2v1.CreationInfo.ExternalDocumentReferences[1]),
-		Checksum:           collectDocChecksum(doc2v1),
+			ExternalDocumentId: Str(doc2v1.CreationInfo.ExternalDocumentReferences[0]),
+			SPDXDocument:       Str(doc2v1.CreationInfo.ExternalDocumentReferences[1]),
+			Checksum:           collectDocChecksum(doc2v1),
+		}
+		return &stdEdr
 	}
-	return &stdEdr
+	return nil
 }
 
 func collectLicense(doc2v1 *spdx.Document2_1) *License {
@@ -58,7 +58,6 @@ func collectLicense(doc2v1 *spdx.Document2_1) *License {
 	return &stdEdr
 }
 
-// Done
 func collectVerificationCode(pkg2_1 *spdx.Package2_1) *PackageVerificationCode {
 
 	stdVc := PackageVerificationCode{
@@ -69,7 +68,6 @@ func collectVerificationCode(pkg2_1 *spdx.Package2_1) *PackageVerificationCode {
 	return &stdVc
 }
 
-// Done
 func collectPackageChecksum(pkg2_1 *spdx.Package2_1) *Checksum {
 
 	stdPc := Checksum{
@@ -80,7 +78,6 @@ func collectPackageChecksum(pkg2_1 *spdx.Package2_1) *Checksum {
 	return &stdPc
 }
 
-// Done
 func collectFileChecksum(File2_1 *spdx.File2_1) *Checksum {
 
 	stdFc := Checksum{
@@ -91,7 +88,6 @@ func collectFileChecksum(File2_1 *spdx.File2_1) *Checksum {
 	return &stdFc
 }
 
-// Done
 func collectDocChecksum(doc2v1 *spdx.Document2_1) *Checksum {
 
 	stdFc := Checksum{
@@ -102,7 +98,6 @@ func collectDocChecksum(doc2v1 *spdx.Document2_1) *Checksum {
 	return &stdFc
 }
 
-// Done
 func collectDocAnnotation(doc2v1 *spdx.Document2_1) []*Annotation {
 	var arrAnn []*Annotation
 	for _, an := range doc2v1.Annotations {
@@ -121,22 +116,23 @@ func collectDocAnnotation(doc2v1 *spdx.Document2_1) []*Annotation {
 	return arrAnn
 }
 
-// Done
-func collectFileAnnotation(doc2v1 *spdx.Document2_1) []*Annotation {
+func collectFileAnnotation(doc2v1 *spdx.Document2_1, f *spdx.File2_1) []*Annotation {
 	var arrAnn []*Annotation
 	for _, pkg := range doc2v1.Packages {
 		for _, file := range pkg.Files {
-			for _, an := range doc2v1.Annotations {
-				if an.AnnotationSPDXIdentifier == file.FileSPDXIdentifier {
-					stdAnn := Annotation{
-						Annotator:                Str(an.AnnotatorType + an.Annotator),
-						AnnotationType:           Str(an.AnnotationType),
-						AnnotationDate:           Str(an.AnnotationDate),
-						AnnotationComment:        Str(an.AnnotationComment),
-						AnnotationSPDXIdentifier: Str(an.AnnotationSPDXIdentifier),
+			if file != nil {
+				for _, an := range doc2v1.Annotations {
+					if an.AnnotationSPDXIdentifier == f.FileSPDXIdentifier {
+						stdAnn := Annotation{
+							Annotator:                Str(an.AnnotatorType + an.Annotator),
+							AnnotationType:           Str(an.AnnotationType),
+							AnnotationDate:           Str(an.AnnotationDate),
+							AnnotationComment:        Str(an.AnnotationComment),
+							AnnotationSPDXIdentifier: Str(an.AnnotationSPDXIdentifier),
+						}
+						pointer := &stdAnn
+						arrAnn = append(arrAnn, pointer)
 					}
-					pointer := &stdAnn
-					arrAnn = append(arrAnn, pointer)
 				}
 			}
 		}
@@ -144,7 +140,6 @@ func collectFileAnnotation(doc2v1 *spdx.Document2_1) []*Annotation {
 	return arrAnn
 }
 
-// Done
 func collectPackageAnnotation(doc2v1 *spdx.Document2_1) []*Annotation {
 	var arrAnn []*Annotation
 	for _, pkg := range doc2v1.Packages {
@@ -165,7 +160,6 @@ func collectPackageAnnotation(doc2v1 *spdx.Document2_1) []*Annotation {
 	return arrAnn
 }
 
-// Done
 func collectReview(doc2v1 *spdx.Document2_1) []*Review {
 	var arrRev []*Review
 	for _, a := range doc2v1.Reviews {
@@ -183,98 +177,90 @@ func collectReview(doc2v1 *spdx.Document2_1) []*Review {
 	return arrRev
 }
 
-// Done
+//
 func collectRelationships(doc2v1 *spdx.Document2_1) []*Relationship {
 	var arrRel []*Relationship
 	for _, a := range doc2v1.Relationships {
+
 		if a != nil {
 			stdRel := Relationship{
 				RelationshipType:    Str(a.Relationship),
 				RelationshipComment: Str(a.RelationshipComment),
-				Package:             collectPackages(doc2v1),
+				Package:             collectPackagesfromRelationship(a, doc2v1),
 			}
 			pointer := &stdRel
 			arrRel = append(arrRel, pointer)
 		}
+
 	}
 
 	return arrRel
 }
 
-func collectFilesfromPackages(doc2v1 *spdx.Document2_1) []*File {
+func collectFilesfromPackages(pkg *spdx.Package2_1, doc2v1 *spdx.Document2_1) []*File {
 	var arrFile []*File
-	for _, a := range doc2v1.Packages {
-		if a != nil {
-			if a.Files != nil {
-				for _, b := range a.Files {
-					if b != nil {
-						stdFile := File{
-
-							FileName:           Str(b.FileName),
-							FileSPDXIdentifier: Str(b.FileSPDXIdentifier),
-							FileType:           ValueStrList(b.FileType),
-							FileChecksum:       collectFileChecksum(b),
-							// LicenseConcluded:   "", //DISCUSS
-							LicenseInfoInFile:   ValueStrList(b.LicenseInfoInFile),
-							FileLicenseComments: Str(b.LicenseComments),
-							FileCopyrightText:   Str(b.FileCopyrightText),
-							Project:             collectArtifactOfProject(doc2v1),
-							FileComment:         Str(b.FileComment),
-							FileNoticeText:      Str(b.FileNotice),
-							FileContributor:     ValueStrList(b.FileContributor),
-							// FileDependencies:   ,//DISCUSS
-							Annotation: collectFileAnnotation(doc2v1),
-							// ExtractedLicensingInfo
-							// FileRelationship: coll
-							// SnippetLicense,
-						}
-						pointer := &stdFile
-						arrFile = append(arrFile, pointer)
-					}
+	if pkg != nil {
+		for _, b := range pkg.Files {
+			if b != nil {
+				stdFile := File{
+					FileName:            Str(b.FileName),
+					FileSPDXIdentifier:  Str(b.FileSPDXIdentifier),
+					FileType:            ValueStrList(b.FileType),
+					FileChecksum:        collectFileChecksum(b),
+					LicenseInfoInFile:   ValueStrList(b.LicenseInfoInFile),
+					FileLicenseComments: Str(b.LicenseComments),
+					FileCopyrightText:   Str(b.FileCopyrightText),
+					Project:             collectArtifactOfProject(b),
+					FileComment:         Str(b.FileComment),
+					FileNoticeText:      Str(b.FileNotice),
+					FileContributor:     ValueStrList(b.FileContributor),
+					Annotation:          collectFileAnnotation(doc2v1, b),
 				}
+				pointer := &stdFile
+				arrFile = append(arrFile, pointer)
 			}
 		}
 	}
 	return arrFile
 }
 
-func collectPackages(doc2v1 *spdx.Document2_1) []*Package {
+func collectPackagesfromRelationship(rel *spdx.Relationship2_1, doc2v1 *spdx.Document2_1) []*Package {
 	var arrPkg []*Package
 	for _, a := range doc2v1.Packages {
 		if a != nil {
-			stdPkg := Package{
-				PackageName:                 Str(a.PackageName),
-				PackageVersionInfo:          Str(a.PackageVersion),
-				PackageFileName:             Str(a.PackageFileName),
-				PackageSPDXIdentifier:       Str(a.PackageSPDXIdentifier),
-				PackageDownloadLocation:     Str(a.PackageDownloadLocation),
-				PackageVerificationCode:     collectVerificationCode(a), //passing specific package
-				PackageComment:              Str(a.PackageComment),
-				PackageChecksum:             collectPackageChecksum(a),
-				PackageLicenseComments:      Str(a.PackageLicenseComments),
-				PackageLicenseInfoFromFiles: ValueStrList(a.PackageLicenseInfoFromFiles),
-				PackageLicenseDeclared:      Str(a.PackageLicenseDeclared),
-				PackageCopyrightText:        Str(a.PackageCopyrightText),
-				PackageHomepage:             Str(a.PackageHomePage),
-				PackageSupplier:             Str(InsertSupplier(a)),
-				PackageExternalRef:          collectPkgExternalRef(a),
-				PackageOriginator:           Str(InsertOriginator(a)),
-				PackageSourceInfo:           Str(a.PackageSummary),
-				FilesAnalyzed:               Str(strconv.FormatBool(a.FilesAnalyzed)),
-				PackageSummary:              Str(a.PackageSummary),
-				PackageDescription:          Str(a.PackageDescription),
-				Annotation:                  collectPackageAnnotation(doc2v1),
-				File:                        collectFilesfromPackages(doc2v1),
+			if a.PackageSPDXIdentifier == rel.RefB {
+				stdPkg := Package{
+					PackageName:                 Str(a.PackageName),
+					PackageVersionInfo:          Str(a.PackageVersion),
+					PackageFileName:             Str(a.PackageFileName),
+					PackageSPDXIdentifier:       Str(a.PackageSPDXIdentifier),
+					PackageDownloadLocation:     Str(a.PackageDownloadLocation),
+					PackageVerificationCode:     collectVerificationCode(a),
+					PackageComment:              Str(a.PackageComment),
+					PackageChecksum:             collectPackageChecksum(a),
+					PackageLicenseComments:      Str(a.PackageLicenseComments),
+					PackageLicenseInfoFromFiles: ValueStrList(a.PackageLicenseInfoFromFiles),
+					PackageLicenseDeclared:      Str(a.PackageLicenseDeclared),
+					PackageCopyrightText:        Str(a.PackageCopyrightText),
+					PackageHomepage:             Str(a.PackageHomePage),
+					PackageSupplier:             Str(InsertSupplier(a)),
+					PackageExternalRef:          collectPkgExternalRef(a),
+					PackageOriginator:           Str(InsertOriginator(a)),
+					PackageSourceInfo:           Str(a.PackageSummary),
+					FilesAnalyzed:               Str(strconv.FormatBool(a.FilesAnalyzed)),
+					PackageSummary:              Str(a.PackageSummary),
+					PackageDescription:          Str(a.PackageDescription),
+					Annotation:                  collectPackageAnnotation(doc2v1),
+					File:                        collectFilesfromPackages(a, doc2v1),
+				}
+				pointer := &stdPkg
+				arrPkg = append(arrPkg, pointer)
 			}
-
-			pointer := &stdPkg
-			arrPkg = append(arrPkg, pointer)
 		}
 	}
 	return arrPkg
 }
 
-// Done
 func collectExtractedLicInfo(doc2v1 *spdx.Document2_1) []*ExtractedLicensingInfo {
 	var arrEl []*ExtractedLicensingInfo
 	for _, a := range doc2v1.OtherLicenses {
@@ -293,28 +279,17 @@ func collectExtractedLicInfo(doc2v1 *spdx.Document2_1) []*ExtractedLicensingInfo
 	return arrEl
 }
 
-// Done
-func collectArtifactOfProject(doc2v1 *spdx.Document2_1) []*Project {
+func collectArtifactOfProject(a *spdx.File2_1) []*Project {
 	var arrp []*Project
-	for _, a := range doc2v1.Packages {
-		if a != nil {
-			if a.Files != nil {
-				for _, b := range a.Files {
-					if b != nil {
-						for _, c := range b.ArtifactOfProjects {
-							stdp := Project{
-								Name:     Str(c.Name),
-								HomePage: Str(c.HomePage),
-							}
 
-							pointer := &stdp
-							arrp = append(arrp, pointer)
-						}
-					}
-
-				}
-			}
+	for _, c := range a.ArtifactOfProjects {
+		stdp := Project{
+			Name:     Str(c.Name),
+			HomePage: Str(c.HomePage),
 		}
+
+		pointer := &stdp
+		arrp = append(arrp, pointer)
 	}
 
 	return arrp
@@ -371,16 +346,3 @@ func collectReferenceType(pkger *spdx.PackageExternalReference2_1) *ReferenceTyp
 	}
 	return &stdRt
 }
-
-// func FindPackagefromFile(file *File) ValueStr {
-// 	for key, value := range PackagetoFile {
-
-// 		for _, f := range value {
-// 			if f == file {
-// 				return key
-// 			}
-// 		}
-
-// 	}
-// 	return Str("")
-// }

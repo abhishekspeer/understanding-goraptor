@@ -1,6 +1,8 @@
 package rdf2v1
 
 import (
+	"strings"
+
 	"github.com/deltamobile/goraptor"
 )
 
@@ -15,6 +17,7 @@ type License struct {
 	StandardLicenseHeaderTemplate ValueStr
 	LicenseId                     ValueStr
 	LicenseisOsiApproved          ValueStr
+	LicenseSPDXIdentifier         ValueStr
 }
 type DisjunctiveLicenseSet struct {
 	Member []ValueStr
@@ -47,6 +50,7 @@ func (p *Parser) requestConjunctiveLicenseSet(node goraptor.Term) (*ConjunctiveL
 }
 func (p *Parser) MapLicense(lic *License) *builder {
 	builder := &builder{t: TypeLicense, ptr: lic}
+	lic.LicenseSPDXIdentifier = Str(strings.Replace(SPDXIDLicense.Val, LicenseUri, "", 1))
 	builder.updaters = map[string]updater{
 		"rdfs:comment":                  update(&lic.LicenseComment),
 		"name":                          update(&lic.LicenseName),

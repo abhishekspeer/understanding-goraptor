@@ -12,9 +12,7 @@ import (
 func WriteDocument(output *os.File, doc *Document, sn *Snippet) error {
 	f := NewFormatter(output, "rdfxml-abbrev")
 	_, snippet := f.Snippet(sn)
-	if snippet != nil {
-		return nil
-	}
+	_ = snippet
 	_, docerr := f.Document(doc)
 	if docerr != nil {
 		return nil
@@ -134,13 +132,13 @@ func (f *Formatter) Document(doc *Document) (docId goraptor.Term, err error) {
 		return docId, err
 	}
 
-	// if id, err := f.License(doc.License); err == nil {
-	// 	if err = f.addTerm(docId, "dataLicense", id); err != nil {
-	// 		return docId, err
-	// 	}
-	// } else {
-	// 	return docId, err
-	// }
+	if id, err := f.License(doc.License); err == nil {
+		if err = f.addTerm(docId, "dataLicense", id); err != nil {
+			return docId, err
+		}
+	} else {
+		return docId, err
+	}
 
 	if id, err := f.ExternalDocumentRef(doc.ExternalDocumentRef); err == nil {
 		if err = f.addTerm(docId, "externalDocumentRef", id); err != nil {
@@ -170,8 +168,6 @@ func (f *Formatter) Snippet(snip *Snippet) (snipId goraptor.Term, err error) {
 	if snip == nil {
 		return nil, errors.New("Nil Snippet.")
 	}
-
-	// docId = &_docId
 	snipId = Blank("snip")
 
 	if err = f.setNodeType(snipId, TypeSnippet); err != nil {
@@ -200,11 +196,11 @@ func (f *Formatter) Snippet(snip *Snippet) (snipId goraptor.Term, err error) {
 			return
 		}
 	}
-	// if err = f.SnippetStartEndPointers(snipId, "range", snip.SnippetStartEndPointer); err != nil {
+	if err = f.SnippetStartEndPointers(snipId, "range", snip.SnippetStartEndPointer); err != nil {
 
-	// 	return
+		return
 
-	// }
+	}
 	if snip.SnippetFromFile != nil {
 		sfId, err := f.File(snip.SnippetFromFile)
 		if err != nil {
@@ -218,30 +214,31 @@ func (f *Formatter) Snippet(snip *Snippet) (snipId goraptor.Term, err error) {
 }
 func (f *Formatter) ExternalDocumentRef(edr *ExternalDocumentRef) (id goraptor.Term, err error) {
 	id = f.NodeId("edr")
+	if edr != nil {
 
-	if err = f.setNodeType(id, TypeExternalDocumentRef); err != nil {
-		return
-	}
+		if err = f.setNodeType(id, TypeExternalDocumentRef); err != nil {
+			return
+		}
 
-	err = f.addPairs(id,
-		Pair{"externalDocumentId", edr.ExternalDocumentId.Val},
-		Pair{"spdxDocument", edr.SPDXDocument.Val},
-	)
+		err = f.addPairs(id,
+			Pair{"externalDocumentId", edr.ExternalDocumentId.Val},
+			Pair{"spdxDocument", edr.SPDXDocument.Val},
+		)
 
-	if err != nil {
-		return
-	}
-
-	if edr.Checksum != nil {
-		cksumId, err := f.Checksum(edr.Checksum)
 		if err != nil {
-			return id, err
+			return
 		}
-		if err = f.addTerm(id, "checksum", cksumId); err != nil {
-			return id, err
+
+		if edr.Checksum != nil {
+			cksumId, err := f.Checksum(edr.Checksum)
+			if err != nil {
+				return id, err
+			}
+			if err = f.addTerm(id, "checksum", cksumId); err != nil {
+				return id, err
+			}
 		}
 	}
-
 	return id, nil
 }
 
@@ -683,10 +680,11 @@ func (f *Formatter) Relationship(rel *Relationship) (id goraptor.Term, err error
 		}
 	}
 
+	if err = f.Packages(id, "relatedSpdxElement", rel.Package); err != nil {
+		return
+	}
 	if err = f.Files(id, "relatedSpdxElement", rel.File); err != nil {
-		if err = f.Packages(id, "relatedSpdxElement", rel.Package); err != nil {
-			return
-		}
+		return
 	}
 
 	return id, err
@@ -833,9 +831,11 @@ func (f *Formatter) Package(pkg *Package) (id goraptor.Term, err error) {
 	if err = f.Annotations(id, "annotation", pkg.Annotation); err != nil {
 		return
 	}
+
 	if err = f.Files(id, "hasFile", pkg.File); err != nil {
-		return
+		return id, err
 	}
+
 	for _, per := range pkg.PackageExternalRef {
 		if pkg.PackageExternalRef != nil {
 			pkgErId, err := f.ExternalRef(per)
@@ -946,17 +946,17 @@ func (f *Formatter) SnippetStartEndPointer(se *SnippetStartEndPointer) (id gorap
 	if err = f.setNodeType(id, TypeSnippetStartEndPointer); err != nil {
 		return
 	}
-	// Change to single pointer instead of a slice
-	// if err = f.ByteOffsetPointers(id, "j.0:endPointer", se.ByteOffsetPointer); err != nil {
-	// 	if err = f.LineCharPointers(id, "j.0:endPointer", se.LineCharPointer); err != nil {
-	// 		return
-	// 	}
-	// }
-	// if err = f.LineCharPointers(id, "j.0:startPointer", se.LineCharPointer); err != nil {
-	// 	if err = f.ByteOffsetPointers(id, "j.0:startPointer", se.ByteOffsetPointer); err != nil {
-	// 		return
-	// 	}
-	// }
+
+	if err = f.ByteOffsetPointers(id, "j.0:endPointer", se.ByteOffsetPointer); err != nil {
+		if err = f.LineCharPointers(id, "j.0:endPointer", se.LineCharPointer); err != nil {
+			return
+		}
+	}
+	if err = f.LineCharPointers(id, "j.0:startPointer", se.LineCharPointer); err != nil {
+		if err = f.ByteOffsetPointers(id, "j.0:startPointer", se.ByteOffsetPointer); err != nil {
+			return
+		}
+	}
 
 	return id, nil
 }

@@ -44,7 +44,6 @@ func (p *Parser) MapRelationship(rel *Relationship) *builder {
 			}
 			pkg, err := p.requestPackage(obj)
 			rel.Package = append(rel.Package, pkg)
-			// fmt.Println(SPDXIDRelationship)
 
 			// Relates Relationship to Package
 			if pkg != nil {

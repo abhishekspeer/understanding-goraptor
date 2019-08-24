@@ -35,20 +35,16 @@ var (
 	TypeLineCharPointer         = Prefix("j.0:LineCharPointer")
 )
 var (
-	DocumentNamespace     ValueStr
-	SPDXID                ValueStr
-	SPDXIDFile            ValueStr
-	SPDXIDRelationship    ValueStr
-	SPDXIDSnippet         ValueStr
-	SPDXIDPackage         ValueStr
-	SPDXIDLicense         ValueStr
-	SPDXIDCLicense        ValueStr
-	ProjectURI            ValueStr
-	RelatedSPDXElementID  ValueStr
-	RelatedSPDXElementKey bool
-	Parent                map[ValueStr]ValueStr
-	MapLink               map[ValueStr][]ValueStr
-	// ReltoPackage          = make(map[ValueStr]map[ValueStr][]ValueStr)
+	DocumentNamespace  ValueStr
+	ProjectURI         ValueStr
+	SPDXID             ValueStr
+	SPDXIDFile         ValueStr
+	SPDXIDRelationship ValueStr
+	SPDXIDSnippet      ValueStr
+	SPDXIDPackage      ValueStr
+	SPDXIDLicense      ValueStr
+	SPDXIDCLicense     ValueStr
+
 	counter       int
 	PackagetoFile = make(map[ValueStr][]*File)
 	ReltoPackage  = make(map[ValueStr][]*Package)
@@ -120,7 +116,6 @@ func (p *Parser) ProcessTriple(stm *goraptor.Statement) error {
 
 	if ExtractId(termStr(stm.Predicate)) == "relationshipType" {
 		SPDXIDRelationship = Str(strings.Replace(termStr(stm.Object), "http://spdx.org/rdf/terms#relationshipType_", "", 1))
-		// fmt.Print(SPDXIDRelationship)
 		counter++
 	}
 	if stm.Predicate.Equals(URInsType) {
@@ -148,22 +143,15 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 	builder, ok := p.Index[nodeStr]
 	if ExtractId(termStr(t)) == "File" {
 		SPDXIDFile = Str(ExtractId(termStr(node)))
-		// fmt.Println(SPDXIDFile)
 	}
 	if ExtractId(termStr(t)) == "Package" {
 		SPDXIDPackage = Str(ExtractId(termStr(node)))
-		// fmt.Println(SPDXIDPackage)
-
 	}
 	if ExtractId(termStr(t)) == "Snippet" {
 		SPDXIDSnippet = Str(ExtractId(termStr(node)))
-		// fmt.Println(SPDXIDSnippet)
-
 	}
 	if ExtractId(termStr(t)) == "License" {
 		SPDXIDLicense = Str(ExtractId(termStr(node)))
-		// fmt.Println(SPDXIDLicense)
-
 	}
 	if ExtractId(termStr(t)) == "Project" {
 		ProjectURI = Str(termStr(node))
@@ -264,22 +252,7 @@ func (p *Parser) setNodeType(node, t goraptor.Term) (interface{}, error) {
 		}
 	}
 	delete(p.Buffer, nodeStr)
-	fmt.Println("SniptoFile")
-	fmt.Println(SniptoFile)
-	fmt.Println("DoctoRel")
-	fmt.Println(DoctoRel)
-	fmt.Println("ReltoPackage")
-	fmt.Println(ReltoPackage)
-	fmt.Println("ReltoFile")
-	fmt.Println(ReltoFile)
-	fmt.Println("PackagetoFile")
-	fmt.Println(PackagetoFile)
-	fmt.Println("DoctoAnno")
-	fmt.Println(DoctoAnno)
-	fmt.Println("FiletoAnno")
-	fmt.Println(FiletoAnno)
-	fmt.Println("PackagetoAnno")
-	fmt.Println(PackagetoAnno)
+
 	return builder.ptr, nil
 }
 
