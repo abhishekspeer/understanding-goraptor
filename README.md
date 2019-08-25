@@ -13,8 +13,8 @@
 - [x] Read the RDF File.
 - [x] Parse the contents.
 - [x] Store the data into Intermediate data structure.
-- [ ] Add the data from intermediate Data structures to Standard data structure.
-- [ ] Writer
+- [x] Add the data from intermediate Data structures to Standard data structure.
+- [x] Writer
 
 # Dependencies
 - libraptor2
